@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_weekdays">
+        <item
+            android:id="@+id/monday_button"
+            android:icon="@drawable/ic_mon"
+            android:title="@string/monday" />
+        <item
+            android:id="@+id/tuesday_button"
+            android:icon="@drawable/ic_tue"
+            android:title="@string/tuesday" />
+        <item
+            android:id="@+id/wednesday_button"
+            android:icon="@drawable/ic_wed"
+            android:title="@string/wednesday" />
+        <item
+            android:id="@+id/thursday_button"
+            android:icon="@drawable/ic_thu"
+            android:title="@string/thursday" />
+        <item
+            android:id="@+id/friday_button"
+            android:icon="@drawable/ic_fri"
+            android:title="@string/friday" />
+        <item
+            android:id="@+id/saturday_button"
+            android:icon="@drawable/ic_sat"
+            android:visible="false"
+            android:title="@string/saturday"/>
+    </group>
+
+    <item
+        android:id="@+id/group_communicate"
+        android:title="@string/communicate">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/site_button"
+                    android:icon="@drawable/ic_site"
+                    android:title="@string/our_site" />
+                <item
+                    android:id="@+id/inst_button"
+                    android:icon="@drawable/ic_instagram"
+                    android:title="@string/instagram" />
+                <item
+                    android:id="@+id/youtube_button"
+                    android:icon="@drawable/ic_youtube"
+                    android:title="@string/youtube" />
+                <item
+                    android:id="@+id/facebook_button"
+                    android:icon="@drawable/ic_facebook"
+                    android:title="@string/facebook"/>
+            </group>
+
+        </menu>
+    </item>
+
+</menu>
