@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".FragmentActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action
