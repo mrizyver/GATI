@@ -1,6 +1,7 @@
 package com.gatisnau.gati.cardview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,31 +10,37 @@ import android.view.ViewGroup;
 
 import com.gatisnau.gati.R;
 
-public class RecyclerCardAdaper extends RecyclerView.Adapter<CardHolder> {
+import java.util.ArrayList;
+
+public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     private Context context;
-    private Presenter presenter;
+    private ArrayList<Bitmap> schedulers;
 
-    public RecyclerCardAdaper(@NonNull Context context, Presenter presenter) {
+    public RecyclerCardAdapter(@NonNull Context context) {
         this.context = context;
-        this.presenter = presenter;
+        schedulers = new ArrayList<>(6);
     }
 
     @NonNull
     @Override
     public CardHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View cardItem = LayoutInflater.from(context).inflate(R.layout.card_item, viewGroup, false);
-
         return new CardHolder(cardItem);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardHolder cardHolder, int i) {
-
+        cardHolder.bind(schedulers.get(i), context);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return schedulers == null ? 0 : schedulers.size();
+    }
+
+    public void setSchedulers(ArrayList<Bitmap> schedulers) {
+        this.schedulers = schedulers;
+        notifyDataSetChanged();
     }
 }
