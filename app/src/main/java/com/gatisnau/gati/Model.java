@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 public class Model {
@@ -15,7 +16,7 @@ public class Model {
 
     }
 
-    public void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException {
+    public void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
         String url = createUrl(schedule.getImage());
         Picasso.get().setIndicatorsEnabled(true);
         Bitmap bitmap = Picasso.get()

@@ -23,8 +23,27 @@ final class CardHolder extends RecyclerView.ViewHolder {
         this.cardItem = itemView;
     }
 
+
+    /* ----------interface---------- */
+
     public final void bind(final Bitmap bitmap, Context context, OnImageClickListener imageClickListener) {
-        ImageView imageView = cardItem.findViewById(R.id.card_image);
+        if (bitmap != null){
+            setImage(bitmap, context, imageClickListener);
+        }
+    }
+
+
+    /* ----------logic---------- */
+
+    private Point getScreenSize(Context context){
+        Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    private void setImage(Bitmap bitmap, Context context, OnImageClickListener imageClickListener) {
+        ImageView imageView = findImage();
         imageView.setOnClickListener(v -> imageClickListener.onImageClicked(bitmap));
         final int viewWidth = getScreenSize(context).x;
         final float imageWidth = bitmap.getWidth();
@@ -36,14 +55,8 @@ final class CardHolder extends RecyclerView.ViewHolder {
         imageView.setOnClickListener(v -> imageClickListener.onImageClicked(bitmap));
     }
 
-
-    /* ----------logic---------- */
-
-    private Point getScreenSize(Context context){
-        Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size;
+    private ImageView findImage() {
+        return cardItem.findViewById(R.id.card_image);
     }
 
     private Bitmap resizeBitmap(Bitmap bitmap, int width, int height) {
