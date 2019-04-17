@@ -3,16 +3,15 @@ package com.gatisnau.gati.cardview;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.gatisnau.gati.ApplicationData;
 import com.gatisnau.gati.OnImageClickListener;
-import com.gatisnau.gati.Presenter;
 import com.gatisnau.gati.R;
 
 final class CardHolder extends RecyclerView.ViewHolder {
