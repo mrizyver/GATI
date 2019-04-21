@@ -1,13 +1,11 @@
 package com.gatisnau.gati;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 class DateManager {
 
@@ -37,12 +35,24 @@ class DateManager {
 
     }
 
+    public boolean isCurrentDate(ScheduleObject.Schedule schedule) {
+        try {
+            Calendar calendar = getDateOf(schedule);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            return day == getCurrentDay();
+        }catch (ParseException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public int getCurrentDay(){
         long dateInSecond = System.currentTimeMillis() / 1000;
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setGregorianChange(new Date(dateInSecond));
-        return gregorianCalendar.get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(dateInSecond));
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public boolean isScheduleAtThisWeek(ScheduleObject.Schedule schedule){

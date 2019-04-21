@@ -39,7 +39,7 @@ public final class CardFragment extends Fragment {
         recyclerCardList.setLayoutManager(new LinearLayoutManager(context));
         recyclerCardList.setAdapter(adapter);
 
-        if (getActivity() instanceof FragmentActivity == false) return view;
+        if (!(getActivity() instanceof FragmentActivity)) return view;
         ((FragmentActivity) getActivity()).attachRecyclerAdapter(adapter);
 
         return view;

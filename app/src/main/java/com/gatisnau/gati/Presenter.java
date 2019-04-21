@@ -66,7 +66,8 @@ public class Presenter {
     private void downloadImage() {
         backgroundThread = new Thread(() -> {
             try {
-                model.isNetworkAvailable();
+                if (checkInternetConnection() == false) return;
+
                 List<ScheduleObject.Schedule> schedulers = model.getExistingSchedule();
                 schedulers = getNeededSchedule(schedulers);
                 for (ScheduleObject.Schedule schedule : schedulers) {
@@ -78,6 +79,16 @@ public class Presenter {
             }
         });
         backgroundThread.start();
+    }
+
+    // TODO: 4/21/19 alerts
+    private boolean checkInternetConnection(){
+        if (model.isNetworkAvailable(context) == false){
+            return false;
+        }else if (model.isInternetAvailable() == false){
+            return false;
+        }
+        return true;
     }
 
     private List<ScheduleObject.Schedule> getNeededSchedule(List<ScheduleObject.Schedule> schedulers) {
@@ -94,6 +105,9 @@ public class Presenter {
         if (isActual){
             for (ScheduleObject.Schedule schedule : schedulers) {
                 if (!date.isScheduleAtThisWeek(schedule)) continue;
+                if (date.isCurrentDate(schedule)) {
+                    handlerUI.post(() -> recyclerAdapter.toPosition(fullTimeSchedule.indexOf(schedule)));
+                }
                 list.add(schedule);
             }
         }else {

@@ -19,11 +19,36 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     private Context context;
     private ArrayList<Bitmap> schedulers;
     private OnImageClickListener imageClickListener;
+    private RecyclerView recyclerView;
+    private Runnable postRunnable;
 
     public RecyclerCardAdapter(@NonNull Context context) {
         this.context = context;
         schedulers = new ArrayList<>(6);
     }
+
+
+    /* ----------interface---------- */
+
+    public void setSchedulers(ArrayList<Bitmap> schedulers) {
+        this.schedulers = schedulers;
+        notifyDataSetChanged();
+    }
+
+    public void setImageClickListener(OnImageClickListener imageClickListener) {
+        this.imageClickListener = imageClickListener;
+    }
+
+    public void toPosition(int position){
+        if (recyclerView != null){
+            setPosition(position);
+        }else {
+            postRunnable = () -> setPosition(position);
+        }
+    }
+
+
+    /* ----------super---------- */
 
     @NonNull
     @Override
@@ -42,12 +67,27 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
         return schedulers == null ? 0 : schedulers.size();
     }
 
-    public void setSchedulers(ArrayList<Bitmap> schedulers) {
-        this.schedulers = schedulers;
-        notifyDataSetChanged();
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+        if (postRunnable != null){
+            postRunnable.run();
+        }
     }
 
-    public void setImageClickListener(OnImageClickListener imageClickListener) {
-        this.imageClickListener = imageClickListener;
+    /* ----------internal logic---------- */
+
+    private void setPosition(int position){
+        if (position < 0){
+            recyclerView.scrollToPosition(0);
+            return;
+        }else if (getItemCount() < position){
+            recyclerView.scrollToPosition(getItemCount());
+            return;
+        }
+        recyclerView.scrollToPosition(position);
     }
+
+
 }
