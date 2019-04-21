@@ -85,9 +85,10 @@ public class Presenter {
     private boolean checkInternetConnection(){
         if (model.isNetworkAvailable(context) == false){
             return false;
-        }else if (model.isInternetAvailable() == false){
-            return false;
         }
+//        if (model.isInternetAvailable() == false){
+//            return false;
+//        }
         return true;
     }
 
