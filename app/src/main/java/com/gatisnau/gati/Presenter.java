@@ -91,6 +91,7 @@ public class Presenter {
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
         int index = date.getDayOfWeek(schedule);
+        if (index < 0) return;
         fullTimeSchedule.set(index, image);
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;

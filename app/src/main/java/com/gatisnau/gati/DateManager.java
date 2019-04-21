@@ -12,19 +12,24 @@ import java.util.GregorianCalendar;
 class DateManager {
 
     private static final String PATTERN_DATE = "yyyy-MM-dd HH:mm:ss"; //2019-03-12 00:00:00
-
+    private Date date;
     private SimpleDateFormat simpleDateFormat;
 
     @SuppressLint("SimpleDateFormat")
     public DateManager() {
         simpleDateFormat = new SimpleDateFormat(PATTERN_DATE);
+        date = new Date();
     }
+
+
+    /* ----------interface---------- */
 
     public int getDayOfWeek(ScheduleObject.Schedule schedule) {
 
         try {
             GregorianCalendar gregorianCalendar = getDateOf(schedule);
-            return gregorianCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            int day = gregorianCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            return day;
         } catch (ParseException e) {
             e.printStackTrace();
             return -1;
@@ -45,7 +50,6 @@ class DateManager {
             GregorianCalendar calendar = getDateOf(schedule);
             int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
 
-            Date date = new Date();
             GregorianCalendar thisWeek = new GregorianCalendar();
             thisWeek.setGregorianChange(date);
             int currentWeekOfYear = thisWeek.get(Calendar.WEEK_OF_YEAR);
@@ -57,6 +61,9 @@ class DateManager {
         }
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     private GregorianCalendar getDateOf(ScheduleObject.Schedule schedule) throws ParseException {
         Date date = simpleDateFormat.parse(schedule.getDate());
