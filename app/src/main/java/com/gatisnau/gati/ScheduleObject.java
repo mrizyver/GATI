@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 public class ScheduleObject {
 
     @SerializedName("schelude")
@@ -77,5 +79,15 @@ public class ScheduleObject {
             this.date = date;
         }
 
+        @Override
+        public String toString() {
+            return "Schedule{" +
+                    "id=" + id +
+                    ", title='" + title + '\'' +
+                    ", image='" + image + '\'' +
+                    ", type=" + type +
+                    ", date='" + date + '\'' +
+                    '}';
+        }
     }
 }

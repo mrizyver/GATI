@@ -66,16 +66,43 @@ public class Presenter {
     private void downloadImage() {
         backgroundThread = new Thread(() -> {
             try {
+                model.isNetworkAvailable();
                 List<ScheduleObject.Schedule> schedulers = model.getExistingSchedule();
+                schedulers = getNeededSchedule(schedulers);
                 for (ScheduleObject.Schedule schedule : schedulers) {
-                    if (!date.isScheduleAtThisWeek(schedule)) continue;
                     model.downloadImage(schedule, downloadListener);
+                    System.out.println("start download " + schedule);
                 }
             } catch (IOException|ParseException e) {
                 Log.e(this.getClass().getName(), "downloadImage: ", e);
             }
         });
         backgroundThread.start();
+    }
+
+    private List<ScheduleObject.Schedule> getNeededSchedule(List<ScheduleObject.Schedule> schedulers) {
+        List<ScheduleObject.Schedule> list = getTheRight(schedulers, true);
+        if (!list.isEmpty()){
+            return list;
+        }else {
+            return getTheRight(schedulers, false);
+        }
+    }
+
+    private List<ScheduleObject.Schedule> getTheRight(List<ScheduleObject.Schedule> schedulers, boolean isActual){
+        List<ScheduleObject.Schedule> list = new ArrayList<>();
+        if (isActual){
+            for (ScheduleObject.Schedule schedule : schedulers) {
+                if (!date.isScheduleAtThisWeek(schedule)) continue;
+                list.add(schedule);
+            }
+        }else {
+            int size = schedulers.size() <= 5 ? schedulers.size() : 5;
+            for (int i = 0; i < size; i++) {
+                list.add(schedulers.get(i));
+            }
+        }
+        return list;
     }
 
     private ArrayList<Bitmap> createBitmapList(int size) {
@@ -95,7 +122,7 @@ public class Presenter {
         fullTimeSchedule.set(index, image);
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;
-            recyclerAdapter.notifyDataSetChanged();
+            recyclerAdapter.notifyItemChanged(index);
         });
     };
 

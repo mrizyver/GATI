@@ -18,14 +18,57 @@ public class DateManagerTest {
 
     @Before
     public void before() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
-
-
         Class<DateManager> dataManagerClass = DateManager.class;
         Field patternField = dataManagerClass.getDeclaredField("PATTERN_DATE");
         patternField.setAccessible(true);
         String patternString = (String) patternField.get(dataManagerClass.newInstance());
         dateFormat = new SimpleDateFormat(patternString);
+        int month = Calendar.APRIL;
+        int year = 2019;
         calendar = new GregorianCalendar();
+        calendar.set(year, month, 17);
+        date = calendar.getTime();
+    }
+
+    @Test
+    public void isScheduleAtThisWeekTest() {
+        DateManager dateManager = new DateManager();
+        dateManager.setDate(date);
+
+        setDay(calendar, 20);//saturday
+        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 19);//friday
+        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 18);//thursday
+        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 17);//wednesday
+        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 16);//tuesday
+        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 15);//monday
+        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 14);//saturday
+        Assert.assertFalse(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 21);//sunday
+        Assert.assertFalse(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 22);//monday
+        Assert.assertFalse(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+        setDay(calendar, 23);//tuesday
+        Assert.assertFalse(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
+
+    }
+
+    private void setDay(GregorianCalendar calendar, int day){
+        calendar.set(Calendar.DAY_OF_MONTH, day);
     }
 
     private ScheduleObject.Schedule getSchedule(GregorianCalendar calendar) {
@@ -39,34 +82,4 @@ public class DateManagerTest {
         return schedule;
     }
 
-    @Test
-    public void isScheduleAtThisWeekTest() {
-        DateManager dateManager = new DateManager();
-        int month = Calendar.APRIL;
-        int year = 2019;
-        calendar.set(year, month, 21);//sunday
-        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 20);//saturday
-        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 19);//friday
-        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 18);//thursday
-        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 17);//wednesday
-        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 16);//tuesday
-        Assert.assertTrue(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 22);//monday
-        Assert.assertFalse(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-        calendar.set(year, month, 23);//tuesday
-        Assert.assertFalse(dateManager.isScheduleAtThisWeek(getSchedule(calendar)));
-
-    }
 }

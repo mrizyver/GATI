@@ -28,4 +28,8 @@ public class Model {
     private String createUrl(String imageName) {
         return "http://gatisnau.sumy.ua/images/schelude/" + imageName + ".png";
     }
+
+    public boolean isNetworkAvailable() {
+        return true;
+    }
 }

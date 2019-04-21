@@ -27,8 +27,8 @@ class DateManager {
     public int getDayOfWeek(ScheduleObject.Schedule schedule) {
 
         try {
-            GregorianCalendar gregorianCalendar = getDateOf(schedule);
-            int day = gregorianCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            Calendar calendar = getDateOf(schedule);
+            int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
             return day;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -47,14 +47,18 @@ class DateManager {
 
     public boolean isScheduleAtThisWeek(ScheduleObject.Schedule schedule){
         try {
-            GregorianCalendar calendar = getDateOf(schedule);
-            int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+            Calendar oldCalendar = getDateOf(schedule);
 
-            GregorianCalendar thisWeek = new GregorianCalendar();
-            thisWeek.setGregorianChange(date);
-            int currentWeekOfYear = thisWeek.get(Calendar.WEEK_OF_YEAR);
+            Calendar newCalendar = Calendar.getInstance();
+            newCalendar.setTime(date);
+            int dayOfWeek = newCalendar.get(Calendar.DAY_OF_WEEK);
 
-            return weekOfYear == currentWeekOfYear;
+            newCalendar.add(Calendar.DAY_OF_MONTH, - (dayOfWeek - 1));
+            boolean afterFirstDayOfWeek = oldCalendar.after(newCalendar);
+            newCalendar.add(Calendar.DAY_OF_MONTH, (6 - (dayOfWeek - 1) + (dayOfWeek - 1)));
+            boolean beforeLastDayOfWeek = oldCalendar.before(newCalendar);
+
+            return afterFirstDayOfWeek && beforeLastDayOfWeek;
         } catch (ParseException e) {
             e.printStackTrace();
             return false;
@@ -65,10 +69,10 @@ class DateManager {
         this.date = date;
     }
 
-    private GregorianCalendar getDateOf(ScheduleObject.Schedule schedule) throws ParseException {
+    private Calendar getDateOf(ScheduleObject.Schedule schedule) throws ParseException {
         Date date = simpleDateFormat.parse(schedule.getDate());
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setGregorianChange(date);
-        return gregorianCalendar;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
     }
 }

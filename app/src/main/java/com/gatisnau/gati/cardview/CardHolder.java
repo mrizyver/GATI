@@ -44,7 +44,6 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     private void setImage(Bitmap bitmap, Context context, OnImageClickListener imageClickListener) {
         ImageView imageView = findImage();
-        imageView.setOnClickListener(v -> imageClickListener.onImageClicked(bitmap));
         final int viewWidth = getScreenSize(context).x;
         final float imageWidth = bitmap.getWidth();
         final float imageHeight = bitmap.getHeight();
@@ -53,6 +52,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
         final int newImageHeight = (int) (imageHeight * ratio);
         imageView.setImageBitmap(resizeBitmap(bitmap, viewWidth, newImageHeight));
         imageView.setOnClickListener(v -> imageClickListener.onImageClicked(bitmap));
+        System.gc();
     }
 
     private ImageView findImage() {
