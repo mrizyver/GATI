@@ -12,6 +12,8 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.gatisnau.gati.cardview.CardFragment;
 import com.gatisnau.gati.cardview.RecyclerCardAdapter;
+import com.gatisnau.gati.model.AppModel;
+import com.gatisnau.gati.network.NetworkManager;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -22,18 +24,20 @@ public class Presenter {
     private Context context;
     private Handler handlerUI;
     private Thread backgroundThread;
-    private Model model;
+    private AppModel model;
     private StackFragment stackFragment;
     private RecyclerCardAdapter recyclerAdapter;
     private DateManager date;
+    private NetworkManager network;
 
     private ArrayList<Bitmap> fullTimeSchedule;
     private Bitmap[] correspondenceSchedule = new Bitmap[6];
 
     public Presenter(Context context) {
         this.context = context;
-        model = new Model();
+        model = new AppModel();
         date = new DateManager();
+        network = new NetworkManager();
         handlerUI = new Handler();
         fullTimeSchedule = createBitmapList(5);
     }
@@ -83,7 +87,7 @@ public class Presenter {
 
     // TODO: 4/21/19 alerts
     private boolean checkInternetConnection(){
-        if (model.isNetworkAvailable(context) == false){
+        if (network.isNetworkAvailable(context) == false){
             return false;
         }
 //        if (model.isInternetAvailable() == false){

@@ -1,11 +1,16 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.model;
 
 import android.app.Application;
+
+import com.gatisnau.gati.network.GatiApi;
+import com.gatisnau.gati.Presenter;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApplicationData extends Application {
+
+    public static final String BASE_URL = "http://gatisnau.sumy.ua/";
 
     public static Presenter presenter;
     public static GatiApi gatiApi;

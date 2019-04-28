@@ -22,7 +22,7 @@ public class ScheduleObject {
         this.schedule = schedule;
     }
 
-    class Schedule {
+    public class Schedule {
         @SerializedName("id")
         @Expose
         private Integer id;

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gatisnau.gati.cardview.RecyclerCardAdapter;
+import com.gatisnau.gati.model.ApplicationData;
 
 public class FragmentActivity extends AppCompatActivity {
 
