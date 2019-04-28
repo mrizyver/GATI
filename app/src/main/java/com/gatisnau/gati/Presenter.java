@@ -12,8 +12,9 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.gatisnau.gati.cardview.CardFragment;
 import com.gatisnau.gati.cardview.RecyclerCardAdapter;
-import com.gatisnau.gati.model.AppModel;
+import com.gatisnau.gati.model.Model;
 import com.gatisnau.gati.network.NetworkManager;
+import com.gatisnau.gati.test.TestModel;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,7 +25,7 @@ public class Presenter {
     private Context context;
     private Handler handlerUI;
     private Thread backgroundThread;
-    private AppModel model;
+    private Model model;
     private StackFragment stackFragment;
     private RecyclerCardAdapter recyclerAdapter;
     private DateManager date;
@@ -35,7 +36,7 @@ public class Presenter {
 
     public Presenter(Context context) {
         this.context = context;
-        model = new AppModel();
+        model = new TestModel(context);
         date = new DateManager();
         network = new NetworkManager();
         handlerUI = new Handler();
@@ -87,7 +88,7 @@ public class Presenter {
 
     // TODO: 4/21/19 alerts
     private boolean checkInternetConnection(){
-        if (network.isNetworkAvailable(context) == false){
+        if (!network.isNetworkAvailable(context)){
             return false;
         }
 //        if (model.isInternetAvailable() == false){
@@ -137,7 +138,7 @@ public class Presenter {
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
         int index = date.getDayOfWeek(schedule);
-        if (index < 0) return;
+        if (index < 0 || index >= 5) return;
         fullTimeSchedule.set(index, image);
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;

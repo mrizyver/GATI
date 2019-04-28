@@ -2,6 +2,8 @@ package com.gatisnau.gati;
 
 import android.annotation.SuppressLint;
 
+import com.gatisnau.gati.model.ApplicationData;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,18 +11,21 @@ import java.util.Date;
 
 class DateManager {
 
-    private static final String PATTERN_DATE = "yyyy-MM-dd HH:mm:ss"; //2019-03-12 00:00:00
     private Date date;
     private SimpleDateFormat simpleDateFormat;
 
     @SuppressLint("SimpleDateFormat")
     public DateManager() {
-        simpleDateFormat = new SimpleDateFormat(PATTERN_DATE);
+        simpleDateFormat = new SimpleDateFormat(ApplicationData.PATTERN_DATE);
         date = new Date();
     }
 
 
     /* ----------interface---------- */
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public int getDayOfWeek(ScheduleObject.Schedule schedule) {
 
@@ -75,9 +80,9 @@ class DateManager {
         }
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+
+
+    //-----------------internal logic----------------//
 
     private Calendar getDateOf(ScheduleObject.Schedule schedule) throws ParseException {
         Date date = simpleDateFormat.parse(schedule.getDate());
