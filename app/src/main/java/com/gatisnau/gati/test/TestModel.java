@@ -51,9 +51,10 @@ public class TestModel implements Model {
     @Override
     public List<ScheduleObject.Schedule> getExistingSchedule() throws IOException {
         List<ScheduleObject.Schedule> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+
+        for (int i = -5; i < 5; i++) {
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_MONTH, -i);
+            calendar.add(Calendar.DAY_OF_MONTH, i);
             list.add(generateSchedule(calendar, i));
         }
         return list;
@@ -61,7 +62,6 @@ public class TestModel implements Model {
 
     @Override
     public void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
-
         downloadListener.itemDownloaded(images.get(schedule.getImage()), schedule);
     }
 
@@ -81,7 +81,6 @@ public class TestModel implements Model {
     }
 
     private Bitmap createBitmap(int dayOfWeek) {
-        Resources resources = context.getResources();
         switch (dayOfWeek){
             case Calendar.MONDAY:
                 return getBitmap(R.drawable.mon);
