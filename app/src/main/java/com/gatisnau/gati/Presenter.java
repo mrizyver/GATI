@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Presenter {
+
+    public static final int FULL_SCHEDULE = 160;
+    public static final int CORRESPONDENCE_SCHEDULE = 281;
+
     private Context context;
     private Handler handlerUI;
     private Thread backgroundThread;
@@ -31,8 +35,11 @@ public class Presenter {
     private DateManager date;
     private NetworkManager network;
 
+    private int currentDay = 0;
+    private int type;
+
     private ArrayList<Bitmap> fullTimeSchedule;
-    private Bitmap[] correspondenceSchedule = new Bitmap[6];
+    private ArrayList<Bitmap>  correspondenceSchedule;
 
     public Presenter(Context context) {
         this.context = context;
@@ -41,6 +48,8 @@ public class Presenter {
         network = new NetworkManager();
         handlerUI = new Handler();
         fullTimeSchedule = createBitmapList(5);
+        correspondenceSchedule = createBitmapList(5);
+        type = GatiPreferences.getTypeSchedule(context);
     }
 
 
@@ -52,19 +61,43 @@ public class Presenter {
 
     public void attachRecyclerAdapter(RecyclerCardAdapter adapter) {
         this.recyclerAdapter = adapter;
-        adapter.setSchedulers(fullTimeSchedule);
+        adapter.setSchedulers(getScheduleList(type));
         adapter.setImageClickListener(imageClickListener);
+        adapter.toPosition(currentDay);
+    }
+
+
+    public void changeSchedule(int type) {
+        this.type = type;
+        if (type == FULL_SCHEDULE){
+            stackFragment.setAnimation(R.animator.slide_in_right_start, R.animator.slide_in_right_end);
+        }else {
+            stackFragment.setAnimation(R.animator.slide_in_left_start, R.animator.slide_in_left_end);
+        }
+        stackFragment.replaceFragment(CardFragment.newInstance(), true);
     }
 
 
     /* ----------internal logic---------- */
 
     class ActivityLifecycleListener implements LifecycleObserver {
+        private boolean isCreated = false;
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         public void onCreate() {
-            stackFragment.addFragment(CardFragment.newInstance());
-            downloadImage();
+            stackFragment.replaceFragment(CardFragment.newInstance(), false);
+            CalculateCurrentPosition();
+            if (!isCreated){
+                isCreated = true;
+                downloadImage();
+            }
+        }
+    }
+
+    private void CalculateCurrentPosition() {
+        int currentDay = date.getCurrentDayOfWeek();
+        if (currentDay > 0 && currentDay < 6){
+            this.currentDay = date.getCurrentDay();
         }
     }
 
@@ -95,6 +128,16 @@ public class Presenter {
 //            return false;
 //        }
         return true;
+    }
+
+    private ArrayList<Bitmap> getScheduleList(int type) {
+        if (type == FULL_SCHEDULE){
+            return fullTimeSchedule;
+        }else if (type == CORRESPONDENCE_SCHEDULE){
+            return correspondenceSchedule;
+        }else {
+            return null;
+        }
     }
 
     private List<ScheduleObject.Schedule> getNeededSchedule(List<ScheduleObject.Schedule> schedulers) {
@@ -137,16 +180,19 @@ public class Presenter {
     /* ----------listeners---------- */
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
-        int index = date.getDayOfWeek(schedule);
+        int index = date.getCurrentDayOfWeek(schedule);
         if (index < 0 || index >= 5) return;
         fullTimeSchedule.set(index, image);
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;
             recyclerAdapter.notifyItemChanged(index);
+            if (index == currentDay){
+                recyclerAdapter.toPosition(currentDay);
+            }
         });
     };
 
-    private OnImageClickListener imageClickListener= (bitmap) -> {
+    private OnImageClickListener imageClickListener = (bitmap) -> {
         FragmentImagePreview fragmentImage = FragmentImagePreview.newInstance();
         fragmentImage.setBitmap(bitmap);
         stackFragment.addToStackFragment(fragmentImage);

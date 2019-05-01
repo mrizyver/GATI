@@ -2,13 +2,15 @@ package com.gatisnau.gati;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 
 public class GatiPreferences {
 
     private static final String SHARED_PREFERENCES_NAME = "gati_preferences";
 
     private static final String KEY_SWITCH_SCHEDULE_STATE = "switch_schedule_button_state";
+    private static final String KEY_TYPE_SCHEDULE = "schedule_type";
 
     public static void setSwitchScheduleButtonState(Context context, boolean isChecked){
         setBoolean(KEY_SWITCH_SCHEDULE_STATE, isChecked, context);
@@ -19,7 +21,26 @@ public class GatiPreferences {
     }
 
 
+    public static void setTypeSchedule(Context context, int type){
+        setInt(context, KEY_TYPE_SCHEDULE, type);
+    }
 
+    public static int getTypeSchedule(Context context){
+        return getInt(context, KEY_TYPE_SCHEDULE, Presenter.FULL_SCHEDULE);
+    }
+
+
+    //-------------------private getter/setter-------------------//
+
+    private static int getInt(Context context, String key, int defValue){
+        if (context == null) return defValue;
+        return getPreferences(context).getInt(key, defValue);
+    }
+
+    private static void setInt(Context context, String key, int value){
+        if (context == null) return;
+        getEditor(context).putInt(key, value);
+    }
 
 
     private static boolean getBoolean(Context context, String key, boolean defValue){
@@ -33,11 +54,13 @@ public class GatiPreferences {
     }
 
 
-    private static SharedPreferences.Editor getEditor(Context context) {
+    //-------------------internal logic-------------------//
+
+    private static SharedPreferences.Editor getEditor(@NonNull Context context) {
         return getPreferences(context).edit();
     }
 
-    private static SharedPreferences getPreferences(Context context){
+    private static SharedPreferences getPreferences(@NonNull Context context){
         return context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 }
