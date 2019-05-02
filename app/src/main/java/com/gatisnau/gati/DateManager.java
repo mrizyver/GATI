@@ -27,7 +27,7 @@ class DateManager {
         this.date = date;
     }
 
-    public int getCurrentDayOfWeek(ScheduleObject.Schedule schedule) {
+    public int getDayOfWeek(ScheduleObject.Schedule schedule) {
 
         try {
             Calendar calendar = getDateOf(schedule);
@@ -60,11 +60,9 @@ class DateManager {
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
-    public int getCurrentDayOfWeek(){
-        long dateInSecond = System.currentTimeMillis() / 1000;
-
+    public int getDayOfWeek(){
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(dateInSecond));
+        calendar.setTime(new Date());
         return calendar.get(Calendar.DAY_OF_WEEK) - 2;
     }
 

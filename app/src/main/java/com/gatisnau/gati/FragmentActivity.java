@@ -43,7 +43,6 @@ public class FragmentActivity extends AppCompatActivity {
         switchScheduleButton.setChecked(isCheckedSwitch);
 
         switchScheduleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            GatiPreferences.setSwitchScheduleButtonState(this, isChecked);
             if (isChecked){
                 presenter.changeSchedule(Presenter.FULL_SCHEDULE);
             }else {

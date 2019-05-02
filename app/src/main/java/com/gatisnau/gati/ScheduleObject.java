@@ -34,7 +34,7 @@ public class ScheduleObject {
         private String image;
         @SerializedName("type")
         @Expose
-        private Integer type;
+        private int type = -1;
         @SerializedName("date")
         @Expose
         private String date;

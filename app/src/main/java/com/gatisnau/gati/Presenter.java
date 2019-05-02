@@ -5,13 +5,9 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.OnLifecycleEvent;
-
 import com.gatisnau.gati.cardview.CardFragment;
 import com.gatisnau.gati.cardview.RecyclerCardAdapter;
+import com.gatisnau.gati.model.AppModel;
 import com.gatisnau.gati.model.Model;
 import com.gatisnau.gati.network.NetworkManager;
 import com.gatisnau.gati.test.TestModel;
@@ -21,10 +17,15 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
+
 public class Presenter {
 
-    public static final int FULL_SCHEDULE = 160;
-    public static final int CORRESPONDENCE_SCHEDULE = 281;
+    public static final int FULL_SCHEDULE = 1;
+    public static final int CORRESPONDENCE_SCHEDULE = 2;
 
     private Context context;
     private Handler handlerUI;
@@ -39,11 +40,11 @@ public class Presenter {
     private int type;
 
     private ArrayList<Bitmap> fullTimeSchedule;
-    private ArrayList<Bitmap>  correspondenceSchedule;
+    private ArrayList<Bitmap> correspondenceSchedule;
 
     public Presenter(Context context) {
         this.context = context;
-        model = new TestModel(context);
+        model = new AppModel();
         date = new DateManager();
         network = new NetworkManager();
         handlerUI = new Handler();
@@ -55,7 +56,7 @@ public class Presenter {
 
     /* ----------interface---------- */
 
-    public void setFragmentManager(FragmentManager fragmentManager){
+    public void setFragmentManager(FragmentManager fragmentManager) {
         this.stackFragment = new StackFragment(fragmentManager, R.id.fragment_container);
     }
 
@@ -64,14 +65,16 @@ public class Presenter {
         adapter.setSchedulers(getScheduleList(type));
         adapter.setImageClickListener(imageClickListener);
         adapter.toPosition(currentDay);
+        downloadImage(type);
     }
 
 
     public void changeSchedule(int type) {
         this.type = type;
-        if (type == FULL_SCHEDULE){
+        GatiPreferences.setTypeSchedule(context, type);
+        if (type == FULL_SCHEDULE) {
             stackFragment.setAnimation(R.animator.slide_in_right_start, R.animator.slide_in_right_end);
-        }else {
+        } else {
             stackFragment.setAnimation(R.animator.slide_in_left_start, R.animator.slide_in_left_end);
         }
         stackFragment.replaceFragment(CardFragment.newInstance(), true);
@@ -81,47 +84,47 @@ public class Presenter {
     /* ----------internal logic---------- */
 
     class ActivityLifecycleListener implements LifecycleObserver {
-        private boolean isCreated = false;
-
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         public void onCreate() {
             stackFragment.replaceFragment(CardFragment.newInstance(), false);
             CalculateCurrentPosition();
-            if (!isCreated){
-                isCreated = true;
-                downloadImage();
-            }
         }
     }
 
     private void CalculateCurrentPosition() {
-        int currentDay = date.getCurrentDayOfWeek();
-        if (currentDay > 0 && currentDay < 6){
-            this.currentDay = date.getCurrentDay();
+        int currentDay = date.getDayOfWeek();
+        if (currentDay > 0 && currentDay < 6) {
+            this.currentDay = currentDay;
         }
     }
 
-    private void downloadImage() {
+    private void downloadImage(final int type) {
         backgroundThread = new Thread(() -> {
             try {
                 if (checkInternetConnection() == false) return;
 
                 List<ScheduleObject.Schedule> schedulers = model.getExistingSchedule();
-                schedulers = getNeededSchedule(schedulers);
+                schedulers = getNeededSchedule(schedulers, type);
                 for (ScheduleObject.Schedule schedule : schedulers) {
+                    int index = date.getDayOfWeek(schedule);
+                    if (isImageExist(type, index)) continue;
                     model.downloadImage(schedule, downloadListener);
                     System.out.println("start download " + schedule);
                 }
-            } catch (IOException|ParseException e) {
+            } catch (IOException | ParseException e) {
                 Log.e(this.getClass().getName(), "downloadImage: ", e);
             }
         });
         backgroundThread.start();
     }
 
+    private boolean isImageExist(int type, int index) {
+        return index < 0 || index >= 5 || getScheduleList(type) == null || getScheduleList(type).get(index) != null;
+    }
+
     // TODO: 4/21/19 alerts
-    private boolean checkInternetConnection(){
-        if (!network.isNetworkAvailable(context)){
+    private boolean checkInternetConnection() {
+        if (!network.isNetworkAvailable(context)) {
             return false;
         }
 //        if (model.isInternetAvailable() == false){
@@ -131,37 +134,35 @@ public class Presenter {
     }
 
     private ArrayList<Bitmap> getScheduleList(int type) {
-        if (type == FULL_SCHEDULE){
+        if (type == FULL_SCHEDULE) {
             return fullTimeSchedule;
-        }else if (type == CORRESPONDENCE_SCHEDULE){
+        } else if (type == CORRESPONDENCE_SCHEDULE) {
             return correspondenceSchedule;
-        }else {
+        } else {
             return null;
         }
     }
 
-    private List<ScheduleObject.Schedule> getNeededSchedule(List<ScheduleObject.Schedule> schedulers) {
-        List<ScheduleObject.Schedule> list = getTheRight(schedulers, true);
-        if (!list.isEmpty()){
+    private List<ScheduleObject.Schedule> getNeededSchedule(final List<ScheduleObject.Schedule> schedulers, int type) {
+        List<ScheduleObject.Schedule> list =  getTheRight(schedulers, type, true);
+        if (!list.isEmpty()) {
             return list;
-        }else {
-            return getTheRight(schedulers, false);
+        } else {
+            return getTheRight(schedulers, type,  false);
         }
     }
 
-    private List<ScheduleObject.Schedule> getTheRight(List<ScheduleObject.Schedule> schedulers, boolean isActual){
+    private List<ScheduleObject.Schedule> getTheRight(final List<ScheduleObject.Schedule> schedulers, int type, boolean isActual) {
         List<ScheduleObject.Schedule> list = new ArrayList<>();
-        if (isActual){
+        if (isActual) {
             for (ScheduleObject.Schedule schedule : schedulers) {
-                if (!date.isScheduleAtThisWeek(schedule)) continue;
-                if (date.isCurrentDate(schedule)) {
-                    handlerUI.post(() -> recyclerAdapter.toPosition(fullTimeSchedule.indexOf(schedule)));
-                }
+                if (!date.isScheduleAtThisWeek(schedule) || schedule.getType() != type) continue;
                 list.add(schedule);
             }
-        }else {
+        } else {
             int size = schedulers.size() <= 5 ? schedulers.size() : 5;
             for (int i = 0; i < size; i++) {
+                if (schedulers.get(i).getType() != type) continue;
                 list.add(schedulers.get(i));
             }
         }
@@ -180,13 +181,16 @@ public class Presenter {
     /* ----------listeners---------- */
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
-        int index = date.getCurrentDayOfWeek(schedule);
-        if (index < 0 || index >= 5) return;
-        fullTimeSchedule.set(index, image);
+        int index = date.getDayOfWeek(schedule);
+        if (schedule.getType() == Presenter.FULL_SCHEDULE){
+            fullTimeSchedule.set(index, image);
+        }else if (schedule.getType() == Presenter.CORRESPONDENCE_SCHEDULE){
+            correspondenceSchedule.set(index, image);
+        }
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;
             recyclerAdapter.notifyItemChanged(index);
-            if (index == currentDay){
+            if (index == currentDay) {
                 recyclerAdapter.toPosition(currentDay);
             }
         });
