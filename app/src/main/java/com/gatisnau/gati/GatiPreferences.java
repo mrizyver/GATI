@@ -39,7 +39,7 @@ public class GatiPreferences {
 
     private static void setInt(Context context, String key, int value){
         if (context == null) return;
-        getEditor(context).putInt(key, value);
+        getEditor(context).putInt(key, value).apply();
     }
 
 
