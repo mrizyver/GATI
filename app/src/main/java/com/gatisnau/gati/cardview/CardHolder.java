@@ -10,23 +10,23 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gatisnau.gati.OnImageClickListener;
 import com.gatisnau.gati.R;
 
 final class CardHolder extends RecyclerView.ViewHolder {
 
-    private View cardItem;
-
     CardHolder(@NonNull View itemView) {
         super(itemView);
-        this.cardItem = itemView;
     }
 
 
     /* ----------interface---------- */
 
     public final void bind(final Bitmap bitmap, Context context, OnImageClickListener imageClickListener) {
+        TextView tittle = findTitle();
+        tittle.setText(getTitleId(getAdapterPosition()));
         if (bitmap != null){
             setImage(bitmap, context, imageClickListener);
         }
@@ -55,8 +55,31 @@ final class CardHolder extends RecyclerView.ViewHolder {
         System.gc();
     }
 
+    private int getTitleId(int pos) {
+        switch (pos){
+            case 0:
+                return R.string.mon;
+            case 1:
+                return R.string.tue;
+            case 2:
+                return R.string.wed;
+            case 3:
+                return R.string.thu;
+            case 4:
+                return R.string.fri;
+            case 5:
+                return R.string.sat;
+            default:
+                return 0;
+        }
+    }
+
     private ImageView findImage() {
-        return cardItem.findViewById(R.id.card_image);
+        return itemView.findViewById(R.id.card_image);
+    }
+
+    private TextView findTitle() {
+        return itemView.findViewById(R.id.card_title);
     }
 
     private Bitmap resizeBitmap(Bitmap bitmap, int width, int height) {

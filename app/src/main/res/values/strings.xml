@@ -24,4 +24,13 @@
     <string name="toast_last_version">Встановлена остання версія додатку</string>
     <string name="toast_exception_download">Помилка завантаження</string>
     <string name="update_is_exist">Доступне оновлення додатку</string>
+
+    <!--Days-->
+    <string name="mon">Понеділок</string>
+    <string name="tue">Вівторок</string>
+    <string name="wed">Среда</string>
+    <string name="thu">Четвер</string>
+    <string name="fri">П\'ятниця</string>
+    <string name="sat">Субота</string>
+
 </resources>
