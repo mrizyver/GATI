@@ -10,7 +10,6 @@ import com.gatisnau.gati.cardview.RecyclerCardAdapter;
 import com.gatisnau.gati.model.AppModel;
 import com.gatisnau.gati.model.Model;
 import com.gatisnau.gati.network.NetworkManager;
-import com.gatisnau.gati.test.TestModel;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -44,7 +43,7 @@ public class Presenter {
 
     public Presenter(Context context) {
         this.context = context;
-        model = new TestModel(context);
+        model = new AppModel();
         date = new DateManager();
         network = new NetworkManager();
         handlerUI = new Handler();
@@ -144,11 +143,11 @@ public class Presenter {
     }
 
     private List<ScheduleObject.Schedule> getNeededSchedule(final List<ScheduleObject.Schedule> schedulers, int type) {
-        List<ScheduleObject.Schedule> list =  getTheRight(schedulers, type, true);
+        List<ScheduleObject.Schedule> list = getTheRight(schedulers, type, true);
         if (!list.isEmpty()) {
             return list;
         } else {
-            return getTheRight(schedulers, type,  false);
+            return getTheRight(schedulers, type, false);
         }
     }
 
@@ -160,6 +159,7 @@ public class Presenter {
                 list.add(schedule);
             }
         } else {
+            this.currentDay = 0;
             int size = schedulers.size() <= 5 ? schedulers.size() : 5;
             for (int i = 0; i < size; i++) {
                 if (schedulers.get(i).getType() != type) continue;
@@ -182,9 +182,9 @@ public class Presenter {
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
         int index = date.getDayOfWeek(schedule);
-        if (schedule.getType() == Presenter.FULL_SCHEDULE){
+        if (schedule.getType() == Presenter.FULL_SCHEDULE) {
             fullTimeSchedule.set(index, image);
-        }else if (schedule.getType() == Presenter.CORRESPONDENCE_SCHEDULE){
+        } else if (schedule.getType() == Presenter.CORRESPONDENCE_SCHEDULE) {
             correspondenceSchedule.set(index, image);
         }
         handlerUI.post(() -> {
