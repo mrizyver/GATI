@@ -44,7 +44,7 @@ public class Presenter {
 
     public Presenter(Context context) {
         this.context = context;
-        model = new AppModel();
+        model = new TestModel(context);
         date = new DateManager();
         network = new NetworkManager();
         handlerUI = new Handler();

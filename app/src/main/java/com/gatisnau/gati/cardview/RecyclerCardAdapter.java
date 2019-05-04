@@ -1,10 +1,13 @@
 package com.gatisnau.gati.cardview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.gatisnau.gati.OnImageClickListener;
 import com.gatisnau.gati.R;
@@ -21,6 +24,9 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     private OnImageClickListener imageClickListener;
     private RecyclerView recyclerView;
     private Runnable postRunnable;
+
+    private boolean isTouched;
+    private int position = -1;
 
     public RecyclerCardAdapter(@NonNull Context context) {
         this.context = context;
@@ -40,6 +46,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     }
 
     public void toPosition(int position){
+        this.position = position;
         if (recyclerView != null){
             setPosition(position);
         }else {
@@ -68,13 +75,31 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         this.recyclerView = recyclerView;
+
+        recyclerView.setOnTouchListener((v, event) -> {
+            isTouched = true;
+            recyclerView.setOnTouchListener(null);
+            return false;
+        });
+
+        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (isTouched || position == -1) return;
+                setPosition(position);
+            }
+        });
+
         if (postRunnable != null){
             postRunnable.run();
         }
     }
+
+
 
     /* ----------internal logic---------- */
 
@@ -88,6 +113,4 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
         }
         recyclerView.scrollToPosition(position);
     }
-
-
 }
