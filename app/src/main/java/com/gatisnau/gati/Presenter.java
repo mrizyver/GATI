@@ -1,7 +1,10 @@
 package com.gatisnau.gati;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
@@ -79,6 +82,21 @@ public class Presenter {
         stackFragment.replaceFragment(CardFragment.newInstance(), true);
     }
 
+    public void startActivity(String packageActivity, String uri){
+        if (context == null) return;
+        Uri link = Uri.parse(uri);
+        Intent activityIntent = new Intent(Intent.ACTION_VIEW, link);
+        activityIntent.setPackage(packageActivity);
+        try{
+            context.startActivity(activityIntent);
+        }catch (ActivityNotFoundException e){
+            context.startActivity(new Intent(Intent.ACTION_VIEW, link));
+        }
+    }
+
+    public void setItem(int index){
+        recyclerAdapter.toPosition(index);
+    }
 
     /* ----------internal logic---------- */
 
