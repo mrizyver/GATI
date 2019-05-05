@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -86,11 +86,11 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case Presenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     presenter.shareImage(indexLastImageClicked);
-                }else {
+                } else {
                     presenter.shareFailure();
                 }
         }
@@ -105,7 +105,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case ITEM_SHARE_IMAGE:
                 presenter.shareImage(indexLastImageClicked);
         }
@@ -137,6 +137,9 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.getHeaderView(0).findViewById(R.id.tv_email).setOnClickListener(v -> presenter.sendEmail(((TextView) v).getText().toString()));
+
         navigationView.bringToFront();
         navigationView.setCheckedItem(R.id.monday_button);
     }
@@ -160,7 +163,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         indexLastImageClicked = position;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             view.showContextMenu(x, y);
-        }else {
+        } else {
             view.showContextMenu();
         }
         return true;

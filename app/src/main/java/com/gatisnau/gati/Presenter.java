@@ -11,6 +11,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
+
 import com.gatisnau.gati.cardview.CardFragment;
 import com.gatisnau.gati.cardview.RecyclerCardAdapter;
 import com.gatisnau.gati.model.AppModel;
@@ -21,11 +26,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.OnLifecycleEvent;
 
 public class Presenter {
 
@@ -90,19 +90,19 @@ public class Presenter {
         stackFragment.replaceFragment(CardFragment.newInstance(), true);
     }
 
-    public void startActivity(String packageActivity, String uri){
+    public void startActivity(String packageActivity, String uri) {
         if (context == null) return;
         Uri link = Uri.parse(uri);
         Intent activityIntent = new Intent(Intent.ACTION_VIEW, link);
         activityIntent.setPackage(packageActivity);
-        try{
+        try {
             context.startActivity(activityIntent);
-        }catch (ActivityNotFoundException e){
+        } catch (ActivityNotFoundException e) {
             context.startActivity(new Intent(Intent.ACTION_VIEW, link));
         }
     }
 
-    public void setItem(int index){
+    public void setItem(int index) {
         recyclerAdapter.toPosition(index);
     }
 
@@ -112,27 +112,15 @@ public class Presenter {
         }
     }
 
-    private void shareImage(Bitmap bitmap) {
-        if (context == null) return;
-
-        if (GatiPermissions.checkWritePermissions(context)) {
-            String bitmapPath = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Розклад", "розклад за якийсь день");
-            Uri  bitmapUri = Uri.parse(bitmapPath);
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("image/png");
-            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
-            context.startActivity(intent);
-        } else {
-            if (activity != null){
-                GatiPermissions.requestReadWrite(activity, REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE);
-            }else {
-                shareFailure();
-            }
-        }
-    }
-
     public void shareFailure() {
         Toast.makeText(context, R.string.share_is_failure, Toast.LENGTH_LONG).show();
+    }
+
+    public void sendEmail(String email) {
+        if (context == null) return;
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.send_email)));
     }
 
     /* ----------internal logic---------- */
@@ -170,6 +158,25 @@ public class Presenter {
             }
         });
         backgroundThread.start();
+    }
+
+    private void shareImage(Bitmap bitmap) {
+        if (context == null) return;
+
+        if (GatiPermissions.checkWritePermissions(context)) {
+            String bitmapPath = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Розклад", "розклад за якийсь день");
+            Uri bitmapUri = Uri.parse(bitmapPath);
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("image/png");
+            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
+            context.startActivity(intent);
+        } else {
+            if (activity != null) {
+                GatiPermissions.requestReadWrite(activity, REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE);
+            } else {
+                shareFailure();
+            }
+        }
     }
 
     private boolean isImageExist(int type, int index) {
