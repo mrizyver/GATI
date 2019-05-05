@@ -36,7 +36,11 @@ final class CardHolder extends RecyclerView.ViewHolder {
         tittle.setText(getTitleId(getAdapterPosition()));
         if (bitmap != null) {
             setImage(bitmap, context, imageClickListener);
+            itemView.setAlpha(1);
+            setVisibilityNotFountTextView(View.GONE);
         }else {
+            itemView.setAlpha(0.55f);
+            setVisibilityNotFountTextView(View.VISIBLE);
             findImage().setImageBitmap(null);
         }
     }
@@ -136,6 +140,10 @@ final class CardHolder extends RecyclerView.ViewHolder {
             default:
                 return 0;
         }
+    }
+
+    private void setVisibilityNotFountTextView(int visible) {
+        itemView.findViewById(R.id.tv_image_not_exist_found).setVisibility(visible);
     }
 
     private ImageView findImage() {
