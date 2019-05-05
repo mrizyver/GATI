@@ -7,7 +7,8 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,11 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     private static final int ITEM_SHARE_IMAGE = 165;
     private Presenter presenter;
 
+    private TextView tvForm;
+    private TextView tvTypeForm;
+
     private int indexLastImageClicked = -1;
+    private int ANIMATION_TIME = 250;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +44,9 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.fragment_activity);
 
         presenter.attachActivity(this);
+
+        tvForm = findViewById(R.id.tv_word_form);
+        tvTypeForm = findViewById(R.id.tv_form_study);
 
         initNavigationView();
         initSwitchButton();
@@ -68,7 +76,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
             presenter.startActivity("com.facebook.katana", "https://www.facebook.com/official.gatisnau/");
         } else if (id == R.id.site_button) {
             presenter.startActivity("com.android.chrome/com.android.chrome.Main", "http://gatisnau.sumy.ua/");
-        }else if (id == R.id.update_app){
+        } else if (id == R.id.update_app) {
             presenter.updateApp();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -147,27 +155,43 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     }
 
     private void initSwitchButton() {
-        Switch switchScheduleButton = findViewById(R.id.switch_schedule_button);
+        ImageView switchScheduleButton = findViewById(R.id.switch_schedule_button);
 
-        boolean isCheckedSwitch = Presenter.FULL_SCHEDULE == GatiPreferences.getTypeSchedule(this);
-        switchScheduleButton.setChecked(isCheckedSwitch);
+        int type = GatiPreferences.getTypeSchedule(this);
+        if (type == Presenter.FULL_SCHEDULE) {
+            tvTypeForm.setText(R.string.daytime);
+        } else {
+            tvTypeForm.setText(R.string.correspondence_time);
+        }
 
-        switchScheduleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                presenter.changeSchedule(Presenter.FULL_SCHEDULE);
-            } else {
-                presenter.changeSchedule(Presenter.CORRESPONDENCE_SCHEDULE);
+        switchScheduleButton.setOnClickListener(new View.OnClickListener() {
+            int previewType = -1;
+
+            @Override
+            public void onClick(View v) {
+                RotateAnimation rotateAnimation = new RotateAnimation(0, 180, v.getWidth() / 2f, v.getHeight() / 2f);
+                rotateAnimation.setDuration(ANIMATION_TIME);
+                v.startAnimation(rotateAnimation);
+
+                if (previewType == Presenter.CORRESPONDENCE_SCHEDULE) {
+                    presenter.changeSchedule(Presenter.FULL_SCHEDULE);
+                    previewType = Presenter.FULL_SCHEDULE;
+                    tvTypeForm.setText(R.string.daytime);
+                } else {
+                    presenter.changeSchedule(Presenter.CORRESPONDENCE_SCHEDULE);
+                    previewType = Presenter.CORRESPONDENCE_SCHEDULE;
+                    tvTypeForm.setText(R.string.correspondence_time);
+                }
             }
         });
     }
 
-    public boolean onViewLongClick(View view, int position, float x, float y) {
+    public void onViewLongClick(View view, int position, float x, float y) {
         indexLastImageClicked = position;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             view.showContextMenu(x, y);
         } else {
             view.showContextMenu();
         }
-        return true;
     }
 }

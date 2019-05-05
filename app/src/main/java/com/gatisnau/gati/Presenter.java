@@ -132,6 +132,7 @@ public class Presenter {
     class ActivityLifecycleListener implements LifecycleObserver {
         private UpdateApp update;
         private boolean isFirstCreate = true;
+        private int afterType = 0;
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         public void onCreate() {

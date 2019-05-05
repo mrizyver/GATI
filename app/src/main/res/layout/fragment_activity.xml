@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -30,18 +30,32 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:gravity="end"
                 android:orientation="horizontal">
 
-                <Switch
+                <TextView
+                    android:id="@+id/tv_form_study"
+                    style="@style/TextToolBar"
+                    android:visibility="visible"
+                    tools:text="@string/daytime"/>
+                <TextView
+                    android:id="@+id/tv_word_form"
+                    android:layout_toEndOf="@id/tv_form_study"
+                    style="@style/TextToolBar"
+                    android:paddingStart="5dp"
+                    android:visibility="visible"
+                    android:text="@string/form"/>
+
+                <ImageView
                     android:id="@+id/switch_schedule_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_refresh"/>
+            </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout

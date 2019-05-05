@@ -43,6 +43,13 @@
     <string name="nav_header_subtitle">gatisnau.infocentr@gmail.com</string>
     <string name="other_setting">Інше</string>
     <string name="update_app">Оновлення додатку</string>
+
+    <!--Card view-->
     <string name="image_not_exist">Розкладу на цей день\nще не сформовано</string>
+
+    <!--Toolbar-->
+    <string name="daytime">Денна</string>
+    <string name="correspondence_time">Заочна</string>
+    <string name="form">форма</string>
 
 </resources>
