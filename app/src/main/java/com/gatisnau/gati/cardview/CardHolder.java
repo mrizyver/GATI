@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -68,11 +67,10 @@ final class CardHolder extends RecyclerView.ViewHolder {
             float x = 0, y = 0;
             boolean isActionMoved = false;
 
-            Handler handler = new Handler();
-            Runnable startLongClick = () -> {
+            private void onLongClick() {
                 if (context == null || !(context instanceof FragmentActivity)) return;
                 ((FragmentActivity) context).onViewLongClick(imageView, getLayoutPosition(), x, y);
-            };
+            }
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -80,7 +78,6 @@ final class CardHolder extends RecyclerView.ViewHolder {
                     case MotionEvent.ACTION_DOWN:
                         isActionMoved = false;
                         firstTouchedTime = System.currentTimeMillis();
-                        handler.postDelayed(startLongClick, TIME_LONG_CLICK);
                         x = event.getX();
                         y = event.getY();
                         Log.d(TAG, "onTouch: down");
@@ -88,23 +85,22 @@ final class CardHolder extends RecyclerView.ViewHolder {
                     case MotionEvent.ACTION_MOVE:
                         Log.d(TAG, "onTouch: move");
                         isActionMoved = true;
-                        removeCallback();
                         return false;
                     case MotionEvent.ACTION_UP:
                         Log.d(TAG, "onTouch: up");
                         if (isActionMoved) return false;
                         long currentTime = System.currentTimeMillis();
-                        if ((currentTime - firstTouchedTime) < TIME_LONG_CLICK) {
-                            removeCallback();
+                        long diffTime = currentTime - firstTouchedTime;
+                        if (diffTime < TIME_LONG_CLICK / 3) {
                             imageClickListener.onImageClicked(bitmap);
+                        }else if (diffTime < TIME_LONG_CLICK){
+                            onLongClick();
+                            return true;
+                        }else {
+                            return false;
                         }
-                        return true;
                 }
                 return false;
-            }
-
-            private void removeCallback() {
-                handler.removeCallbacks(startLongClick);
             }
         });
 
