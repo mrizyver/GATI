@@ -36,6 +36,8 @@ final class CardHolder extends RecyclerView.ViewHolder {
         tittle.setText(getTitleId(getAdapterPosition()));
         if (bitmap != null) {
             setImage(bitmap, context, imageClickListener);
+        }else {
+            findImage().setImageBitmap(null);
         }
     }
 
@@ -67,10 +69,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
             float x = 0, y = 0;
             boolean isActionMoved = false;
 
-            private void onLongClick() {
-                if (context == null || !(context instanceof FragmentActivity)) return;
-                ((FragmentActivity) context).onViewLongClick(imageView, getLayoutPosition(), x, y);
-            }
+            Point screen = getScreenSize(context);
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -84,6 +83,13 @@ final class CardHolder extends RecyclerView.ViewHolder {
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         Log.d(TAG, "onTouch: move");
+                        float moveX = Math.abs(event.getX() - x);
+                        float moveY = Math.abs(event.getY() - y);
+
+                        if ((screen.x / 20) > moveX && (screen.y / 20) > moveY){
+                            return true;
+                        }
+
                         isActionMoved = true;
                         return false;
                     case MotionEvent.ACTION_UP:
@@ -102,7 +108,13 @@ final class CardHolder extends RecyclerView.ViewHolder {
                 }
                 return false;
             }
+
+            private void onLongClick() {
+                if (context == null || !(context instanceof FragmentActivity)) return;
+                ((FragmentActivity) context).onViewLongClick(imageView, getLayoutPosition(), x, y);
+            }
         });
+
 
         System.gc();
     }

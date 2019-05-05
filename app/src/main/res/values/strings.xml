@@ -35,5 +35,6 @@
 
     <!--Context menu-->
     <string name="share">Поділитись</string>
+    <string name="share_is_failure">Не вдалося поділитися зображенням</string>
 
 </resources>

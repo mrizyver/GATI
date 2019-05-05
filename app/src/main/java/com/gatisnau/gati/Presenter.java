@@ -1,12 +1,15 @@
 package com.gatisnau.gati;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.gatisnau.gati.cardview.CardFragment;
 import com.gatisnau.gati.cardview.RecyclerCardAdapter;
@@ -28,7 +31,9 @@ public class Presenter {
 
     public static final int FULL_SCHEDULE = 1;
     public static final int CORRESPONDENCE_SCHEDULE = 2;
+    public static final int REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE = 159;
 
+    private Activity activity;
     private Context context;
     private Handler handlerUI;
     private Thread backgroundThread;
@@ -70,6 +75,9 @@ public class Presenter {
         downloadImage(type);
     }
 
+    public void attachActivity(Activity activity) {
+        this.activity = activity;
+    }
 
     public void changeSchedule(int type) {
         this.type = type;
@@ -96,6 +104,35 @@ public class Presenter {
 
     public void setItem(int index){
         recyclerAdapter.toPosition(index);
+    }
+
+    public void shareImage(int index) {
+        if (getScheduleList(type) != null) {
+            shareImage(getScheduleList(type).get(index));
+        }
+    }
+
+    private void shareImage(Bitmap bitmap) {
+        if (context == null) return;
+
+        if (GatiPermissions.checkWritePermissions(context)) {
+            String bitmapPath = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Розклад", "розклад за якийсь день");
+            Uri  bitmapUri = Uri.parse(bitmapPath);
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("image/png");
+            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
+            context.startActivity(intent);
+        } else {
+            if (activity != null){
+                GatiPermissions.requestReadWrite(activity, REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE);
+            }else {
+                shareFailure();
+            }
+        }
+    }
+
+    public void shareFailure() {
+        Toast.makeText(context, R.string.share_is_failure, Toast.LENGTH_LONG).show();
     }
 
     /* ----------internal logic---------- */

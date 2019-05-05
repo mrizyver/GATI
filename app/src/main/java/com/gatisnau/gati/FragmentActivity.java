@@ -1,5 +1,6 @@
 package com.gatisnau.gati;
 
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +25,9 @@ import com.google.android.material.navigation.NavigationView;
 public class FragmentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int ITEM_SHARE_IMAGE = 165;
-    
     private Presenter presenter;
+
+    private int indexLastImageClicked = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
+
+        presenter.attachActivity(this);
 
         initNavigationView();
         initSwitchButton();
@@ -79,6 +84,17 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case Presenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    presenter.shareImage(indexLastImageClicked);
+                }else {
+                    presenter.shareFailure();
+                }
+        }
+    }
 
     /* ----------context menu---------- */
 
@@ -91,7 +107,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case ITEM_SHARE_IMAGE:
-                //presenter.shareImage()
+                presenter.shareImage(indexLastImageClicked);
         }
         return true;
     }
@@ -141,6 +157,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     }
 
     public boolean onViewLongClick(View view, int position, float x, float y) {
+        indexLastImageClicked = position;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             view.showContextMenu(x, y);
         }else {
