@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp"
     app:cardElevation="6dp">
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,13 +22,13 @@
             android:paddingTop="10dp"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_margin="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/card_image"
+            android:layout_below="@id/card_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:src="@drawable/page_not_found"/>
-    </LinearLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

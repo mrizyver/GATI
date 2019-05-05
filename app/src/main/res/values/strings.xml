@@ -33,4 +33,7 @@
     <string name="fri">П\'ятниця</string>
     <string name="sat">Субота</string>
 
+    <!--Context menu-->
+    <string name="share">Поділитись</string>
+
 </resources>

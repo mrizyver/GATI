@@ -1,7 +1,11 @@
 package com.gatisnau.gati;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -18,6 +22,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class FragmentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int ITEM_SHARE_IMAGE = 165;
+    
     private Presenter presenter;
 
     @Override
@@ -73,6 +79,23 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+
+    /* ----------context menu---------- */
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add(Menu.NONE, ITEM_SHARE_IMAGE, Menu.NONE, R.string.share);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case ITEM_SHARE_IMAGE:
+                //presenter.shareImage()
+        }
+        return true;
+    }
+
     /* ----------interface---------- */
 
     public void attachRecyclerAdapter(RecyclerCardAdapter adapter) {
@@ -115,5 +138,14 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
                 presenter.changeSchedule(Presenter.CORRESPONDENCE_SCHEDULE);
             }
         });
+    }
+
+    public boolean onViewLongClick(View view, int position, float x, float y) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view.showContextMenu(x, y);
+        }else {
+            view.showContextMenu();
+        }
+        return true;
     }
 }
