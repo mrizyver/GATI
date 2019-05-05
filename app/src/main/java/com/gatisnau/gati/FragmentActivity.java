@@ -68,6 +68,8 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
             presenter.startActivity("com.facebook.katana", "https://www.facebook.com/official.gatisnau/");
         } else if (id == R.id.site_button) {
             presenter.startActivity("com.android.chrome/com.android.chrome.Main", "http://gatisnau.sumy.ua/");
+        }else if (id == R.id.update_app){
+            presenter.updateApp();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

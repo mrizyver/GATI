@@ -123,13 +123,31 @@ public class Presenter {
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.send_email)));
     }
 
+    public void updateApp() {
+        new UpdateApp(context, handlerUI).startInstall("app.apk");
+    }
+
     /* ----------internal logic---------- */
 
     class ActivityLifecycleListener implements LifecycleObserver {
+        private UpdateApp update;
+        private boolean isFirstCreate = true;
+
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         public void onCreate() {
+            if (isFirstCreate){
+                isFirstCreate = false;
+                update = new UpdateApp(context, handlerUI);
+                update.checkVersion(BuildConfig.URL_VERSION_CONTROLL);
+            }
             stackFragment.replaceFragment(CardFragment.newInstance(), false);
             CalculateCurrentPosition();
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        public void onDestroy(){
+            if (update != null)
+                update.stop();
         }
     }
 
