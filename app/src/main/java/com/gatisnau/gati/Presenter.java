@@ -124,7 +124,7 @@ public class Presenter {
     }
 
     public void updateApp() {
-        new UpdateApp(context, handlerUI).startInstall("app.apk");
+        new UpdateApp(context, handlerUI).startUpdate(BuildConfig.URL_VERSION_CONTROLL);
     }
 
     /* ----------internal logic---------- */
@@ -148,6 +148,7 @@ public class Presenter {
         public void onDestroy(){
             if (update != null)
                 update.stop();
+                update = null;
         }
     }
 
