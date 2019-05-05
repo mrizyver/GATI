@@ -24,7 +24,6 @@
     <!--Context menu-->
     <string name="share">Поділитись</string>
     <string name="share_is_failure">Не вдалося поділитися зображенням</string>
-    <string name="action_update">Оновлення додатку</string>
     <string name="refresh_image">Оновити</string>
 
     <!--navigation view-->
@@ -42,5 +41,7 @@
     <string name="facebook">Facebook</string>
     <string name="nav_header_title">GATI SNAU</string>
     <string name="nav_header_subtitle">gatisnau.infocentr@gmail.com</string>
+    <string name="other_setting">Інше</string>
+    <string name="update_app">Оновлення додатку</string>
 
 </resources>
