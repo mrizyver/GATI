@@ -205,8 +205,8 @@ public class Presenter {
     }
 
     private void downloadImage(int type, List<ScheduleObject.Schedule> schedulers) throws IOException, ParseException {
+        schedulers = getNeededSchedule(schedulers, type);
         for (ScheduleObject.Schedule schedule : schedulers) {
-            schedulers = getNeededSchedule(schedulers, type);
             int index = date.getDayOfWeek(schedule);
             if (isImageExist(type, index)) continue;
             model.downloadImage(schedule, downloadListener);
@@ -214,7 +214,7 @@ public class Presenter {
     }
 
     private boolean isImageExist(int type, int index) {
-        return index < 0 || index >= 5 || getScheduleList(type) == null || getScheduleList(type).get(index) != null;
+        return (index < 0 || index >= 5) && (getScheduleList(type) != null && getScheduleList(type).get(index) != null);
     }
 
     private void shareImage(Bitmap bitmap) {
