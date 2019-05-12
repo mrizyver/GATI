@@ -21,6 +21,7 @@ import com.gatisnau.gati.cardview.RecyclerCardAdapter;
 import com.gatisnau.gati.model.AppModel;
 import com.gatisnau.gati.model.Model;
 import com.gatisnau.gati.network.NetworkManager;
+import com.gatisnau.gati.test.TestModel;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -282,5 +283,6 @@ public class Presenter {
         FragmentImagePreview fragmentImage = FragmentImagePreview.newInstance();
         fragmentImage.setBitmap(bitmap);
         stackFragment.addToStackFragment(fragmentImage);
+        System.gc();
     };
 }

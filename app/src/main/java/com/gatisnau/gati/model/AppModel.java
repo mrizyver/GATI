@@ -22,7 +22,6 @@ public class AppModel implements Model {
     @Override
     public void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
         String url = createUrl(schedule.getImage());
-        Picasso.get().setIndicatorsEnabled(true);
         Bitmap bitmap = Picasso.get()
                 .load(url)
                 .get();
