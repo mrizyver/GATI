@@ -2,8 +2,13 @@ package com.gatisnau.gati.model;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.gatisnau.gati.model.db.ImageEntity;
 import com.gatisnau.gati.model.network.GatiApi;
 import com.gatisnau.gati.presenter.Presenter;
 

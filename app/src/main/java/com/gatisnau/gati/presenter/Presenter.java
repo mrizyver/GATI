@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -121,6 +122,7 @@ public class Presenter {
     public void destroy() {
         context = null;
         activity = null;
+        stopThread();
     }
 
     public void setItem(int index) {
@@ -181,24 +183,38 @@ public class Presenter {
         }
     }
 
+    @UiThread
     private void downloadImage(final int type) {
-        backgroundThread = new Thread(() -> {
+        Runnable downloadImage = () -> {
             try {
-                if (checkInternetConnection() == false) return;
-
-                List<ScheduleObject.Schedule> schedulers = model.getExistingSchedule();
-                schedulers = getNeededSchedule(schedulers, type);
-                for (ScheduleObject.Schedule schedule : schedulers) {
-                    int index = date.getDayOfWeek(schedule);
-                    if (isImageExist(type, index)) continue;
-                    model.downloadImage(schedule, downloadListener);
-                    System.out.println("start download " + schedule);
+                List<ScheduleObject.Schedule> schedulers;
+                if (isInternetAvailable()) {
+                    schedulers = model.getExistingSchedule();
+                } else {
+                    schedulers = model.getLocalSchedule();
                 }
+                downloadImage(type, schedulers);
             } catch (IOException | ParseException e) {
                 Log.e(this.getClass().getName(), "downloadImage: ", e);
             }
-        });
+        };
+
+        stopThread();
+        backgroundThread = new Thread(downloadImage);
         backgroundThread.start();
+    }
+
+    private void downloadImage(int type, List<ScheduleObject.Schedule> schedulers) throws IOException, ParseException {
+        for (ScheduleObject.Schedule schedule : schedulers) {
+            schedulers = getNeededSchedule(schedulers, type);
+            int index = date.getDayOfWeek(schedule);
+            if (isImageExist(type, index)) continue;
+            model.downloadImage(schedule, downloadListener);
+        }
+    }
+
+    private boolean isImageExist(int type, int index) {
+        return index < 0 || index >= 5 || getScheduleList(type) == null || getScheduleList(type).get(index) != null;
     }
 
     private void shareImage(Bitmap bitmap) {
@@ -220,12 +236,15 @@ public class Presenter {
         }
     }
 
-    private boolean isImageExist(int type, int index) {
-        return index < 0 || index >= 5 || getScheduleList(type) == null || getScheduleList(type).get(index) != null;
+
+    private void stopThread() {
+        if (backgroundThread == null) return;
+        backgroundThread.interrupt();
+        backgroundThread = null;
     }
 
     // TODO: 4/21/19 alerts
-    private boolean checkInternetConnection() {
+    private boolean isInternetAvailable() {
         if (!network.isNetworkAvailable(context)) {
             return false;
         }

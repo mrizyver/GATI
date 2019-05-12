@@ -5,6 +5,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface ImagesDAO {
 
@@ -13,4 +15,7 @@ public interface ImagesDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void putImageEntity(ImageEntity imageEntity);
+
+    @Query("SELECT * FROM images")
+    List<ImageEntity> getAll();
 }

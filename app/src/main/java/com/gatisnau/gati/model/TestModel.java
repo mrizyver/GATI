@@ -47,6 +47,11 @@ public class TestModel implements Model {
     }
 
     @Override
+    public List<ScheduleObject.Schedule> getLocalSchedule() {
+        return new ArrayList<>();
+    }
+
+    @Override
     public void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
         downloadListener.itemDownloaded(images.get(schedule.getImage()), schedule);
     }

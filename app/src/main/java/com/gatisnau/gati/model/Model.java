@@ -10,5 +10,7 @@ public interface Model {
 
     List<ScheduleObject.Schedule> getExistingSchedule() throws IOException;
 
+    List<ScheduleObject.Schedule> getLocalSchedule();
+
     void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException;
 }

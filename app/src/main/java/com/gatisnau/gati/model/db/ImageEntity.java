@@ -15,9 +15,10 @@ public class ImageEntity {
     ImageEntity() {
     }
 
-    public ImageEntity(int id, String key, Bitmap bitmap) {
+    public ImageEntity(int id, String key, int type, Bitmap bitmap) {
         this.id = id;
         this.key = key;
+        this.type = type;
         this.image = getByteFromBitmap(bitmap);
     }
 
@@ -27,6 +28,9 @@ public class ImageEntity {
 
     @ColumnInfo(name = "key")
     public String key;
+
+    @ColumnInfo(name = "type")
+    public int type;
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     public byte[] image;
