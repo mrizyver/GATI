@@ -1,4 +1,4 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.utils;
 
 
 import androidx.fragment.app.Fragment;

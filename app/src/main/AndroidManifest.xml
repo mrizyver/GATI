@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".FragmentActivity"
+            android:name=".view.FragmentActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action
@@ -33,7 +33,7 @@
         </activity>
         <provider
             android:authorities="${applicationId}"
-            android:name=".GatiFileProvider"
+            android:name=".utils.GatiFileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

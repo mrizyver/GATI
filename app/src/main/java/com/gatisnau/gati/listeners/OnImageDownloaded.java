@@ -1,6 +1,8 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.listeners;
 
 import android.graphics.Bitmap;
+
+import com.gatisnau.gati.model.ScheduleObject;
 
 import java.text.ParseException;
 

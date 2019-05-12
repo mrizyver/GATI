@@ -1,4 +1,4 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.view;
 
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -19,7 +19,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.gatisnau.gati.cardview.RecyclerCardAdapter;
+import com.gatisnau.gati.utils.GatiPreferences;
+import com.gatisnau.gati.presenter.Presenter;
+import com.gatisnau.gati.R;
+import com.gatisnau.gati.view.cardview.RecyclerCardAdapter;
 import com.gatisnau.gati.model.ApplicationData;
 import com.google.android.material.navigation.NavigationView;
 

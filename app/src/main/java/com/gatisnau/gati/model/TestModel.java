@@ -1,12 +1,12 @@
-package com.gatisnau.gati.test;
+package com.gatisnau.gati.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.gatisnau.gati.OnImageDownloaded;
-import com.gatisnau.gati.Presenter;
+import com.gatisnau.gati.listeners.OnImageDownloaded;
+import com.gatisnau.gati.presenter.Presenter;
 import com.gatisnau.gati.R;
-import com.gatisnau.gati.ScheduleObject;
+import com.gatisnau.gati.model.ScheduleObject;
 import com.gatisnau.gati.model.ApplicationData;
 import com.gatisnau.gati.model.Model;
 import com.squareup.picasso.Picasso;

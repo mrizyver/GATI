@@ -1,4 +1,4 @@
-package com.gatisnau.gati.network;
+package com.gatisnau.gati.model.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

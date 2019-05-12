@@ -1,7 +1,6 @@
 package com.gatisnau.gati.model;
 
-import com.gatisnau.gati.OnImageDownloaded;
-import com.gatisnau.gati.ScheduleObject;
+import com.gatisnau.gati.listeners.OnImageDownloaded;
 
 import java.io.IOException;
 import java.text.ParseException;

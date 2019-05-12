@@ -1,4 +1,4 @@
-package com.gatisnau.gati.cardview;
+package com.gatisnau.gati.view.cardview;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gatisnau.gati.FragmentActivity;
+import com.gatisnau.gati.view.FragmentActivity;
 import com.gatisnau.gati.R;
 
 import androidx.annotation.NonNull;

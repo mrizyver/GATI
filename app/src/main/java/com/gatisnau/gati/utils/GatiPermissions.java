@@ -1,4 +1,4 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.utils;
 
 import android.app.Activity;
 import android.content.Context;

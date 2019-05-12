@@ -1,15 +1,14 @@
-package com.gatisnau.gati.cardview;
+package com.gatisnau.gati.view.cardview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.gatisnau.gati.OnImageClickListener;
+import com.gatisnau.gati.listeners.OnImageClickListener;
 import com.gatisnau.gati.R;
 
 import java.util.ArrayList;

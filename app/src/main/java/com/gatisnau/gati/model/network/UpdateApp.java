@@ -1,10 +1,14 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.model.network;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
+
+import com.gatisnau.gati.BuildConfig;
+import com.gatisnau.gati.R;
+import com.gatisnau.gati.utils.GatiFileProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;

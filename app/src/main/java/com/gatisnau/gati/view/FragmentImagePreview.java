@@ -1,4 +1,4 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.view;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gatisnau.gati.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
 public class FragmentImagePreview extends Fragment {

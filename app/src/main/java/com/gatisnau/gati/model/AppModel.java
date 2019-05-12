@@ -2,8 +2,7 @@ package com.gatisnau.gati.model;
 
 import android.graphics.Bitmap;
 
-import com.gatisnau.gati.OnImageDownloaded;
-import com.gatisnau.gati.ScheduleObject;
+import com.gatisnau.gati.listeners.OnImageDownloaded;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

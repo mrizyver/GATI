@@ -1,5 +1,8 @@
 package com.gatisnau.gati;
 
+import com.gatisnau.gati.model.DateManager;
+import com.gatisnau.gati.model.ScheduleObject;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

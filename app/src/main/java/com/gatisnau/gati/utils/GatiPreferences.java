@@ -1,9 +1,11 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
+
+import com.gatisnau.gati.presenter.Presenter;
 
 public class GatiPreferences {
 

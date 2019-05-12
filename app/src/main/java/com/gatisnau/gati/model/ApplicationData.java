@@ -2,8 +2,8 @@ package com.gatisnau.gati.model;
 
 import android.app.Application;
 
-import com.gatisnau.gati.network.GatiApi;
-import com.gatisnau.gati.Presenter;
+import com.gatisnau.gati.model.network.GatiApi;
+import com.gatisnau.gati.presenter.Presenter;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,4 +1,4 @@
-package com.gatisnau.gati.cardview;
+package com.gatisnau.gati.view.cardview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,8 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gatisnau.gati.FragmentActivity;
-import com.gatisnau.gati.OnImageClickListener;
+import com.gatisnau.gati.view.FragmentActivity;
+import com.gatisnau.gati.listeners.OnImageClickListener;
 import com.gatisnau.gati.R;
 
 final class CardHolder extends RecyclerView.ViewHolder {

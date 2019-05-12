@@ -1,6 +1,6 @@
-package com.gatisnau.gati.network;
+package com.gatisnau.gati.model.network;
 
-import com.gatisnau.gati.ScheduleObject;
+import com.gatisnau.gati.model.ScheduleObject;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

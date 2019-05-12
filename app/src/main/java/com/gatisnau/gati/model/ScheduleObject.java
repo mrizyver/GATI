@@ -1,4 +1,4 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.model;
 
 
 import com.google.gson.annotations.Expose;

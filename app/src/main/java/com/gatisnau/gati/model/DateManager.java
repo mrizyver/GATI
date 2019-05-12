@@ -1,15 +1,16 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.model;
 
 import android.annotation.SuppressLint;
 
 import com.gatisnau.gati.model.ApplicationData;
+import com.gatisnau.gati.model.ScheduleObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-class DateManager {
+ public class DateManager {
 
     private Date date;
     private SimpleDateFormat simpleDateFormat;

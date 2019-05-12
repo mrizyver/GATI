@@ -1,4 +1,4 @@
-package com.gatisnau.gati;
+package com.gatisnau.gati.presenter;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -16,12 +16,22 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.gatisnau.gati.cardview.CardFragment;
-import com.gatisnau.gati.cardview.RecyclerCardAdapter;
+import com.gatisnau.gati.BuildConfig;
+import com.gatisnau.gati.utils.GatiPermissions;
+import com.gatisnau.gati.utils.GatiPreferences;
+import com.gatisnau.gati.R;
+import com.gatisnau.gati.utils.StackFragment;
+import com.gatisnau.gati.model.network.UpdateApp;
+import com.gatisnau.gati.listeners.OnImageClickListener;
+import com.gatisnau.gati.listeners.OnImageDownloaded;
+import com.gatisnau.gati.model.DateManager;
+import com.gatisnau.gati.model.ScheduleObject;
+import com.gatisnau.gati.view.FragmentImagePreview;
+import com.gatisnau.gati.view.cardview.CardFragment;
+import com.gatisnau.gati.view.cardview.RecyclerCardAdapter;
 import com.gatisnau.gati.model.AppModel;
 import com.gatisnau.gati.model.Model;
-import com.gatisnau.gati.network.NetworkManager;
-import com.gatisnau.gati.test.TestModel;
+import com.gatisnau.gati.model.network.NetworkManager;
 
 import java.io.IOException;
 import java.text.ParseException;
