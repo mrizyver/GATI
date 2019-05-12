@@ -68,6 +68,6 @@ public class AppModel implements Model {
 
 
     private String createUrl(String imageName) {
-        return ApplicationData.BASE_URL + "images/schelude/" + imageName + ".png";
+        return ApplicationData.BASE_URL + "/images/schelude/" + imageName + ".png";
     }
 }

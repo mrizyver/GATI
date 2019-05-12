@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.gatisnau.gati.model.ApplicationData;
 
 import java.net.InetAddress;
@@ -13,12 +15,11 @@ public class NetworkManager {
 
     private static final String TAG = "NetworkManager";
 
-    public boolean isNetworkAvailable(Context context) {
-        if (context == null) return false;
+    public boolean isNetworkAvailable(@NonNull Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         if (connectivityManager != null) {
             return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-        }else {
+        } else {
             return false;
         }
     }
