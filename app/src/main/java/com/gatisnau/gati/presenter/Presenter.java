@@ -11,27 +11,28 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.gatisnau.gati.BuildConfig;
-import com.gatisnau.gati.utils.GatiPermissions;
-import com.gatisnau.gati.utils.GatiPreferences;
 import com.gatisnau.gati.R;
-import com.gatisnau.gati.utils.StackFragment;
-import com.gatisnau.gati.model.network.UpdateApp;
 import com.gatisnau.gati.listeners.OnImageClickListener;
 import com.gatisnau.gati.listeners.OnImageDownloaded;
+import com.gatisnau.gati.model.AppModel;
 import com.gatisnau.gati.model.DateManager;
+import com.gatisnau.gati.model.Model;
 import com.gatisnau.gati.model.ScheduleObject;
+import com.gatisnau.gati.model.network.NetworkManager;
+import com.gatisnau.gati.model.network.UpdateApp;
+import com.gatisnau.gati.utils.GatiPermissions;
+import com.gatisnau.gati.utils.GatiPreferences;
+import com.gatisnau.gati.utils.StackFragment;
 import com.gatisnau.gati.view.FragmentImagePreview;
 import com.gatisnau.gati.view.cardview.CardFragment;
 import com.gatisnau.gati.view.cardview.RecyclerCardAdapter;
-import com.gatisnau.gati.model.AppModel;
-import com.gatisnau.gati.model.Model;
-import com.gatisnau.gati.model.network.NetworkManager;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -44,8 +45,8 @@ public class Presenter {
     public static final int CORRESPONDENCE_SCHEDULE = 2;
     public static final int REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE = 159;
 
-    private Activity activity;
-    private Context context;
+    @Nullable private Activity activity;
+    @Nullable private Context context;
     private Handler handlerUI;
     private Thread backgroundThread;
     private Model model;
@@ -60,15 +61,15 @@ public class Presenter {
     private ArrayList<Bitmap> fullTimeSchedule;
     private ArrayList<Bitmap> correspondenceSchedule;
 
-    public Presenter(Context context) {
+    public Presenter(@Nullable Context context) {
         this.context = context;
-        model = new AppModel();
-        date = new DateManager();
-        network = new NetworkManager();
-        handlerUI = new Handler();
-        fullTimeSchedule = createBitmapList(5);
-        correspondenceSchedule = createBitmapList(5);
-        type = GatiPreferences.getTypeSchedule(context);
+        this.model = new AppModel();
+        this.date = new DateManager();
+        this.network = new NetworkManager();
+        this.handlerUI = new Handler();
+        this.fullTimeSchedule = createBitmapList(5);
+        this.correspondenceSchedule = createBitmapList(5);
+        this.type = GatiPreferences.getTypeSchedule(context);
     }
 
 
@@ -84,10 +85,6 @@ public class Presenter {
         adapter.setImageClickListener(imageClickListener);
         adapter.toPosition(currentDay);
         downloadImage(type);
-    }
-
-    public void attachActivity(Activity activity) {
-        this.activity = activity;
     }
 
     public void changeSchedule(int type) {
@@ -111,6 +108,19 @@ public class Presenter {
         } catch (ActivityNotFoundException e) {
             context.startActivity(new Intent(Intent.ACTION_VIEW, link));
         }
+    }
+
+    public void attachActivity(Activity activity) {
+        this.activity = activity;
+        this.context = activity;
+    }
+
+    /**
+     * call this method when view is destroy
+     */
+    public void destroy() {
+        context = null;
+        activity = null;
     }
 
     public void setItem(int index) {
@@ -140,14 +150,14 @@ public class Presenter {
 
     /* ----------internal logic---------- */
 
-    class ActivityLifecycleListener implements LifecycleObserver {
+    public class ActivityLifecycleListener implements LifecycleObserver {
         private UpdateApp update;
         private boolean isFirstCreate = true;
         private int afterType = 0;
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         public void onCreate() {
-            if (isFirstCreate){
+            if (isFirstCreate) {
                 isFirstCreate = false;
                 update = new UpdateApp(context, handlerUI);
                 update.checkVersion(BuildConfig.URL_VERSION_CONTROLL);
@@ -157,10 +167,10 @@ public class Presenter {
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        public void onDestroy(){
+        public void onDestroy() {
             if (update != null)
                 update.stop();
-                update = null;
+            update = null;
         }
     }
 

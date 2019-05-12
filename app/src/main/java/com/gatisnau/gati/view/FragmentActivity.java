@@ -109,6 +109,12 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
+
     /* ----------context menu---------- */
 
     @Override

@@ -2,6 +2,8 @@ package com.gatisnau.gati.model;
 
 import android.app.Application;
 
+import androidx.room.Room;
+
 import com.gatisnau.gati.model.network.GatiApi;
 import com.gatisnau.gati.presenter.Presenter;
 
@@ -15,15 +17,19 @@ public class ApplicationData extends Application {
 
     public static Presenter presenter;
     public static GatiApi gatiApi;
+    public static AppDatabase database;
 
     @Override
     public void onCreate() {
         super.onCreate();
         presenter = new Presenter(this);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://gatisnau.sumy.ua/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         gatiApi = retrofit.create(GatiApi.class);
+
+        database = Room.databaseBuilder(this, AppDatabase.class, "gati_database").build();
     }
 }
