@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApplicationData extends Application {
 
-    public static final String BASE_URL = "http://gatisnau.sumy.ua/";
+    public static final String BASE_URL = "gatisnau.sumy.ua";
     public static final String PATTERN_DATE = "yyyy-MM-dd HH:mm:ss"; //2019-03-12 00:00:00
 
     public static Presenter presenter;

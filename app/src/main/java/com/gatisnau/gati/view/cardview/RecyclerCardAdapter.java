@@ -99,7 +99,6 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     }
 
 
-
     /* ----------internal logic---------- */
 
     private void setPosition(int position){

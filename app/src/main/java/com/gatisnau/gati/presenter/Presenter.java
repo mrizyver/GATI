@@ -243,15 +243,21 @@ public class Presenter {
         backgroundThread = null;
     }
 
-    // TODO: 4/21/19 alerts
     private boolean isInternetAvailable() {
+        if (context == null) return false;
         if (!network.isNetworkAvailable(context)) {
+            showToast(R.string.network_is_not_available);
             return false;
         }
-//        if (model.isInternetAvailable() == false){
-//            return false;
-//        }
+        if (!network.isInternetAvailable()){
+            showToast(R.string.internet_is_not_available);
+            return false;
+        }
         return true;
+    }
+
+    private void showToast(int id) {
+        handlerUI.post(() -> Toast.makeText(context, id, Toast.LENGTH_LONG).show());
     }
 
     private ArrayList<Bitmap> getScheduleList(int type) {
