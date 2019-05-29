@@ -187,13 +187,13 @@ public class Presenter {
     private void downloadImage(final int type) {
         Runnable downloadImage = () -> {
             try {
-                List<ScheduleObject.Schedule> schedulers;
+                ScheduleObject schedulers;
                 if (isInternetAvailable()) {
                     schedulers = model.getExistingSchedule();
                 } else {
                     schedulers = model.getLocalSchedule();
                 }
-                downloadImage(type, schedulers);
+                downloadImage(type, getScheduleList(type, schedulers));
             } catch (IOException | ParseException e) {
                 Log.e(this.getClass().getName(), "downloadImage: ", e);
             }
@@ -236,7 +236,6 @@ public class Presenter {
         }
     }
 
-
     private void stopThread() {
         if (backgroundThread == null) return;
         backgroundThread.interrupt();
@@ -270,6 +269,16 @@ public class Presenter {
         }
     }
 
+    private List<ScheduleObject.Schedule> getScheduleList(int type, ScheduleObject scheduleObject){
+        if (type == FULL_SCHEDULE) {
+            return scheduleObject.getDay();
+        } else if (type == CORRESPONDENCE_SCHEDULE) {
+            return scheduleObject.getZao();
+        } else {
+            return null;
+        }
+    }
+
     private List<ScheduleObject.Schedule> getNeededSchedule(final List<ScheduleObject.Schedule> schedulers, int type) {
         List<ScheduleObject.Schedule> list = getTheRight(schedulers, type, true);
         if (!list.isEmpty()) {
@@ -281,6 +290,7 @@ public class Presenter {
 
     private List<ScheduleObject.Schedule> getTheRight(final List<ScheduleObject.Schedule> schedulers, int type, boolean isActual) {
         List<ScheduleObject.Schedule> list = new ArrayList<>();
+        if (schedulers == null) return list;
         if (isActual) {
             for (ScheduleObject.Schedule schedule : schedulers) {
                 if (!date.isScheduleAtThisWeek(schedule) || schedule.getType() != type) continue;

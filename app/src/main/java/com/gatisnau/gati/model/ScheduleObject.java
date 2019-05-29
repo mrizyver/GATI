@@ -6,20 +6,29 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-
 public class ScheduleObject {
 
-    @SerializedName("schelude")
+    @SerializedName("day")
     @Expose
-    private List<Schedule> schedule = null;
+    private List<Schedule> day = null;
+   @SerializedName("zao")
+    @Expose
+    private List<Schedule> zao = null;
 
-    public List<Schedule> getSchedule() {
-        return schedule;
+    public List<Schedule> getDay() {
+        return day;
     }
 
-    public void setSchedule(List<Schedule> schedule) {
-        this.schedule = schedule;
+    public void setDay(List<Schedule> day) {
+        this.day = day;
+    }
+
+    public List<Schedule> getZao() {
+        return zao;
+    }
+
+    public void setZao(List<Schedule> zao) {
+        this.zao = zao;
     }
 
     public class Schedule {
@@ -34,12 +43,15 @@ public class ScheduleObject {
         private String image;
         @SerializedName("type")
         @Expose
-        private int type = -1;
+        private Integer type;
         @SerializedName("date")
         @Expose
         private String date;
+        @SerializedName("day_week")
+        @Expose
+        private String dayWeek;
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
@@ -63,7 +75,7 @@ public class ScheduleObject {
             this.image = image;
         }
 
-        public int getType() {
+        public Integer getType() {
             return type;
         }
 
@@ -79,6 +91,14 @@ public class ScheduleObject {
             this.date = date;
         }
 
+        public String getDayWeek() {
+            return dayWeek;
+        }
+
+        public void setDayWeek(String dayWeek) {
+            this.dayWeek = dayWeek;
+        }
+
         @Override
         public String toString() {
             return "Schedule{" +
@@ -87,6 +107,7 @@ public class ScheduleObject {
                     ", image='" + image + '\'' +
                     ", type=" + type +
                     ", date='" + date + '\'' +
+                    ", dayWeek='" + dayWeek + '\'' +
                     '}';
         }
     }

@@ -6,9 +6,6 @@ import android.graphics.Bitmap;
 import com.gatisnau.gati.listeners.OnImageDownloaded;
 import com.gatisnau.gati.presenter.Presenter;
 import com.gatisnau.gati.R;
-import com.gatisnau.gati.model.ScheduleObject;
-import com.gatisnau.gati.model.ApplicationData;
-import com.gatisnau.gati.model.Model;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -35,7 +32,7 @@ public class TestModel implements Model {
     }
 
     @Override
-    public List<ScheduleObject.Schedule> getExistingSchedule() throws IOException {
+    public ScheduleObject getExistingSchedule() throws IOException {
         List<ScheduleObject.Schedule> list = new ArrayList<>();
 
         for (int i = -7; i < 7; i++) {
@@ -43,12 +40,12 @@ public class TestModel implements Model {
             calendar.add(Calendar.DAY_OF_MONTH, i);
             list.add(generateSchedule(calendar, i));
         }
-        return list;
+        return (ScheduleObject) list;
     }
 
     @Override
-    public List<ScheduleObject.Schedule> getLocalSchedule() {
-        return new ArrayList<>();
+    public ScheduleObject getLocalSchedule() {
+        return null;
     }
 
     @Override
