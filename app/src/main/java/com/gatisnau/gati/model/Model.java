@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface Model {
 
-    List<ScheduleObject.Schedule> getExistingSchedule() throws IOException;
+    ScheduleObject getExistingSchedule() throws IOException;
 
-    List<ScheduleObject.Schedule> getLocalSchedule();
+    ScheduleObject getLocalSchedule();
 
     void downloadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException;
 }

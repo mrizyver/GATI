@@ -6,6 +6,7 @@ import com.gatisnau.gati.listeners.OnImageDownloaded;
 import com.gatisnau.gati.model.ScheduleObject.Schedule;
 import com.gatisnau.gati.model.db.ImageEntity;
 import com.gatisnau.gati.model.db.ImagesDAO;
+import com.gatisnau.gati.presenter.Presenter;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -13,32 +14,41 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gatisnau.gati.model.ApplicationData.BASE_URL;
+import static com.gatisnau.gati.model.ApplicationData.PREFIX;
+
 public class AppModel implements Model {
 
     public static final String TAG = "AppModel";
 
     @Override
-    public List<Schedule> getExistingSchedule() throws IOException {
-        ScheduleObject body = ApplicationData.gatiApi.getSchedulers().execute().body();
-
-        return body != null ? body.getSchedule() : new ArrayList<>();
+    public ScheduleObject getExistingSchedule() throws IOException {
+        return ApplicationData.gatiApi.getSchedulers().execute().body();
     }
 
     @Override
-    public List<Schedule> getLocalSchedule(){
+    public ScheduleObject getLocalSchedule(){
         ImagesDAO imagesDAO = getImagesDAO();
         List<ImageEntity> localImage = imagesDAO.getAll();
-        List<Schedule> localSchedule = new ArrayList<>();
+        List<Schedule> localDays = new ArrayList<>();
+        List<Schedule> localZaos = new ArrayList<>();
         ScheduleObject sObject = new ScheduleObject();
         for (ImageEntity imageEntity : localImage) {
             Schedule schedule = sObject.new Schedule();
             schedule.setId(imageEntity.id);
             schedule.setDate(imageEntity.key);
             schedule.setType(imageEntity.type);
-            localSchedule.add(schedule);
+
+            if (imageEntity.type == Presenter.FULL_SCHEDULE)
+                localDays.add(schedule);
+            else if(imageEntity.type == Presenter.CORRESPONDENCE_SCHEDULE)
+                localZaos.add(schedule);
         }
 
-        return localSchedule;
+        ScheduleObject scheduleObject = new ScheduleObject();
+        scheduleObject.setDay(localDays);
+        scheduleObject.setZao(localDays);
+        return scheduleObject;
     }
 
     @Override
@@ -68,6 +78,6 @@ public class AppModel implements Model {
 
 
     private String createUrl(String imageName) {
-        return ApplicationData.BASE_URL + "/images/schelude/" + imageName + ".png";
+        return PREFIX + BASE_URL + "/images/schedule/" + imageName + ".png";
     }
 }
