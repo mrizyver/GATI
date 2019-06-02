@@ -85,13 +85,10 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
             return false;
         });
 
-        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (isTouched || position == -1) return;
-                setPosition(position);
-            }
-        });
+        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+        if (isTouched || position == -1) return;
+        setPosition(position);
+    });
 
         if (postRunnable != null){
             postRunnable.run();
