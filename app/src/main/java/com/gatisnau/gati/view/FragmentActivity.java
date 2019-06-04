@@ -33,6 +33,8 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
     private TextView tvForm;
     private TextView tvTypeForm;
+    private NavigationView navigationView;
+
 
     private int indexLastImageClicked = -1;
     private int ANIMATION_TIME = 250;
@@ -56,6 +58,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        navigationView.setCheckedItem(id);
 
         if (id == R.id.monday_button) {
             presenter.setItem(0);
@@ -152,11 +155,10 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.getHeaderView(0).findViewById(R.id.tv_email).setOnClickListener(v -> presenter.sendEmail(((TextView) v).getText().toString()));
-
         navigationView.bringToFront();
         navigationView.setCheckedItem(R.id.monday_button);
     }

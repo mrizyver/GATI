@@ -43,7 +43,7 @@ import java.util.List;
 public class Presenter {
 
     public static final int FULL_SCHEDULE = 1;
-    public static final int CORRESPONDENCE_SCHEDULE = 2;
+    public static final int CORRESPONDENCE_SCHEDULE = 0;
     public static final int REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE = 159;
 
     @Nullable private Activity activity;
@@ -331,7 +331,7 @@ public class Presenter {
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
         int index = date.getDayOfWeek(schedule);
-        boolean isOld = date.isScheduleAtThisWeek(schedule);
+        boolean isOld = !date.isScheduleAtThisWeek(schedule);
         if (schedule.getType() == Presenter.FULL_SCHEDULE) {
             fullTimeSchedule.set(index, image);
         } else if (schedule.getType() == Presenter.CORRESPONDENCE_SCHEDULE) {
@@ -339,7 +339,7 @@ public class Presenter {
         }
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;
-            recyclerAdapter.updateItem(index, isOld);
+            recyclerAdapter.updateItem(index);
             if (index == currentDay) {
                 recyclerAdapter.toPosition(currentDay);
             }

@@ -37,9 +37,10 @@ public class AppModel implements Model {
         for (ImageEntity imageEntity : localImage) {
             Schedule schedule = sObject.new Schedule();
             schedule.setId(imageEntity.id);
-            schedule.setDate(imageEntity.key);
+            schedule.setDate(imageEntity.date);
             schedule.setType(imageEntity.type);
             schedule.setTitle(imageEntity.title);
+            schedule.setDayWeek(imageEntity.dayWeek);
 
             if (imageEntity.type == Presenter.FULL_SCHEDULE)
                 localDays.add(schedule);
@@ -56,8 +57,19 @@ public class AppModel implements Model {
     @Override
     public void loadImage(Schedule schedule, OnImageDownloaded downloadedListener) throws ParseException {
         ImagesDAO imagesDAO = getImagesDAO();
-        ImageEntity entity = imagesDAO.getEntityByKey(schedule.getDate());
-        Bitmap bitmap = entity.getImageBitmap();
+        if (schedule.getDayWeek() == null || schedule.getType() == null) return;
+        String imageKey = schedule.getDayWeek() + schedule.getType();
+        ImageEntity entity = imagesDAO.getEntityByKey(imageKey);
+        Bitmap bitmap;
+        try {
+            bitmap = entity.getImageBitmap();
+        } catch (NullPointerException e) {
+            if (BuildConfig.DEBUG){
+                throw e;
+            }
+            e.printStackTrace();
+            return;
+        }
         downloadedListener.itemDownloaded(bitmap, schedule);
     }
 

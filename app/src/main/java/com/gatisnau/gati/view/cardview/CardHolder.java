@@ -31,16 +31,12 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     /* ----------interface---------- */
 
-    public final void bind(final Bitmap bitmap, boolean isOld, Context context, OnImageClickListener imageClickListener) {
+    public final void bind(final Bitmap bitmap,Context context, OnImageClickListener imageClickListener) {
         TextView tittle = findTitle();
         tittle.setText(getTitleId(getAdapterPosition()));
         if (bitmap != null) {
             setImage(bitmap, context, imageClickListener);
-            if (isOld) {
-                itemView.setAlpha(0.55f);
-            }else{
-                itemView.setAlpha(1);
-            }
+            itemView.setAlpha(1);
             setVisibilityNotFountTextView(View.GONE);
         }else {
             itemView.setAlpha(0.55f);
@@ -118,7 +114,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
             }
 
             private void onLongClick() {
-                if (context == null || !(context instanceof FragmentActivity)) return;
+                if (context == null) return;
                 ((FragmentActivity) context).onViewLongClick(imageView, getLayoutPosition(), x, y);
             }
         });

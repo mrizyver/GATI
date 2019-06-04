@@ -3,6 +3,7 @@ package com.gatisnau.gati.model.db;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,21 +16,26 @@ public class ImageEntity {
     ImageEntity() {
     }
 
-    public ImageEntity(int id, String key, int type, Bitmap bitmap, String title, String dayWeek) {
+    public ImageEntity(int id, String date, int type, Bitmap bitmap, String title, String dayWeek) {
         this.id = id;
-        this.key = key;
+        this.date = date;
         this.type = type;
         this.image = getByteFromBitmap(bitmap);
         this.title = title;
         this.dayWeek = dayWeek;
+        this.key = dayWeek + type;
     }
 
     @PrimaryKey
+    @ColumnInfo(name = "key")
+    @NonNull
+    public String key = "key";
+
     @ColumnInfo(name = "image_id")
     public int id;
 
-    @ColumnInfo(name = "key")
-    public String key;
+    @ColumnInfo(name = "date")
+    public String date;
 
     @ColumnInfo(name = "type")
     public int type;
