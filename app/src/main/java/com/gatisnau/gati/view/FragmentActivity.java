@@ -45,9 +45,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
-
         presenter.attachActivity(this);
-
         tvForm = findViewById(R.id.tv_word_form);
         tvTypeForm = findViewById(R.id.tv_form_study);
 

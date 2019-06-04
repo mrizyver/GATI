@@ -55,6 +55,7 @@ public class Presenter {
     private RecyclerCardAdapter recyclerAdapter;
     private DateManager date;
     private NetworkManager network;
+    private boolean isFirstCreate = true;
 
     private int currentDay = 0;
     private int type;
@@ -85,7 +86,7 @@ public class Presenter {
         adapter.setSchedulers(getScheduleList(type));
         adapter.setImageClickListener(imageClickListener);
         adapter.toPosition(currentDay);
-        downloadImage(type);
+        loadImage(type);
     }
 
     public void changeSchedule(int type) {
@@ -154,7 +155,6 @@ public class Presenter {
 
     public class ActivityLifecycleListener implements LifecycleObserver {
         private UpdateApp update;
-        private boolean isFirstCreate = true;
         private int afterType = 0;
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -184,18 +184,15 @@ public class Presenter {
     }
 
     @UiThread
-    private void downloadImage(final int type) {
+    private void loadImage(final int type) {
         Runnable downloadImage = () -> {
             try {
-                ScheduleObject schedulers;
-                if (isInternetAvailable()) {
-                    schedulers = model.getExistingSchedule();
-                } else {
-                    schedulers = model.getLocalSchedule();
-                }
-                downloadImage(type, getScheduleList(type, schedulers));
+                ScheduleObject localSchedule = model.getLocalSchedule();
+                loadImageFromDb(type, getScheduleList(type, localSchedule));
+
+                downloadImages(type);
             } catch (IOException | ParseException e) {
-                Log.e(this.getClass().getName(), "downloadImage: ", e);
+                    Log.e(this.getClass().getName(), "loadImage: ", e);
             }
         };
 
@@ -204,12 +201,26 @@ public class Presenter {
         backgroundThread.start();
     }
 
-    private void downloadImage(int type, List<ScheduleObject.Schedule> schedulers) throws IOException, ParseException {
-        schedulers = getNeededSchedule(schedulers, type);
+    private void downloadImages(int type) throws IOException, ParseException {
+        if (isInternetAvailable()) {
+            ScheduleObject schedulers = model.getExistingSchedule();
+            downloadImage(getScheduleList(type, schedulers));
+        }
+    }
+
+    private void downloadImage(List<ScheduleObject.Schedule> schedulers) throws IOException, ParseException {
+        for (ScheduleObject.Schedule schedule : schedulers) {
+//            int index = date.getDayOfWeek(schedule);
+//            if (isImageExist(type, index)) continue;
+            model.downloadImage(schedule, downloadListener);
+        }
+    }
+
+    private void loadImageFromDb(int type, List<ScheduleObject.Schedule> schedulers) throws ParseException {
         for (ScheduleObject.Schedule schedule : schedulers) {
             int index = date.getDayOfWeek(schedule);
             if (isImageExist(type, index)) continue;
-            model.downloadImage(schedule, downloadListener);
+            model.loadImage(schedule, downloadListener);
         }
     }
 
@@ -320,6 +331,7 @@ public class Presenter {
 
     private OnImageDownloaded downloadListener = (image, schedule) -> {
         int index = date.getDayOfWeek(schedule);
+        boolean isOld = date.isScheduleAtThisWeek(schedule);
         if (schedule.getType() == Presenter.FULL_SCHEDULE) {
             fullTimeSchedule.set(index, image);
         } else if (schedule.getType() == Presenter.CORRESPONDENCE_SCHEDULE) {
@@ -327,7 +339,7 @@ public class Presenter {
         }
         handlerUI.post(() -> {
             if (recyclerAdapter == null) return;
-            recyclerAdapter.notifyItemChanged(index);
+            recyclerAdapter.updateItem(index, isOld);
             if (index == currentDay) {
                 recyclerAdapter.toPosition(currentDay);
             }

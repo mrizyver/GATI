@@ -31,12 +31,16 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     /* ----------interface---------- */
 
-    public final void bind(final Bitmap bitmap, Context context, OnImageClickListener imageClickListener) {
+    public final void bind(final Bitmap bitmap, boolean isOld, Context context, OnImageClickListener imageClickListener) {
         TextView tittle = findTitle();
         tittle.setText(getTitleId(getAdapterPosition()));
         if (bitmap != null) {
             setImage(bitmap, context, imageClickListener);
-            itemView.setAlpha(1);
+            if (isOld) {
+                itemView.setAlpha(0.55f);
+            }else{
+                itemView.setAlpha(1);
+            }
             setVisibilityNotFountTextView(View.GONE);
         }else {
             itemView.setAlpha(0.55f);

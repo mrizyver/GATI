@@ -2,6 +2,7 @@ package com.gatisnau.gati.model;
 
 import android.graphics.Bitmap;
 
+import com.gatisnau.gati.BuildConfig;
 import com.gatisnau.gati.listeners.OnImageDownloaded;
 import com.gatisnau.gati.model.ScheduleObject.Schedule;
 import com.gatisnau.gati.model.db.ImageEntity;
@@ -38,6 +39,7 @@ public class AppModel implements Model {
             schedule.setId(imageEntity.id);
             schedule.setDate(imageEntity.key);
             schedule.setType(imageEntity.type);
+            schedule.setTitle(imageEntity.title);
 
             if (imageEntity.type == Presenter.FULL_SCHEDULE)
                 localDays.add(schedule);
@@ -52,23 +54,23 @@ public class AppModel implements Model {
     }
 
     @Override
-    public void downloadImage(Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
+    public void loadImage(Schedule schedule, OnImageDownloaded downloadedListener) throws ParseException {
         ImagesDAO imagesDAO = getImagesDAO();
         ImageEntity entity = imagesDAO.getEntityByKey(schedule.getDate());
-
-        Bitmap bitmap;
-        if (entity == null || entity.image == null){
-            String url = createUrl(schedule.getImage());
-            bitmap = Picasso.get()
-                    .load(url)
-                    .get();
-            imagesDAO.putImageEntity(new ImageEntity(schedule.getId(), schedule.getDate(), schedule.getType(), bitmap));
-        }else {
-            bitmap = entity.getImageBitmap();
-        }
-
-        downloadListener.itemDownloaded(bitmap, schedule);
+        Bitmap bitmap = entity.getImageBitmap();
+        downloadedListener.itemDownloaded(bitmap, schedule);
     }
+
+    @Override
+    public void downloadImage(Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
+        String url = createUrl(schedule.getImage());
+        Bitmap bitmap = Picasso.get()
+                .load(url)
+                .get();
+        downloadListener.itemDownloaded(bitmap, schedule);
+        saveImageToDb(schedule, bitmap);
+    }
+
 
     /* ----------internal logic---------- */
 
@@ -76,6 +78,24 @@ public class AppModel implements Model {
         return ApplicationData.database.imageDao();
     }
 
+    private void saveImageToDb(Schedule schedule, Bitmap bitmap) {
+        ImagesDAO imagesDAO = getImagesDAO();
+        if (imagesDAO != null && bitmap != null){
+            ImageEntity imageEntity = new ImageEntity(
+                    schedule.getId(),
+                    schedule.getDate(),
+                    schedule.getType(),
+                    bitmap,
+                    schedule.getTitle(),
+                    schedule.getDayWeek()
+            );
+            imagesDAO.putImageEntity(imageEntity);
+        }else {
+            if (BuildConfig.DEBUG){
+                throw new NullPointerException("can not use nullable image dao");
+            }
+        }
+    }
 
     private String createUrl(String imageName) {
         return PREFIX + BASE_URL + "/images/schedule/" + imageName + ".png";

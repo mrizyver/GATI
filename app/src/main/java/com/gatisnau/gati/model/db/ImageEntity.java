@@ -15,11 +15,13 @@ public class ImageEntity {
     ImageEntity() {
     }
 
-    public ImageEntity(int id, String key, int type, Bitmap bitmap) {
+    public ImageEntity(int id, String key, int type, Bitmap bitmap, String title, String dayWeek) {
         this.id = id;
         this.key = key;
         this.type = type;
         this.image = getByteFromBitmap(bitmap);
+        this.title = title;
+        this.dayWeek = dayWeek;
     }
 
     @PrimaryKey
@@ -35,6 +37,14 @@ public class ImageEntity {
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     public byte[] image;
 
+
+    @ColumnInfo(name = "title")
+    public String title;
+
+    @ColumnInfo(name = "day_week")
+    public String dayWeek;
+
+
     public Bitmap getImageBitmap() {
         if (image == null) return null;
         Bitmap bitmap = getBitmap(image);
@@ -48,7 +58,7 @@ public class ImageEntity {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
-    private byte[] getByteFromBitmap(Bitmap bitmap){
+    private byte[] getByteFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream(bitmap.getWidth() * bitmap.getHeight());
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, buffer);
         return buffer.toByteArray();

@@ -32,7 +32,7 @@ public class TestModel implements Model {
     }
 
     @Override
-    public ScheduleObject getExistingSchedule() throws IOException {
+    public ScheduleObject getExistingSchedule() {
         List<ScheduleObject.Schedule> list = new ArrayList<>();
 
         for (int i = -7; i < 7; i++) {
@@ -46,6 +46,11 @@ public class TestModel implements Model {
     @Override
     public ScheduleObject getLocalSchedule() {
         return null;
+    }
+
+    @Override
+    public void loadImage(ScheduleObject.Schedule schedule, OnImageDownloaded downloadedListener) throws ParseException {
+
     }
 
     @Override

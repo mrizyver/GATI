@@ -20,6 +20,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     private Context context;
     private ArrayList<Bitmap> schedulers;
+    private boolean[] oldests;
     private OnImageClickListener imageClickListener;
     private RecyclerView recyclerView;
     private Runnable postRunnable;
@@ -37,7 +38,13 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     public void setSchedulers(ArrayList<Bitmap> schedulers) {
         this.schedulers = schedulers;
+        this.oldests = new boolean[schedulers.size()];
         notifyDataSetChanged();
+    }
+
+    public void updateItem(int index, boolean isOlderItem) {
+        oldests[index] = isOlderItem;
+        notifyItemChanged(index);
     }
 
     public void setImageClickListener(OnImageClickListener imageClickListener) {
@@ -65,7 +72,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CardHolder cardHolder, int i) {
-        cardHolder.bind(schedulers.get(i), context, imageClickListener);
+        cardHolder.bind(schedulers.get(i), oldests[i], context, imageClickListener);
     }
 
     @Override
