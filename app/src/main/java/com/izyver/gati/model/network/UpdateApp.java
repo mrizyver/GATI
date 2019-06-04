@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-
 public class UpdateApp {
     private String fileName = "gati.apk";
     private Context context;
@@ -29,11 +28,11 @@ public class UpdateApp {
         this.handler = handler;
     }
 
-    public void startUpdate(String _url) {
+    public void startUpdate(String urlCheckVersion, String urlUpdate) {
         stop();
         thread = new Thread(() -> {
-            if (hasNewVersion(_url)) {
-                downloadFIle(_url, fileName);
+            if (hasNewVersion(urlCheckVersion)) {
+                downloadFIle(urlUpdate, fileName);
                 startInstall(fileName);
             } else {
                 handler.post(this::toastHasLastVersion);
@@ -89,8 +88,15 @@ public class UpdateApp {
             URL url = new URL(_url);
             URLConnection urlConnection = url.openConnection();
 
-            Uri uri = getUri(new File(fileName));
-            File outputFile = new File(String.valueOf(uri));
+            if (context == null) {
+                error();
+                return;
+            }
+            Uri uri = getUri(new File(context.getFilesDir(), fileName));
+            File outputFile =new File(context.getFilesDir(), fileName);
+            if (!outputFile.exists()){
+                outputFile.createNewFile();
+            }
             out = new FileOutputStream(outputFile);
             if (outputFile.exists())
                 input = urlConnection.getInputStream();
@@ -101,7 +107,7 @@ public class UpdateApp {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            handler.post(this::toastErrorToDownload);
+            error();
         } finally {
             try {
                 if (input != null)
@@ -123,8 +129,14 @@ public class UpdateApp {
         context.startActivity(intent);
     }
 
+
     private Uri getUri(File file) {
         return GatiFileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, file);
+    }
+
+
+    private void error() {
+        handler.post(this::toastErrorToDownload);
     }
 
     private void toastHasLastVersion() {

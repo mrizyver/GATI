@@ -6,9 +6,10 @@ android {
         applicationId "com.izyver.gati"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 7
-        versionName "7"
+        versionCode 8
+        versionName "8"
         buildConfigField "String", "URL_VERSION_CONTROLL", '"http://andro.gatisnau.sumy.ua/version.txt"'
+        buildConfigField "String", "URL_UPDATE", '"http://andro.gatisnau.sumy.ua/app.apk"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -25,13 +25,12 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action
-                    android:name=
-                        "android.intent.action.MAIN" />
+                    android:name="android.intent.action.MAIN" />
                 <category
-                    android:name=
-                        "android.intent.category.LAUNCHER" />
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:authorities="${applicationId}"
             android:name="com.izyver.gati.utils.GatiFileProvider"
@@ -39,7 +38,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@layout/file"/>
+                android:resource="@xml/file"/>
         </provider>
     </application>
 

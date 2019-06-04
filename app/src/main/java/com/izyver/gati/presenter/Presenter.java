@@ -148,7 +148,7 @@ public class Presenter {
     }
 
     public void updateApp() {
-        new UpdateApp(context, handlerUI).startUpdate(BuildConfig.URL_VERSION_CONTROLL);
+        new UpdateApp(context, handlerUI).startUpdate(BuildConfig.URL_VERSION_CONTROLL,BuildConfig.URL_UPDATE);
     }
 
     /* ----------internal logic---------- */
