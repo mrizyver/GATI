@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.izyver.gati.listeners.OnImageDownloaded;
+import com.izyver.gati.model.entity.ScheduleObject;
 import com.izyver.gati.presenter.Presenter;
 import com.izyver.gati.R;
 import com.squareup.picasso.Picasso;

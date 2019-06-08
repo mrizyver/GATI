@@ -4,7 +4,8 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import com.izyver.gati.model.network.GatiApi;
+import com.izyver.gati.model.db.AppDatabase;
+import com.izyver.gati.network.GatiApi;
 import com.izyver.gati.presenter.Presenter;
 
 import retrofit2.Retrofit;

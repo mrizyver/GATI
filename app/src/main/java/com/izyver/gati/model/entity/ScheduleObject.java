@@ -1,4 +1,4 @@
-package com.izyver.gati.model;
+package com.izyver.gati.model.entity;
 
 
 import com.google.gson.annotations.Expose;

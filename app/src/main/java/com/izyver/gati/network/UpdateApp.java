@@ -1,4 +1,4 @@
-package com.izyver.gati.model.network;
+package com.izyver.gati.network;
 
 import android.content.Context;
 import android.content.Intent;

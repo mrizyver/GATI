@@ -2,6 +2,8 @@ package com.izyver.gati.model;
 
 import android.annotation.SuppressLint;
 
+import com.izyver.gati.model.entity.ScheduleObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

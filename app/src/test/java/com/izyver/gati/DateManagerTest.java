@@ -2,7 +2,7 @@ package com.izyver.gati;
 
 import com.izyver.gati.model.ApplicationData;
 import com.izyver.gati.model.DateManager;
-import com.izyver.gati.model.ScheduleObject;
+import com.izyver.gati.model.entity.ScheduleObject;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,6 +1,6 @@
-package com.izyver.gati.model.network;
+package com.izyver.gati.network;
 
-import com.izyver.gati.model.ScheduleObject;
+import com.izyver.gati.model.entity.ScheduleObject;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -25,9 +25,9 @@ import com.izyver.gati.listeners.OnImageDownloaded;
 import com.izyver.gati.model.AppModel;
 import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
-import com.izyver.gati.model.ScheduleObject;
-import com.izyver.gati.model.network.NetworkManager;
-import com.izyver.gati.model.network.UpdateApp;
+import com.izyver.gati.model.entity.ScheduleObject;
+import com.izyver.gati.network.NetworkManager;
+import com.izyver.gati.network.UpdateApp;
 import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.utils.GatiPreferences;
 import com.izyver.gati.utils.StackFragment;
@@ -148,7 +148,7 @@ public class Presenter {
     }
 
     public void updateApp() {
-        new UpdateApp(context, handlerUI).startUpdate(BuildConfig.URL_VERSION_CONTROLL,BuildConfig.URL_UPDATE);
+        new UpdateApp(context, handlerUI).startUpdate(BuildConfig.URL_VERSION_CONTROLL,BuildConfig.URL_UPDATE   );
     }
 
     /* ----------internal logic---------- */

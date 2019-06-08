@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 
 import com.izyver.gati.BuildConfig;
 import com.izyver.gati.listeners.OnImageDownloaded;
-import com.izyver.gati.model.ScheduleObject.Schedule;
+import com.izyver.gati.model.entity.ScheduleObject;
+import com.izyver.gati.model.entity.ScheduleObject.Schedule;
 import com.izyver.gati.model.db.ImageEntity;
 import com.izyver.gati.model.db.ImagesDAO;
 import com.izyver.gati.presenter.Presenter;
