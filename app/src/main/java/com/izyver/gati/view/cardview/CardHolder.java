@@ -15,9 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.izyver.gati.listeners.OnImageLongClickListener;
+import com.izyver.gati.utils.Util;
 import com.izyver.gati.view.FragmentActivity;
 import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.R;
+
+import static com.izyver.gati.utils.Util.getScreenSize;
 
 final class CardHolder extends RecyclerView.ViewHolder {
 
@@ -31,11 +35,11 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     /* ----------interface---------- */
 
-    public final void bind(final Bitmap bitmap,Context context, OnImageClickListener imageClickListener) {
+    public final void bind(final Bitmap bitmap, Context context, OnImageClickListener click, OnImageLongClickListener longClick) {
         TextView tittle = findTitle();
         tittle.setText(getTitleId(getAdapterPosition()));
         if (bitmap != null) {
-            setImage(bitmap, context, imageClickListener);
+            setImage(bitmap, context, click, longClick);
             itemView.setAlpha(1);
             setVisibilityNotFountTextView(View.GONE);
         }else {
@@ -48,25 +52,12 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     /* ----------internal logic---------- */
 
-    private Point getScreenSize(Context context) {
-        Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size;
-    }
-
     @SuppressLint("ClickableViewAccessibility")
-    private void setImage(Bitmap bitmap, Context context, OnImageClickListener imageClickListener) {
+    private void setImage(Bitmap bitmap, Context context, OnImageClickListener imageClickListener, OnImageLongClickListener longClick) {
         ImageView imageView = findImage();
         ((FragmentActivity) context).registerForContextMenu(imageView);
 
-        final int viewWidth = getScreenSize(context).x;
-        final float imageWidth = bitmap.getWidth();
-        final float imageHeight = bitmap.getHeight();
-        final float ratio = viewWidth / imageWidth;
-
-        final int newImageHeight = (int) (imageHeight * ratio);
-        imageView.setImageBitmap(resizeBitmap(bitmap, viewWidth, newImageHeight));
+        imageView.setImageBitmap(bitmap);
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             long firstTouchedTime = 0;
@@ -102,20 +93,15 @@ final class CardHolder extends RecyclerView.ViewHolder {
                         long currentTime = System.currentTimeMillis();
                         long diffTime = currentTime - firstTouchedTime;
                         if (diffTime < TIME_LONG_CLICK / 3) {
-                            imageClickListener.onImageClicked(bitmap);
+                            imageClickListener.onImageClicked(getAdapterPosition());
                         }else if (diffTime < TIME_LONG_CLICK){
-                            onLongClick();
+                            longClick.onViewLongClick(imageView, getLayoutPosition(), x, y);
                             return true;
                         }else {
                             return false;
                         }
                 }
                 return false;
-            }
-
-            private void onLongClick() {
-                if (context == null) return;
-                ((FragmentActivity) context).onViewLongClick(imageView, getLayoutPosition(), x, y);
             }
         });
 
@@ -152,9 +138,5 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     private TextView findTitle() {
         return itemView.findViewById(R.id.card_title);
-    }
-
-    private Bitmap resizeBitmap(Bitmap bitmap, int width, int height) {
-        return Bitmap.createScaledBitmap(bitmap, width, height, false);
     }
 }

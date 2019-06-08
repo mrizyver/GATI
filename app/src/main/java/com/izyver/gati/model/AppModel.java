@@ -8,7 +8,7 @@ import com.izyver.gati.model.entity.ScheduleObject;
 import com.izyver.gati.model.entity.ScheduleObject.Schedule;
 import com.izyver.gati.model.db.ImageEntity;
 import com.izyver.gati.model.db.ImagesDAO;
-import com.izyver.gati.presenter.Presenter;
+import com.izyver.gati.presenter.PresenterActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.izyver.gati.model.ApplicationData.BASE_URL;
+import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
+import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.PREFIX;
 
 public class AppModel implements Model {
@@ -43,9 +45,9 @@ public class AppModel implements Model {
             schedule.setTitle(imageEntity.title);
             schedule.setDayWeek(imageEntity.dayWeek);
 
-            if (imageEntity.type == Presenter.FULL_SCHEDULE)
+            if (imageEntity.type == FULL_SCHEDULE)
                 localDays.add(schedule);
-            else if(imageEntity.type == Presenter.CORRESPONDENCE_SCHEDULE)
+            else if(imageEntity.type == CORRESPONDENCE_SCHEDULE)
                 localZaos.add(schedule);
         }
 

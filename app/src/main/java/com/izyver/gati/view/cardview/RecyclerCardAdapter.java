@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.R;
+import com.izyver.gati.listeners.OnImageLongClickListener;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     private Context context;
     private ArrayList<Bitmap> schedulers;
     private OnImageClickListener imageClickListener;
+    private OnImageLongClickListener imageLongClickListener;
     private RecyclerView recyclerView;
     private Runnable postRunnable;
 
@@ -34,17 +36,17 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     /* ----------interface---------- */
 
-    public void setSchedulers(ArrayList<Bitmap> schedulers) {
-        this.schedulers = schedulers;
-        notifyDataSetChanged();
-    }
-
-    public void updateItem(int index) {
+    public void updateItem(Bitmap bitmap, int index) {
+        schedulers.set(index, bitmap);
         notifyItemChanged(index);
     }
 
     public void setImageClickListener(OnImageClickListener imageClickListener) {
         this.imageClickListener = imageClickListener;
+    }
+
+    public void setImageLongClickListener(OnImageLongClickListener imageLongClickListener) {
+        this.imageLongClickListener = imageLongClickListener;
     }
 
     public void toPosition(int position){
@@ -68,7 +70,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CardHolder cardHolder, int i) {
-        cardHolder.bind(schedulers.get(i),  context, imageClickListener);
+        cardHolder.bind(schedulers.get(i),  context, imageClickListener, imageLongClickListener);
     }
 
     @Override

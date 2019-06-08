@@ -1,10 +1,10 @@
 package com.izyver.gati.view;
 
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.RotateAnimation;
@@ -19,34 +19,38 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.izyver.gati.utils.GatiPreferences;
-import com.izyver.gati.presenter.Presenter;
-import com.izyver.gati.R;
-import com.izyver.gati.view.cardview.RecyclerCardAdapter;
-import com.izyver.gati.model.ApplicationData;
 import com.google.android.material.navigation.NavigationView;
+import com.izyver.gati.R;
+import com.izyver.gati.presenter.PresenterActivity;
+import com.izyver.gati.utils.GatiPreferences;
+import com.izyver.gati.utils.StackFragment;
+import com.izyver.gati.view.cardview.CardFragment;
+import com.izyver.gati.view.cardview.RecyclerCardAdapter;
+
+import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
+import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 
 public class FragmentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int ITEM_SHARE_IMAGE = 165;
-    private Presenter presenter;
+    private PresenterActivity presenter;
 
     private TextView tvForm;
     private TextView tvTypeForm;
     private NavigationView navigationView;
 
+    private StackFragment stackFragment;
 
-    private int indexLastImageClicked = -1;
     private int ANIMATION_TIME = 250;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        presenter = ApplicationData.presenter;
-        presenter.setFragmentManager(getSupportFragmentManager());
-        getLifecycle().addObserver(presenter.new ActivityLifecycleListener());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
+
+        presenter = new PresenterActivity();
+        stackFragment = new StackFragment(getSupportFragmentManager(), R.id.fragment_container);
+
         presenter.attachActivity(this);
         tvForm = findViewById(R.id.tv_word_form);
         tvTypeForm = findViewById(R.id.tv_form_study);
@@ -61,25 +65,25 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         navigationView.setCheckedItem(id);
 
         if (id == R.id.monday_button) {
-            presenter.setItem(0);
-        } else if (id == R.id.tuesday_button) {
-            presenter.setItem(1);
-        } else if (id == R.id.wednesday_button) {
-            presenter.setItem(2);
-        } else if (id == R.id.thursday_button) {
-            presenter.setItem(3);
-        } else if (id == R.id.friday_button) {
-            presenter.setItem(4);
-        } else if (id == R.id.saturday_button) {
-            presenter.setItem(5);
+//            presenter.setItem(0);
+//        } else if (id == R.id.tuesday_button) {
+//            presenter.setItem(1);
+//        } else if (id == R.id.wednesday_button) {
+//            presenter.setItem(2);
+//        } else if (id == R.id.thursday_button) {
+//            presenter.setItem(3);
+//        } else if (id == R.id.friday_button) {
+//            presenter.setItem(4);
+//        } else if (id == R.id.saturday_button) {
+//            presenter.setItem(5);
         } else if (id == R.id.inst_button) {
-            presenter.startActivity("com.instagram.android", "https://www.instagram.com/gati_snau.official/");
+            startActivity("com.instagram.android", "https://www.instagram.com/gati_snau.official/");
         } else if (id == R.id.youtube_button) {
-            presenter.startActivity("com.youtube.android", "https://www.youtube.com/channel/UC0Ccnd5F7fTyQ60C3LeyhFw");
+            startActivity("com.youtube.android", "https://www.youtube.com/channel/UC0Ccnd5F7fTyQ60C3LeyhFw");
         } else if (id == R.id.facebook_button) {
-            presenter.startActivity("com.facebook.katana", "https://www.facebook.com/official.gatisnau/");
+            startActivity("com.facebook.katana", "https://www.facebook.com/official.gatisnau/");
         } else if (id == R.id.site_button) {
-            presenter.startActivity("com.android.chrome/com.android.chrome.Main", "http://gatisnau.sumy.ua/");
+            startActivity("com.android.chrome/com.android.chrome.Main", "http://gatisnau.sumy.ua/");
         } else if (id == R.id.update_app) {
             presenter.updateApp();
         }
@@ -99,45 +103,10 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case Presenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    presenter.shareImage(indexLastImageClicked);
-                } else {
-                    presenter.shareFailure();
-                }
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.destroy();
     }
-
-    /* ----------context menu---------- */
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.add(Menu.NONE, ITEM_SHARE_IMAGE, Menu.NONE, R.string.share);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case ITEM_SHARE_IMAGE:
-                presenter.shareImage(indexLastImageClicked);
-        }
-        return true;
-    }
-
-    /* ----------interface---------- */
-
-    public void attachRecyclerAdapter(RecyclerCardAdapter adapter) {
-        presenter.attachRecyclerAdapter(adapter);
-    }
-
 
     /* ----------internal logic---------- */
 
@@ -158,7 +127,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.getHeaderView(0).findViewById(R.id.tv_email).setOnClickListener(v -> presenter.sendEmail(((TextView) v).getText().toString()));
+        navigationView.getHeaderView(0).findViewById(R.id.header_text).setOnClickListener(v -> sendEmail(((TextView) v).getText().toString()));
         navigationView.bringToFront();
         navigationView.setCheckedItem(R.id.monday_button);
     }
@@ -167,7 +136,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         ImageView switchScheduleButton = findViewById(R.id.switch_schedule_button);
 
         int type = GatiPreferences.getTypeSchedule(this);
-        if (type == Presenter.FULL_SCHEDULE) {
+        if (type == FULL_SCHEDULE) {
             tvTypeForm.setText(R.string.daytime);
         } else {
             tvTypeForm.setText(R.string.correspondence_time);
@@ -182,25 +151,44 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
                 rotateAnimation.setDuration(ANIMATION_TIME);
                 v.startAnimation(rotateAnimation);
 
-                if (previewType == Presenter.CORRESPONDENCE_SCHEDULE) {
-                    presenter.changeSchedule(Presenter.FULL_SCHEDULE);
-                    previewType = Presenter.FULL_SCHEDULE;
+                if (previewType == CORRESPONDENCE_SCHEDULE) {
+                    changeSchedule(FULL_SCHEDULE, FragmentActivity.this);
+                    previewType = FULL_SCHEDULE;
                     tvTypeForm.setText(R.string.daytime);
-                } else {
-                    presenter.changeSchedule(Presenter.CORRESPONDENCE_SCHEDULE);
-                    previewType = Presenter.CORRESPONDENCE_SCHEDULE;
+                } else if (previewType == FULL_SCHEDULE){
+                    changeSchedule(CORRESPONDENCE_SCHEDULE, FragmentActivity.this);
+                    previewType = CORRESPONDENCE_SCHEDULE;
                     tvTypeForm.setText(R.string.correspondence_time);
                 }
             }
         });
     }
 
-    public void onViewLongClick(View view, int position, float x, float y) {
-        indexLastImageClicked = position;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            view.showContextMenu(x, y);
+    private void changeSchedule(int type, Context context) {
+        GatiPreferences.setTypeSchedule(context, type);
+        if (type == FULL_SCHEDULE) {
+            stackFragment.setAnimation(R.animator.slide_in_right_start, R.animator.slide_in_right_end);
         } else {
-            view.showContextMenu();
+            stackFragment.setAnimation(R.animator.slide_in_left_start, R.animator.slide_in_left_end);
         }
+        stackFragment.replaceFragment(CardFragment.newInstance(type), true);
+    }
+
+
+    private void startActivity(String packageActivity, String uri) {
+        Uri link = Uri.parse(uri);
+        Intent activityIntent = new Intent(Intent.ACTION_VIEW, link);
+        activityIntent.setPackage(packageActivity);
+        try {
+            startActivity(activityIntent);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, link));
+        }
+    }
+
+    private void sendEmail(String email) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+
+        startActivity(Intent.createChooser(intent, getString(R.string.send_email)));
     }
 }

@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
-import com.izyver.gati.presenter.Presenter;
+import com.izyver.gati.presenter.PresenterActivity;
+
+import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 
 public class GatiPreferences {
 
@@ -28,7 +30,7 @@ public class GatiPreferences {
     }
 
     public static int getTypeSchedule(Context context){
-        return getInt(context, KEY_TYPE_SCHEDULE, Presenter.FULL_SCHEDULE);
+        return getInt(context, KEY_TYPE_SCHEDULE, FULL_SCHEDULE);
     }
 
 

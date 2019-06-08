@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 
 import com.izyver.gati.listeners.OnImageDownloaded;
 import com.izyver.gati.model.entity.ScheduleObject;
-import com.izyver.gati.presenter.Presenter;
+import com.izyver.gati.presenter.PresenterActivity;
 import com.izyver.gati.R;
 import com.squareup.picasso.Picasso;
 
@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
+import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 
 public class TestModel implements Model {
 
@@ -71,9 +74,9 @@ public class TestModel implements Model {
         schedule.setId(id);
         schedule.setImage(formattedDate);
         if (new Random().nextInt()%2 == 0){
-            schedule.setType(Presenter.FULL_SCHEDULE);
+            schedule.setType(FULL_SCHEDULE);
         }else {
-            schedule.setType(Presenter.CORRESPONDENCE_SCHEDULE);
+            schedule.setType(CORRESPONDENCE_SCHEDULE);
         }
         images.put(formattedDate, createBitmap(calendar.get(Calendar.DAY_OF_WEEK)));
         return schedule;
