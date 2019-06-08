@@ -59,4 +59,17 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/setting"
+        android:title="@string/other_setting">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/update_app"
+                    android:icon="@drawable/ic_update_app"
+                    android:title="@string/update_app" />
+            </group>
+        </menu>
+    </item>
+
 </menu>

@@ -3,12 +3,31 @@
     <string name="title_activity_schedule">GATI</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">GATI SNAU</string>
-    <string name="nav_header_subtitle">gatisnau.infocentr@gmail.com</string>
+
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="action_update">Оновлення додатку</string>
+    <string name="title_progress_dialog">Title ProgressDialog</string>
+
+    <!--auto update-->
+    <string name="toast_last_version">Встановлена остання версія додатку</string>
+    <string name="toast_exception_download">Помилка завантаження</string>
+    <string name="update_is_exist">Доступне оновлення додатку</string>
+
+    <!--Days-->
+    <string name="mon">Понеділок</string>
+    <string name="tue">Вівторок</string>
+    <string name="wed">Среда</string>
+    <string name="thu">Четвер</string>
+    <string name="fri">П\'ятниця</string>
+    <string name="sat">Субота</string>
+
+    <!--Context menu-->
+    <string name="share">Поділитись</string>
+    <string name="share_is_failure">Не вдалося поділитися зображенням</string>
     <string name="refresh_image">Оновити</string>
+
+    <!--navigation view-->
+    <string name="send_email">Відправити email</string>
     <string name="monday">Понеділок</string>
     <string name="tuesday">Вівторок</string>
     <string name="wednesday">Середа</string>
@@ -20,8 +39,21 @@
     <string name="youtube">YouTube</string>
     <string name="instagram">Instagram</string>
     <string name="facebook">Facebook</string>
-    <string name="title_progress_dialog">Title ProgressDialog</string>
-    <string name="toast_last_version">Встановлена остання версія додатку</string>
-    <string name="toast_exception_download">Помилка завантаження</string>
-    <string name="update_is_exist">Доступне оновлення додатку</string>
+    <string name="nav_header_title">GATI SNAU</string>
+    <string name="nav_header_subtitle">gatisnau.infocentr@gmail.com</string>
+    <string name="other_setting">Інше</string>
+    <string name="update_app">Оновлення додатку</string>
+
+    <!--Card view-->
+    <string name="image_not_exist">Розкладу на цей день\nще не сформовано</string>
+
+    <!--Toolbar-->
+    <string name="daytime">Денна</string>
+    <string name="correspondence_time">Заочна</string>
+    <string name="form">форма</string>
+
+    <!--Network-->
+    <string name="network_is_not_available">Відсутній доступ до мережі!\nПеревірте з\'єднання</string>
+    <string name="internet_is_not_available">Відсутнй доступ до інтернету!\nСпробуйте пізніше</string>
+
 </resources>

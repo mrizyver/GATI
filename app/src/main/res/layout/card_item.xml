@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="6dp">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/card_title"
+            tools:text="Понеділок"
+            android:textColor="@color/colorTitleDay"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="25sp"
+            android:fontFamily="@font/antipasto_medium"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_image_not_exist_found"
+            android:layout_width="match_parent"
+            android:layout_below="@id/card_title"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="20sp"
+            android:paddingStart="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="start"
+            android:text="@string/image_not_exist"/>
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_below="@id/card_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/page_not_found"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
