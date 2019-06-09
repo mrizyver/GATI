@@ -50,8 +50,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     }
 
     public void showToolbar() {
-        AlphaAnimation fade = createFade(0, 1, () -> toolbar.setVisibility(View.VISIBLE));
-        toolbar.setAnimation(fade);
+        toolbar.setVisibility(View.VISIBLE);
     }
 
     @Override
