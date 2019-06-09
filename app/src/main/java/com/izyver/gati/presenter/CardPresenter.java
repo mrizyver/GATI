@@ -17,8 +17,8 @@ import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
 import com.izyver.gati.model.ScheduleProcessing;
 import com.izyver.gati.model.db.ImageEntity;
+import com.izyver.gati.model.entity.CardImage;
 import com.izyver.gati.model.entity.ScheduleObject;
-import com.izyver.gati.network.CardHandlerThread;
 import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.view.cardview.CardView;
 
@@ -34,22 +34,21 @@ import static com.izyver.gati.utils.Util.getScreenSize;
 
 public abstract class CardPresenter {
 
+    public static final int COLOR_CODE_OLD_IMAGE = 0xFFFFFE;
+    public static final int COLOR_CODE_NEW_IMAGE = 0xFFFFFF;
+
     public static final int MESSAGE_DOWNLOAD_IMAGE = 89;
     public static final int MESSAGE_RESIZE_IMAGE = 701;
 
     private static String TAG = "CardPresenter";
     protected Model model;
     protected DateManager date;
-    protected CardHandlerThread cardHandle;
-    protected Map<Integer, Bitmap> schedulers;
+    protected Map<Integer, CardImage> schedulers;
     protected CardView view;
     private Handler uiHandler;
 
     @SuppressLint("UseSparseArrays")
     public CardPresenter() {
-        cardHandle = new CardHandlerThread(TAG);
-        cardHandle.start();
-        cardHandle.getLooper();
         schedulers = new HashMap<>(5);
         date = new DateManager();
         uiHandler = new Handler();
@@ -69,7 +68,7 @@ public abstract class CardPresenter {
 
     public void shareImage(int index) {
         if (schedulers != null && view != null) {
-            shareImage(schedulers.get(index), view);
+            shareImage(schedulers.get(index).image, view);
         }
     }
 
@@ -87,14 +86,14 @@ public abstract class CardPresenter {
     }
 
     public Bitmap getSchedule(int index) {
-        return schedulers.get(index);
+        return schedulers.get(index).image;
     }
 
 
-    protected void processPreviewImage(Map<Integer, Bitmap> bitmaps) {
+    protected void processPreviewImage(Map<Integer, CardImage> bitmaps) {
         for (Integer i : bitmaps.keySet()) {
             if (isNull(view)) break;
-            onItemDownloaded(resizeBitmap(bitmaps.get(i), view.getContext()), i);
+            onItemDownloaded(resizeBitmap(bitmaps.get(i).image, view.getContext()), bitmaps.get(i).isOld, i);
         }
     }
 
@@ -107,9 +106,9 @@ public abstract class CardPresenter {
         return Bitmap.createScaledBitmap(bitmap, viewWidth, newImageHeight, false);
     }
 
-    protected void onItemDownloaded(Bitmap smallBitmap, int index) {
+    protected void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
         if (view == null) return;
-        uiHandler.post(() -> view.updateCard(smallBitmap, index));
+        uiHandler.post(() -> view.updateCard(smallBitmap, isOld, index));
     }
 
     /* ----------internal logic---------- */
@@ -145,7 +144,9 @@ class CardPresenterFull extends CardPresenter {
             List<ImageEntity> localImageEntities = model.getLocalImages(FULL_SCHEDULE);
             Map<Integer, ImageEntity> actualLocal = scheduleProcessing.getActualImages(localImageEntities);
             for (Integer key : actualLocal.keySet()) {
-                schedulers.put(key, actualLocal.get(key).getImageBitmap());
+                ImageEntity imageEntity = actualLocal.get(key);
+                boolean isOld = date.isScheduleAtThisWeek(imageEntity);
+                schedulers.put(key, new CardImage(imageEntity.getImageBitmap(), isOld));
             }
             processPreviewImage(schedulers);
 
@@ -157,9 +158,11 @@ class CardPresenterFull extends CardPresenter {
                 Map<Integer, ScheduleObject.Schedule> actualNetwork = scheduleProcessing.getActualImages(scheduleDay);
 
                 for (Integer key : actualNetwork.keySet()) {
-                    model.downloadImage(actualNetwork.get(key), (image, schedule1) -> {
-                        onItemDownloaded(resizeBitmap(image, view.getContext()), key);
-                        schedulers.put(key, image);
+                    model.downloadImage(actualNetwork.get(key), (image, downloadedSchedule) -> {
+                        boolean isOld = !date.isScheduleAtThisWeek(downloadedSchedule);
+                        Bitmap previewImage = resizeBitmap(image, view.getContext());
+                        onItemDownloaded(previewImage, isOld, key);
+                        schedulers.put(key, new CardImage(image, isOld));
                     });
                 }
             } catch (IOException e) {

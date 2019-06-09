@@ -5,10 +5,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.izyver.gati.listeners.OnImageLongClickListener;
-import com.izyver.gati.utils.Util;
+import com.izyver.gati.model.entity.CardImage;
+import com.izyver.gati.presenter.CardPresenter;
 import com.izyver.gati.view.FragmentActivity;
 import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.R;
@@ -26,6 +25,7 @@ import static com.izyver.gati.utils.Util.getScreenSize;
 final class CardHolder extends RecyclerView.ViewHolder {
 
     public static final String TAG = "CardHolder";
+    private static float COLOR_TRANSPARENT_OLD_IMAGE = 0.55f;
     private static final int TIME_LONG_CLICK = 1000;
 
     CardHolder(@NonNull View itemView) {
@@ -35,25 +35,31 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     /* ----------interface---------- */
 
-    public final void bind(final Bitmap bitmap, Context context, OnImageClickListener click, OnImageLongClickListener longClick) {
+    public final void bind(final CardImage cardImage, Context context, OnImageClickListener click, OnImageLongClickListener longClick) {
         TextView tittle = findTitle();
         tittle.setText(getTitleId(getAdapterPosition()));
-        if (bitmap != null) {
-            setImage(bitmap, context, click, longClick);
-            itemView.setAlpha(1);
+        if (cardImage != null && cardImage.image != null) {
+            setVisibleOldMarker(cardImage.isOld);
+            setImage(cardImage.image, context, click, longClick);
             setVisibilityNotFountTextView(View.GONE);
         }else {
-            itemView.setAlpha(0.55f);
+            itemView.setAlpha(COLOR_TRANSPARENT_OLD_IMAGE);
+            setVisibleOldMarker(false);
             setVisibilityNotFountTextView(View.VISIBLE);
             findImage().setImageBitmap(null);
         }
+    }
+
+    private void setVisibleOldMarker(boolean isVisible) {
+        int visible = isVisible ?View.VISIBLE : View.INVISIBLE;
+        findOldMarker().setVisibility(visible);
     }
 
 
     /* ----------internal logic---------- */
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setImage(Bitmap bitmap, Context context, OnImageClickListener imageClickListener, OnImageLongClickListener longClick) {
+    private void setImage(@NonNull Bitmap bitmap, Context context, OnImageClickListener imageClickListener, OnImageLongClickListener longClick) {
         ImageView imageView = findImage();
         ((FragmentActivity) context).registerForContextMenu(imageView);
 
@@ -130,6 +136,10 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     private void setVisibilityNotFountTextView(int visible) {
         itemView.findViewById(R.id.tv_image_not_exist_found).setVisibility(visible);
+    }
+
+    private TextView findOldMarker(){
+        return itemView.findViewById(R.id.marker_old_schedule);
     }
 
     private ImageView findImage() {

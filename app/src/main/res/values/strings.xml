@@ -46,6 +46,7 @@
 
     <!--Card view-->
     <string name="image_not_exist">Розкладу на цей день\nще не сформовано</string>
+    <string name="old_schedule">Старий розклад</string>
 
     <!--Toolbar-->
     <string name="daytime">Денна</string>

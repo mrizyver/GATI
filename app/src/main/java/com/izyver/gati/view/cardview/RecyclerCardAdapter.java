@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.R;
 import com.izyver.gati.listeners.OnImageLongClickListener;
+import com.izyver.gati.model.entity.CardImage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     private Context context;
-    private ArrayList<Bitmap> schedulers;
+    private ArrayList<CardImage> schedulers;
     private OnImageClickListener imageClickListener;
     private OnImageLongClickListener imageLongClickListener;
     private RecyclerView recyclerView;
@@ -38,8 +39,8 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     /* ----------interface---------- */
 
-    public void updateItem(Bitmap bitmap, int index) {
-        schedulers.set(index, bitmap);
+    public void updateItem(Bitmap bitmap, boolean isOld, int index) {
+        schedulers.set(index, new CardImage(bitmap, isOld));
         notifyItemChanged(index);
     }
 

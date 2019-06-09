@@ -139,8 +139,8 @@ public final class CardFragment extends Fragment implements
     /* ----------interface---------- */
 
     @Override
-    public void updateCard(Bitmap bitmap, int index) {
-        cardAdapter.updateItem(bitmap, index);
+    public void updateCard(Bitmap bitmap, boolean isOld, int index) {
+        cardAdapter.updateItem(bitmap, isOld, index);
     }
 
     @Override

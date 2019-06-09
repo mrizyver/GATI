@@ -12,7 +12,6 @@ import androidx.annotation.UiThread;
 
 import com.izyver.gati.BuildConfig;
 import com.izyver.gati.R;
-import com.izyver.gati.listeners.OnImageDownloaded;
 import com.izyver.gati.model.AppModel;
 import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
