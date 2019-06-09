@@ -39,10 +39,10 @@ public abstract class CardPresenter {
 
     private static String TAG = "CardPresenter";
     protected Model model;
-    protected DateManager date;
-    protected Map<Integer, CardImage> schedulers;
-    protected Thread backgroundThread;
-    protected CardView view;
+    private DateManager date;
+    private Map<Integer, CardImage> schedulers;
+    private Thread backgroundThread;
+    private CardView view;
     private Handler uiHandler;
 
     public CardPresenter() {
