@@ -8,13 +8,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.izyver.gati.model.ComparableImage;
+
 import java.io.ByteArrayOutputStream;
 
 @Entity(tableName = "images")
-public class ImageEntity {
-
-    ImageEntity() {
-    }
+public class ImageEntity implements ComparableImage {
 
     public ImageEntity(int id, String date, int type, Bitmap bitmap, String title, String dayWeek) {
         this.id = id;
@@ -57,6 +56,20 @@ public class ImageEntity {
         return bitmap;
     }
 
+    @Override
+    public String getDate() {
+        return date;
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
+    @Override
+    public String getDayOfWeek() {
+        return dayWeek;
+    }
 
     /*------------internal logic------------*/
 
@@ -70,3 +83,4 @@ public class ImageEntity {
         return buffer.toByteArray();
     }
 }
+

@@ -15,10 +15,12 @@ import com.izyver.gati.model.AppModel;
 import com.izyver.gati.model.Model;
 import com.izyver.gati.model.ScheduleProcessing;
 import com.izyver.gati.model.db.ImageEntity;
+import com.izyver.gati.model.entity.ScheduleObject;
 import com.izyver.gati.network.CardHandlerThread;
 import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.view.cardview.CardView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +36,9 @@ public abstract class CardPresenter {
     private static String TAG = "CardPresenter";
     protected Model model;
     protected CardHandlerThread cardHandle;
-    private CardView view;
     protected ArrayList<Bitmap> schedulers;
+    private CardView view;
     private Handler uiHandler;
-
 
     public CardPresenter() {
         cardHandle = new CardHandlerThread(TAG);
@@ -83,10 +84,10 @@ public abstract class CardPresenter {
     }
 
 
-    protected void resizeImages(List<Bitmap> bitmaps){
+    protected void processPreviewImage(List<Bitmap> bitmaps) {
         for (int i = 0; i < bitmaps.size(); i++) {
             if (isNull(view)) break;
-            onItemDownloaded(resizeBitmap(bitmaps.get(i), view.getContext()),i);
+            onItemDownloaded(resizeBitmap(bitmaps.get(i), view.getContext()), i);
         }
     }
 
@@ -133,12 +134,25 @@ class CardPresenterFull extends CardPresenter {
     public void downloadImage() {
         Thread thread;
         Runnable downloadImage = () -> {
+            ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
             List<ImageEntity> localImageEntities = model.getLocalImages(FULL_SCHEDULE);
-            List<ImageEntity> actualImages = new ScheduleProcessing(localImageEntities).getActualImages();
+            List<ImageEntity> actualImages = scheduleProcessing.getActualImages(localImageEntities);
             for (ImageEntity entity : localImageEntities) {
                 schedulers.add(entity.getImageBitmap());
             }
-            resizeImages(schedulers);
+            processPreviewImage(schedulers);
+
+            ScheduleObject schedule = null;
+            try {
+                schedule = model.getExistingSchedule();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            List<ScheduleObject.Schedule> day = schedule.getDay();
+
+
+
         };
 
         thread = new Thread(downloadImage);

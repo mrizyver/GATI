@@ -136,7 +136,7 @@ public class PresenterActivity {
         for (ScheduleObject.Schedule schedule : schedulers) {
 //            int index = date.getDayOfWeek(schedule);
 //            if (isImageExist(type, index)) continue;
-//            model.downloadImage(schedule, downloadListener);
+            model.downloadImage(schedule, null);
         }
     }
 

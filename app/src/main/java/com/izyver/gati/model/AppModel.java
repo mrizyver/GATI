@@ -60,7 +60,7 @@ public class AppModel implements Model {
     @Override
     public void loadImage(Schedule schedule, OnImageDownloaded downloadedListener) throws ParseException {
         ImagesDAO imagesDAO = getImagesDAO();
-        if (schedule.getDayWeek() == null || schedule.getType() == null) return;
+        if (schedule.getDayWeek() == null || schedule.getType() == 0) return;
         String imageKey = schedule.getDayWeek() + schedule.getType();
         ImageEntity entity = imagesDAO.getEntityByKey(imageKey);
         Bitmap bitmap;

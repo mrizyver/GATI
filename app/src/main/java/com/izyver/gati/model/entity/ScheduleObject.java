@@ -3,6 +3,7 @@ package com.izyver.gati.model.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.izyver.gati.model.ComparableImage;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class ScheduleObject {
     @SerializedName("day")
     @Expose
     private List<Schedule> day = null;
-   @SerializedName("zao")
+    @SerializedName("zao")
     @Expose
     private List<Schedule> zao = null;
 
@@ -31,7 +32,7 @@ public class ScheduleObject {
         this.zao = zao;
     }
 
-    public class Schedule {
+    public class Schedule implements ComparableImage {
         @SerializedName("id")
         @Expose
         private Integer id;
@@ -43,7 +44,7 @@ public class ScheduleObject {
         private String image;
         @SerializedName("type")
         @Expose
-        private Integer type;
+        private int type;
         @SerializedName("date")
         @Expose
         private String date;
@@ -75,14 +76,21 @@ public class ScheduleObject {
             this.image = image;
         }
 
-        public Integer getType() {
-            return type;
-        }
-
         public void setType(Integer type) {
             this.type = type;
         }
 
+        @Override
+        public int getType() {
+            return type;
+        }
+
+        @Override
+        public String getDayOfWeek() {
+            return dayWeek;
+        }
+
+        @Override
         public String getDate() {
             return date;
         }
