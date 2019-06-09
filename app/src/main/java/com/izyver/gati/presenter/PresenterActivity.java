@@ -1,40 +1,24 @@
 package com.izyver.gati.presenter;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.OnLifecycleEvent;
 
 import com.izyver.gati.BuildConfig;
 import com.izyver.gati.R;
-import com.izyver.gati.listeners.OnImageClickListener;
-import com.izyver.gati.listeners.OnImageDownloaded;
 import com.izyver.gati.model.AppModel;
-import com.izyver.gati.model.ApplicationData;
 import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
 import com.izyver.gati.model.entity.ScheduleObject;
 import com.izyver.gati.network.NetworkManager;
 import com.izyver.gati.network.UpdateApp;
-import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.utils.GatiPreferences;
-import com.izyver.gati.utils.StackFragment;
-import com.izyver.gati.view.FragmentImagePreview;
-import com.izyver.gati.view.cardview.CardFragment;
-import com.izyver.gati.view.cardview.RecyclerCardAdapter;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -127,8 +111,8 @@ public class PresenterActivity {
     private void loadImage(final int type) {
         Runnable downloadImage = () -> {
             try {
-                ScheduleObject localSchedule = model.getLocalSchedule();
-                loadImageFromDb(type, getScheduleList(type, localSchedule));
+//                ScheduleObject localSchedule = model.getLocalImage();
+                loadImageFromDb(type, getScheduleList(type, null));
 
                 downloadImages(type);
             } catch (IOException | ParseException e) {

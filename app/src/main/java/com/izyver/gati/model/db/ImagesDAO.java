@@ -16,6 +16,11 @@ public interface ImagesDAO {
     @Query("SELECT * FROM images WHERE `key` = :imageKey")
     ImageEntity getEntityByKey(String imageKey);
 
+    @Query("SELECT * FROM images WHERE `type` = :type")
+    List<ImageEntity> getEntitiesByType(int type);
+
+    @Query("SELECT * FROM images WHERE `key` IN (:imageKeys)")
+    List<ImageEntity> getEntityByKeys(String[] imageKeys);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void putImageEntity(ImageEntity imageEntity);

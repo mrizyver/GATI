@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.izyver.gati.listeners.OnImageDownloaded;
+import com.izyver.gati.model.db.ImageEntity;
 import com.izyver.gati.model.entity.ScheduleObject;
 import com.izyver.gati.presenter.PresenterActivity;
 import com.izyver.gati.R;
@@ -48,7 +49,7 @@ public class TestModel implements Model {
     }
 
     @Override
-    public ScheduleObject getLocalSchedule() {
+    public List<ImageEntity> getLocalImages(int type) {
         return null;
     }
 

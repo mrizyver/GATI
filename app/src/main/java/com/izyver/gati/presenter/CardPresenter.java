@@ -11,10 +11,16 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.izyver.gati.R;
+import com.izyver.gati.model.AppModel;
+import com.izyver.gati.model.Model;
+import com.izyver.gati.model.ScheduleProcessing;
+import com.izyver.gati.model.db.ImageEntity;
+import com.izyver.gati.network.CardHandlerThread;
 import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.view.cardview.CardView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 import static com.izyver.gati.presenter.PresenterActivity.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
@@ -22,13 +28,24 @@ import static com.izyver.gati.utils.Util.getScreenSize;
 
 public abstract class CardPresenter {
 
-    public static String TAG = "CardPresenter";
+    public static final int MESSAGE_DOWNLOAD_IMAGE = 89;
+    public static final int MESSAGE_RESIZE_IMAGE = 701;
+
+    private static String TAG = "CardPresenter";
+    protected Model model;
+    protected CardHandlerThread cardHandle;
     private CardView view;
-    private ArrayList<Bitmap> schedulers;
+    protected ArrayList<Bitmap> schedulers;
     private Handler uiHandler;
 
+
     public CardPresenter() {
+        cardHandle = new CardHandlerThread(TAG);
+        cardHandle.start();
+        cardHandle.getLooper();
+        schedulers = new ArrayList<>(5);
         uiHandler = new Handler();
+        this.model = new AppModel();
         downloadImage();
     }
 
@@ -57,7 +74,7 @@ public abstract class CardPresenter {
     }
 
     public void shareFailure() {
-        if (nonNull(view))return;
+        if (isNull(view)) return;
         Toast.makeText(view.getContext(), R.string.share_is_failure, Toast.LENGTH_LONG).show();
     }
 
@@ -66,7 +83,12 @@ public abstract class CardPresenter {
     }
 
 
-
+    protected void resizeImages(List<Bitmap> bitmaps){
+        for (int i = 0; i < bitmaps.size(); i++) {
+            if (isNull(view)) break;
+            onItemDownloaded(resizeBitmap(bitmaps.get(i), view.getContext()),i);
+        }
+    }
 
     protected Bitmap resizeBitmap(Bitmap bitmap, Context context) {
         final int viewWidth = getScreenSize(context).x;
@@ -78,13 +100,14 @@ public abstract class CardPresenter {
     }
 
     protected void onItemDownloaded(Bitmap smallBitmap, int index) {
+        if (view == null) return;
         uiHandler.post(() -> view.updateCard(smallBitmap, index));
     }
 
     /* ----------internal logic---------- */
 
     private void shareImage(Bitmap bitmap, CardView view) {
-        if (nonNull(view)) return;
+        if (isNull(view)) return;
         Context context = view.getContext();
 
         if (GatiPermissions.checkWritePermissions(context)) {
@@ -99,7 +122,7 @@ public abstract class CardPresenter {
         }
     }
 
-    private boolean nonNull(CardView view) {
+    private boolean isNull(CardView view) {
         return view == null || view.getContext() == null;
     }
 }
@@ -108,7 +131,18 @@ class CardPresenterFull extends CardPresenter {
 
     @Override
     public void downloadImage() {
+        Thread thread;
+        Runnable downloadImage = () -> {
+            List<ImageEntity> localImageEntities = model.getLocalImages(FULL_SCHEDULE);
+            List<ImageEntity> actualImages = new ScheduleProcessing(localImageEntities).getActualImages();
+            for (ImageEntity entity : localImageEntities) {
+                schedulers.add(entity.getImageBitmap());
+            }
+            resizeImages(schedulers);
+        };
 
+        thread = new Thread(downloadImage);
+        thread.start();
     }
 }
 

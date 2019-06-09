@@ -51,12 +51,15 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         presenter = new PresenterActivity();
         stackFragment = new StackFragment(getSupportFragmentManager(), R.id.fragment_container);
 
+        int type = GatiPreferences.getTypeSchedule(this);
+        stackFragment.addFragment(CardFragment.newInstance(type));
+
         presenter.attachActivity(this);
         tvForm = findViewById(R.id.tv_word_form);
         tvTypeForm = findViewById(R.id.tv_form_study);
 
         initNavigationView();
-        initSwitchButton();
+        initSwitchButton(type);
     }
 
     @Override
@@ -132,10 +135,9 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         navigationView.setCheckedItem(R.id.monday_button);
     }
 
-    private void initSwitchButton() {
+    private void initSwitchButton(int type) {
         ImageView switchScheduleButton = findViewById(R.id.switch_schedule_button);
 
-        int type = GatiPreferences.getTypeSchedule(this);
         if (type == FULL_SCHEDULE) {
             tvTypeForm.setText(R.string.daytime);
         } else {

@@ -2,23 +2,21 @@ package com.izyver.gati.model;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
+
 import com.izyver.gati.BuildConfig;
 import com.izyver.gati.listeners.OnImageDownloaded;
 import com.izyver.gati.model.entity.ScheduleObject;
 import com.izyver.gati.model.entity.ScheduleObject.Schedule;
 import com.izyver.gati.model.db.ImageEntity;
 import com.izyver.gati.model.db.ImagesDAO;
-import com.izyver.gati.presenter.PresenterActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.izyver.gati.model.ApplicationData.BASE_URL;
-import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
-import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.PREFIX;
 
 public class AppModel implements Model {
@@ -30,31 +28,33 @@ public class AppModel implements Model {
         return ApplicationData.gatiApi.getSchedulers().execute().body();
     }
 
+    @NonNull
     @Override
-    public ScheduleObject getLocalSchedule(){
-        ImagesDAO imagesDAO = getImagesDAO();
-        List<ImageEntity> localImage = imagesDAO.getAll();
-        List<Schedule> localDays = new ArrayList<>();
-        List<Schedule> localZaos = new ArrayList<>();
-        ScheduleObject sObject = new ScheduleObject();
-        for (ImageEntity imageEntity : localImage) {
-            Schedule schedule = sObject.new Schedule();
-            schedule.setId(imageEntity.id);
-            schedule.setDate(imageEntity.date);
-            schedule.setType(imageEntity.type);
-            schedule.setTitle(imageEntity.title);
-            schedule.setDayWeek(imageEntity.dayWeek);
-
-            if (imageEntity.type == FULL_SCHEDULE)
-                localDays.add(schedule);
-            else if(imageEntity.type == CORRESPONDENCE_SCHEDULE)
-                localZaos.add(schedule);
-        }
-
-        ScheduleObject scheduleObject = new ScheduleObject();
-        scheduleObject.setDay(localDays);
-        scheduleObject.setZao(localDays);
-        return scheduleObject;
+    public List<ImageEntity> getLocalImages(int type){
+        return getImagesDAO().getEntitiesByType(type);
+//        ImagesDAO imagesDAO = getImagesDAO();
+//        List<ImageEntity> localImage = imagesDAO.getAll();
+//        List<Schedule> localDays = new ArrayList<>();
+//        List<Schedule> localZaos = new ArrayList<>();
+//        ScheduleObject sObject = new ScheduleObject();
+//        for (ImageEntity imageEntity : localImage) {
+//            Schedule schedule = sObject.new Schedule();
+//            schedule.setId(imageEntity.id);
+//            schedule.setDate(imageEntity.date);
+//            schedule.setType(imageEntity.type);
+//            schedule.setTitle(imageEntity.title);
+//            schedule.setDayWeek(imageEntity.dayWeek);
+//
+//            if (imageEntity.type == FULL_SCHEDULE)
+//                localDays.add(schedule);
+//            else if(imageEntity.type == CORRESPONDENCE_SCHEDULE)
+//                localZaos.add(schedule);
+//        }
+//
+//        ScheduleObject scheduleObject = new ScheduleObject();
+//        scheduleObject.setDay(localDays);
+//        scheduleObject.setZao(localDays);
+//        return scheduleObject;
     }
 
     @Override
@@ -74,6 +74,15 @@ public class AppModel implements Model {
             return;
         }
         downloadedListener.itemDownloaded(bitmap, schedule);
+    }
+
+    public  List<ImageEntity> loadImage(List<Schedule> schedules) {
+        String[] keys = new String[schedules.size()];
+        for (int i = 0; i < schedules.size(); i++) {
+            Schedule schedule = schedules.get(i);
+            keys[i] = schedule.getDayWeek() + schedule.getType();
+        }
+        return getImagesDAO().getEntityByKeys(keys);
     }
 
     @Override

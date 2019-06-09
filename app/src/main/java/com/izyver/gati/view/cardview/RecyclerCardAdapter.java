@@ -12,6 +12,8 @@ import com.izyver.gati.R;
 import com.izyver.gati.listeners.OnImageLongClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +32,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     public RecyclerCardAdapter(@NonNull Context context) {
         this.context = context;
-        schedulers = new ArrayList<>(6);
+        schedulers = new ArrayList<>(Arrays.asList(null,null,null,null,null));
     }
 
 
@@ -75,7 +77,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     @Override
     public int getItemCount() {
-        return schedulers == null ? 0 : schedulers.size();
+        return schedulers == null ? 0 : schedulers.size() == 0 ? 5 : schedulers.size();
     }
 
     @Override
