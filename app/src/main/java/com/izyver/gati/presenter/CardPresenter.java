@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.izyver.gati.R;
 import com.izyver.gati.model.AppModel;
+import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
 import com.izyver.gati.model.ScheduleProcessing;
 import com.izyver.gati.model.db.ImageEntity;
@@ -21,6 +22,7 @@ import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.view.cardview.CardView;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +37,10 @@ public abstract class CardPresenter {
 
     private static String TAG = "CardPresenter";
     protected Model model;
+    protected DateManager date;
     protected CardHandlerThread cardHandle;
     protected ArrayList<Bitmap> schedulers;
-    private CardView view;
+    protected CardView view;
     private Handler uiHandler;
 
     public CardPresenter() {
@@ -45,6 +48,7 @@ public abstract class CardPresenter {
         cardHandle.start();
         cardHandle.getLooper();
         schedulers = new ArrayList<>(5);
+        date = new DateManager();
         uiHandler = new Handler();
         this.model = new AppModel();
         downloadImage();
@@ -145,14 +149,22 @@ class CardPresenterFull extends CardPresenter {
             ScheduleObject schedule = null;
             try {
                 schedule = model.getExistingSchedule();
+
+                List<ScheduleObject.Schedule> scheduleDay = schedule.getDay();
+                scheduleDay = scheduleProcessing.getActualImages(scheduleDay);
+
+                for (ScheduleObject.Schedule day : scheduleDay) {
+                    int index = date.getDayOfWeek(day);
+                    model.downloadImage(day, (image, schedule1) -> {
+                        onItemDownloaded(resizeBitmap(image, view.getContext()), index);
+                        schedulers.add(image);
+                    });
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-
-            List<ScheduleObject.Schedule> day = schedule.getDay();
-
-
-
         };
 
         thread = new Thread(downloadImage);

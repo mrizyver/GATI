@@ -12,6 +12,7 @@ import androidx.annotation.UiThread;
 
 import com.izyver.gati.BuildConfig;
 import com.izyver.gati.R;
+import com.izyver.gati.listeners.OnImageDownloaded;
 import com.izyver.gati.model.AppModel;
 import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
@@ -231,4 +232,20 @@ public class PresenterActivity {
         }
         return bitmaps;
     }
+//    private OnImageDownloaded downloadListener = (image, schedule) -> {
+//        int index = date.getDayOfWeek(schedule);
+//        boolean isOld = !date.isScheduleAtThisWeek(schedule);
+//        if (schedule.getType() == Presenter.FULL_SCHEDULE) {
+//            fullTimeSchedule.set(index, image);
+//        } else if (schedule.getType() == Presenter.CORRESPONDENCE_SCHEDULE) {
+//            correspondenceSchedule.set(index, image);
+//        }
+//        handlerUI.post(() -> {
+//            if (recyclerAdapter == null) return;
+//            recyclerAdapter.updateItem(index);
+//            if (index == currentDay) {
+//                recyclerAdapter.toPosition(currentDay);
+//            }
+//        });
+//    };
 }

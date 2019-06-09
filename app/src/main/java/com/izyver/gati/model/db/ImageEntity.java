@@ -15,6 +15,9 @@ import java.io.ByteArrayOutputStream;
 @Entity(tableName = "images")
 public class ImageEntity implements ComparableImage {
 
+    public ImageEntity() {
+    }
+
     public ImageEntity(int id, String date, int type, Bitmap bitmap, String title, String dayWeek) {
         this.id = id;
         this.date = date;
