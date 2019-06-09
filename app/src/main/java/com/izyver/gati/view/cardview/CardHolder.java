@@ -39,6 +39,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
         TextView tittle = findTitle();
         tittle.setText(getTitleId(getAdapterPosition()));
         if (cardImage != null && cardImage.image != null) {
+            itemView.setAlpha(1);
             setVisibleOldMarker(cardImage.isOld);
             setImage(cardImage.image, context, click, longClick);
             setVisibilityNotFountTextView(View.GONE);

@@ -1,6 +1,5 @@
 package com.izyver.gati.presenter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,18 +23,16 @@ import com.izyver.gati.view.cardview.CardView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 import static com.izyver.gati.presenter.PresenterActivity.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
 import static com.izyver.gati.utils.Util.getScreenSize;
 
 public abstract class CardPresenter {
-
-    public static final int COLOR_CODE_OLD_IMAGE = 0xFFFFFE;
-    public static final int COLOR_CODE_NEW_IMAGE = 0xFFFFFF;
 
     public static final int MESSAGE_DOWNLOAD_IMAGE = 89;
     public static final int MESSAGE_RESIZE_IMAGE = 701;
@@ -44,16 +41,17 @@ public abstract class CardPresenter {
     protected Model model;
     protected DateManager date;
     protected Map<Integer, CardImage> schedulers;
+    protected Thread backgroundThread;
     protected CardView view;
     private Handler uiHandler;
 
-    @SuppressLint("UseSparseArrays")
     public CardPresenter() {
-        schedulers = new HashMap<>(5);
+        schedulers = new ConcurrentHashMap<>(5);
         date = new DateManager();
         uiHandler = new Handler();
         this.model = new AppModel();
-        downloadImage();
+
+        startBackgroundThread();
     }
 
     public static String getKey(int type) {
@@ -64,7 +62,9 @@ public abstract class CardPresenter {
         return scheduleType == FULL_SCHEDULE ? new CardPresenterFull() : new CardPresenterCorrespondence();
     }
 
-    public abstract void downloadImage();
+    public abstract void downloadImage() throws IOException, ParseException;
+
+    public abstract void loadImage();
 
     public void shareImage(int index) {
         if (schedulers != null && view != null) {
@@ -74,6 +74,7 @@ public abstract class CardPresenter {
 
     public void attachView(CardView cardView) {
         view = cardView;
+        new Thread(this::loadImage).start();
     }
 
     public void detachView() {
@@ -106,14 +107,57 @@ public abstract class CardPresenter {
         return Bitmap.createScaledBitmap(bitmap, viewWidth, newImageHeight, false);
     }
 
-    protected void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
+    protected synchronized void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
         uiHandler.post(() -> {
             if (view == null) return;
             view.updateCard(smallBitmap, isOld, index);
         });
     }
 
+    protected void downloadSchedule(List<ScheduleObject.Schedule> scheduleDay) throws IOException, ParseException {
+        ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
+        Map<Integer, ScheduleObject.Schedule> actualNetwork = scheduleProcessing.getActualImages(scheduleDay);
+
+        for (Integer key : actualNetwork.keySet()) {
+            model.downloadImage(actualNetwork.get(key), (image, downloadedSchedule) -> {
+                boolean isOld = !date.isScheduleAtThisWeek(downloadedSchedule);
+                Bitmap previewImage = resizeBitmap(image, view.getContext());
+                onItemDownloaded(previewImage, isOld, key);
+                schedulers.put(key, new CardImage(image, isOld));
+            });
+        }
+    }
+
+
+    // TODO: 2019-06-09 Images need to be loaded from RAM, not from db
+    protected void loadLocalSchedule(int type) {
+        ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
+        List<ImageEntity> localImageEntities = model.getLocalImages(type);
+        Map<Integer, ImageEntity> actualLocal = scheduleProcessing.getActualImages(localImageEntities);
+        for (Integer key : actualLocal.keySet()) {
+            ImageEntity imageEntity = actualLocal.get(key);
+            boolean isOld = date.isScheduleAtThisWeek(imageEntity);
+            schedulers.put(key, new CardImage(imageEntity.getImageBitmap(), isOld));
+        }
+        processPreviewImage(schedulers);
+    }
+
+
     /* ----------internal logic---------- */
+
+    private void startBackgroundThread() {
+        Runnable downloadImage = () -> {
+            loadLocalSchedule(FULL_SCHEDULE);
+            try {
+                downloadImage();
+            } catch (ParseException | IOException e) {
+                e.printStackTrace();
+            }
+        };
+        backgroundThread = new Thread(downloadImage, "full_presenter_thread");
+        backgroundThread.start();
+
+    }
 
     private void shareImage(Bitmap bitmap, CardView view) {
         if (isNull(view)) return;
@@ -139,51 +183,28 @@ public abstract class CardPresenter {
 class CardPresenterFull extends CardPresenter {
 
     @Override
-    public void downloadImage() {
-        Thread thread;
-        Runnable downloadImage = () -> {
-            ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
-            List<ImageEntity> localImageEntities = model.getLocalImages(FULL_SCHEDULE);
-            Map<Integer, ImageEntity> actualLocal = scheduleProcessing.getActualImages(localImageEntities);
-            for (Integer key : actualLocal.keySet()) {
-                ImageEntity imageEntity = actualLocal.get(key);
-                boolean isOld = date.isScheduleAtThisWeek(imageEntity);
-                schedulers.put(key, new CardImage(imageEntity.getImageBitmap(), isOld));
-            }
-            processPreviewImage(schedulers);
+    public void downloadImage() throws IOException, ParseException {
+        ScheduleObject schedule = model.getExistingSchedule();
+        downloadSchedule(schedule.getDay());
+    }
 
-            ScheduleObject schedule = null;
-            try {
-                schedule = model.getExistingSchedule();
-
-                List<ScheduleObject.Schedule> scheduleDay = schedule.getDay();
-                Map<Integer, ScheduleObject.Schedule> actualNetwork = scheduleProcessing.getActualImages(scheduleDay);
-
-                for (Integer key : actualNetwork.keySet()) {
-                    model.downloadImage(actualNetwork.get(key), (image, downloadedSchedule) -> {
-                        boolean isOld = !date.isScheduleAtThisWeek(downloadedSchedule);
-                        Bitmap previewImage = resizeBitmap(image, view.getContext());
-                        onItemDownloaded(previewImage, isOld, key);
-                        schedulers.put(key, new CardImage(image, isOld));
-                    });
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        };
-
-        thread = new Thread(downloadImage);
-        thread.start();
+    @Override
+    public void loadImage() {
+        loadLocalSchedule(FULL_SCHEDULE);
     }
 }
 
 class CardPresenterCorrespondence extends CardPresenter {
 
     @Override
-    public void downloadImage() {
+    public void downloadImage() throws IOException, ParseException {
+        ScheduleObject schedule = model.getExistingSchedule();
+        downloadSchedule(schedule.getZao());
+    }
 
+    @Override
+    public void loadImage() {
+        loadLocalSchedule(CORRESPONDENCE_SCHEDULE);
     }
 }
 

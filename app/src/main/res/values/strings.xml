@@ -16,7 +16,7 @@
     <!--Days-->
     <string name="mon">Понеділок</string>
     <string name="tue">Вівторок</string>
-    <string name="wed">Среда</string>
+    <string name="wed">Середа</string>
     <string name="thu">Четвер</string>
     <string name="fri">П\'ятниця</string>
     <string name="sat">Субота</string>
@@ -35,7 +35,7 @@
     <string name="friday">П`ятниця</string>
     <string name="saturday">Субота</string>
     <string name="communicate">Ми в інтернеті</string>
-    <string name="our_site">Сай інституту</string>
+    <string name="our_site">Сайт інституту</string>
     <string name="youtube">YouTube</string>
     <string name="instagram">Instagram</string>
     <string name="facebook">Facebook</string>
