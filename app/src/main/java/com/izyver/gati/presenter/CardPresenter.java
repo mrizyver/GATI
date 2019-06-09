@@ -120,6 +120,7 @@ public abstract class CardPresenter {
 
         for (Integer key : actualNetwork.keySet()) {
             model.downloadImage(actualNetwork.get(key), (image, downloadedSchedule) -> {
+                if (isNull(view)) return;
                 boolean isOld = !date.isScheduleAtThisWeek(downloadedSchedule);
                 Bitmap previewImage = resizeBitmap(image, view.getContext());
                 onItemDownloaded(previewImage, isOld, key);

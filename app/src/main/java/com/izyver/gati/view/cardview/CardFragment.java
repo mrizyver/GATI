@@ -23,6 +23,7 @@ import com.izyver.gati.view.FragmentImagePreview;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -153,7 +154,7 @@ public final class CardFragment extends Fragment implements
     public void onImageClicked(int index) {
         FragmentImagePreview fragmentImage = FragmentImagePreview.newInstance();
         fragmentImage.setBitmap(presenter.getSchedule(index));
-        //      stackFragment.addToStackFragment(fragmentImage);
+        ((FragmentActivity) getActivity()).getStackFragment().addToStackFragment(fragmentImage);
     }
 
     /* ----------internal logic---------- */

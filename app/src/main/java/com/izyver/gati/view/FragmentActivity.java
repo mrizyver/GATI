@@ -95,6 +95,10 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         return false;
     }
 
+    public StackFragment getStackFragment() {
+        return stackFragment;
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
