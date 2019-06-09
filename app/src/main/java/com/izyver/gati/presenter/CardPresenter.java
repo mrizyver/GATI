@@ -43,6 +43,7 @@ public abstract class CardPresenter {
     private DateManager date;
     private Map<Integer, CardImage> schedulers;
     private Thread backgroundThread;
+    private Thread loadThread;
     private CardView view;
     private Handler uiHandler;
     public int currentDay = 0;
@@ -55,9 +56,7 @@ public abstract class CardPresenter {
         this.model = new AppModel();
 
         calculateCurrentPosition();
-        if (isInternetAvailable()){
-            startBackgroundThread();
-        }
+        startBackgroundThread();
     }
 
     public static String getKey(int type) {
@@ -79,11 +78,18 @@ public abstract class CardPresenter {
 
     public void attachView(CardView cardView) {
         view = cardView;
-        new Thread(this::loadImage).start();
+
+        stopThread(loadThread);
+        loadThread = new Thread(this::loadImage);
+        loadThread.start();
+
+        isInternetAvailable();
     }
 
     public void detachView() {
         view = null;
+        stopThread(loadThread);
+        loadThread = null;
     }
 
     public void shareFailure() {
@@ -118,6 +124,7 @@ public abstract class CardPresenter {
         List<ImageEntity> localImageEntities = model.getLocalImages(type);
         Map<Integer, ImageEntity> actualLocal = scheduleProcessing.getActualImages(localImageEntities);
         for (Integer key : actualLocal.keySet()) {
+            if (Thread.interrupted()) return;
             ImageEntity imageEntity = actualLocal.get(key);
             boolean isOld = date.isScheduleAtThisWeek(imageEntity);
             schedulers.put(key, new CardImage(imageEntity.getImageBitmap(), isOld));
@@ -128,6 +135,12 @@ public abstract class CardPresenter {
 
     /* ----------internal logic---------- */
 
+
+    private void stopThread(Thread thread){
+        if (thread!=null){
+            thread.interrupt();
+        }
+    }
 
     private boolean isInternetAvailable() {
         if (isNull(view)) return false;
