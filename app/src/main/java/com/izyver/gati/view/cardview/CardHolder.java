@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.izyver.gati.listeners.OnImageLongClickListener;
 import com.izyver.gati.model.entity.CardImage;
-import com.izyver.gati.presenter.CardPresenter;
+import com.izyver.gati.utils.Util;
 import com.izyver.gati.view.FragmentActivity;
 import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.R;
@@ -39,7 +39,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
     public final void bind(final CardImage cardImage, Context context, OnImageClickListener click, OnImageLongClickListener longClick) {
         TextView tittle = findTitle();
-        tittle.setText(getTitleId(getAdapterPosition()));
+        tittle.setText(Util.getTitleId(getAdapterPosition()));
         if (cardImage != null && cardImage.image != null) {
             itemView.setAlpha(1);
             setVisibleOldMarker(cardImage.isOld);
@@ -122,24 +122,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
         System.gc();
     }
 
-    private int getTitleId(int pos) {
-        switch (pos) {
-            case 0:
-                return R.string.mon;
-            case 1:
-                return R.string.tue;
-            case 2:
-                return R.string.wed;
-            case 3:
-                return R.string.thu;
-            case 4:
-                return R.string.fri;
-            case 5:
-                return R.string.sat;
-            default:
-                return 0;
-        }
-    }
+
 
     private void setVisibilityNotFountTextView(int visible) {
         itemView.findViewById(R.id.tv_image_not_exist_found).setVisibility(visible);

@@ -14,11 +14,15 @@ import com.izyver.gati.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
 public class FragmentImagePreview extends Fragment {
-
+    private static final String ARG_INDEX_IMAGE = "image_index";
     private Bitmap bitmap;
 
-    public static FragmentImagePreview newInstance() {
-        return new FragmentImagePreview();
+    public static FragmentImagePreview newInstance(int index) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_INDEX_IMAGE, index);
+        FragmentImagePreview fragmentImagePreview = new FragmentImagePreview();
+        fragmentImagePreview.setArguments(args);
+        return fragmentImagePreview;
     }
 
     public void setBitmap(Bitmap bitmap) {
