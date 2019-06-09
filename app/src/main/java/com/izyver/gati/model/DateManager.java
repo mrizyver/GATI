@@ -27,10 +27,10 @@ import java.util.Date;
         this.date = date;
     }
 
-    public int getDayOfWeek(ScheduleObject.Schedule schedule) {
+    public int getDayOfWeek(ComparableImage comparableImage) {
 
         try {
-            Calendar calendar = getDateOf(schedule);
+            Calendar calendar = getDateOf(comparableImage);
             int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
             return day;
         } catch (ParseException e) {
@@ -40,9 +40,9 @@ import java.util.Date;
 
     }
 
-    public boolean isCurrentDate(ScheduleObject.Schedule schedule) {
+    public boolean isCurrentDate(ComparableImage comparableImage) {
         try {
-            Calendar calendar = getDateOf(schedule);
+            Calendar calendar = getDateOf(comparableImage);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             return day == getCurrentDay();
@@ -66,9 +66,9 @@ import java.util.Date;
         return calendar.get(Calendar.DAY_OF_WEEK) - 2;
     }
 
-    public boolean isScheduleAtThisWeek(ScheduleObject.Schedule schedule){
+    public boolean isScheduleAtThisWeek(ComparableImage comparableImage){
         try {
-            Calendar oldCalendar = getDateOf(schedule);
+            Calendar oldCalendar = getDateOf(comparableImage);
 
             Calendar newCalendar = Calendar.getInstance();
             newCalendar.setTime(date);
@@ -86,11 +86,24 @@ import java.util.Date;
         }
     }
 
+    public Integer compare(ComparableImage first, ComparableImage second){
+        Calendar firstDate;
+        Calendar secondDate;
+        try {
+            firstDate = getDateOf(first);
+            secondDate = getDateOf(second);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return firstDate.compareTo(secondDate);
+    }
+
 
     //-----------------internal logic----------------//
 
-    private Calendar getDateOf(ScheduleObject.Schedule schedule) throws ParseException {
-        Date date = simpleDateFormat.parse(schedule.getDate());
+    private Calendar getDateOf(ComparableImage comparableImage) throws ParseException {
+        Date date = simpleDateFormat.parse(comparableImage.getDate());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;

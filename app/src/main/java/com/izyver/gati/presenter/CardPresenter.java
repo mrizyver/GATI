@@ -1,5 +1,6 @@
 package com.izyver.gati.presenter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,8 +24,9 @@ import com.izyver.gati.view.cardview.CardView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 import static com.izyver.gati.presenter.PresenterActivity.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
@@ -39,15 +41,16 @@ public abstract class CardPresenter {
     protected Model model;
     protected DateManager date;
     protected CardHandlerThread cardHandle;
-    protected ArrayList<Bitmap> schedulers;
+    protected Map<Integer, Bitmap> schedulers;
     protected CardView view;
     private Handler uiHandler;
 
+    @SuppressLint("UseSparseArrays")
     public CardPresenter() {
         cardHandle = new CardHandlerThread(TAG);
         cardHandle.start();
         cardHandle.getLooper();
-        schedulers = new ArrayList<>(5);
+        schedulers = new HashMap<>(5);
         date = new DateManager();
         uiHandler = new Handler();
         this.model = new AppModel();
@@ -88,8 +91,8 @@ public abstract class CardPresenter {
     }
 
 
-    protected void processPreviewImage(List<Bitmap> bitmaps) {
-        for (int i = 0; i < bitmaps.size(); i++) {
+    protected void processPreviewImage(Map<Integer, Bitmap> bitmaps) {
+        for (Integer i : bitmaps.keySet()) {
             if (isNull(view)) break;
             onItemDownloaded(resizeBitmap(bitmaps.get(i), view.getContext()), i);
         }
@@ -140,9 +143,9 @@ class CardPresenterFull extends CardPresenter {
         Runnable downloadImage = () -> {
             ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
             List<ImageEntity> localImageEntities = model.getLocalImages(FULL_SCHEDULE);
-            List<ImageEntity> actualImages = scheduleProcessing.getActualImages(localImageEntities);
-            for (ImageEntity entity : localImageEntities) {
-                schedulers.add(entity.getImageBitmap());
+            Map<Integer, ImageEntity> actualLocal = scheduleProcessing.getActualImages(localImageEntities);
+            for (Integer key : actualLocal.keySet()) {
+                schedulers.put(key, actualLocal.get(key).getImageBitmap());
             }
             processPreviewImage(schedulers);
 
@@ -151,13 +154,12 @@ class CardPresenterFull extends CardPresenter {
                 schedule = model.getExistingSchedule();
 
                 List<ScheduleObject.Schedule> scheduleDay = schedule.getDay();
-                scheduleDay = scheduleProcessing.getActualImages(scheduleDay);
+                Map<Integer, ScheduleObject.Schedule> actualNetwork = scheduleProcessing.getActualImages(scheduleDay);
 
-                for (ScheduleObject.Schedule day : scheduleDay) {
-                    int index = date.getDayOfWeek(day);
-                    model.downloadImage(day, (image, schedule1) -> {
-                        onItemDownloaded(resizeBitmap(image, view.getContext()), index);
-                        schedulers.add(image);
+                for (Integer key : actualNetwork.keySet()) {
+                    model.downloadImage(actualNetwork.get(key), (image, schedule1) -> {
+                        onItemDownloaded(resizeBitmap(image, view.getContext()), key);
+                        schedulers.put(key, image);
                     });
                 }
             } catch (IOException e) {
