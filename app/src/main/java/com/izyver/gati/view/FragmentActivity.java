@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,16 +45,17 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     private int ANIMATION_TIME = 250;
 
     public void hideToolbar() {
-        toolbar.setVisibility(View.GONE);
+        AlphaAnimation fade = createFade(1, 0, () -> toolbar.setVisibility(View.GONE));
+        toolbar.setAnimation(fade);
     }
 
     public void showToolbar() {
-        toolbar.setVisibility(View.VISIBLE);
+        AlphaAnimation fade = createFade(0, 1, () -> toolbar.setVisibility(View.VISIBLE));
+        toolbar.setAnimation(fade);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
 
@@ -204,5 +207,27 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
 
         startActivity(Intent.createChooser(intent, getString(R.string.send_email)));
+    }
+
+    private AlphaAnimation createFade(float from, float to, Runnable endAction) {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(from, to);
+        alphaAnimation.setDuration(500);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                endAction.run();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        return alphaAnimation;
     }
 }

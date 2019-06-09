@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import com.izyver.gati.listeners.OnImageLongClickListener;
 import com.izyver.gati.model.ApplicationData;
 import com.izyver.gati.presenter.CardPresenter;
 import com.izyver.gati.presenter.PresenterActivity;
+import com.izyver.gati.transitions.DetailScheduleTransition;
 import com.izyver.gati.view.FragmentActivity;
 import com.izyver.gati.view.FragmentImagePreview;
 
@@ -51,10 +53,6 @@ public final class CardFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentActivity activity = (FragmentActivity) getActivity();
-        if (activity != null) {
-            activity.showToolbar();
-        }
 
         if (getArguments() != null) {
             scheduleType = getArguments().getInt(KEY_TYPE_OF_SCHEDULE, scheduleType);
@@ -73,6 +71,7 @@ public final class CardFragment extends Fragment implements
         cardAdapter.setImageClickListener(this);
         cardAdapter.setImageLongClickListener(this);
         RecyclerView recyclerCardList = view.findViewById(R.id.recycler_card);
+        recyclerCardList.setAnimationCacheEnabled(false);
         recyclerCardList.setLayoutManager(new LinearLayoutManager(context));
         recyclerCardList.setAdapter(cardAdapter);
 
@@ -84,6 +83,11 @@ public final class CardFragment extends Fragment implements
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
+        FragmentActivity activity = (FragmentActivity) getActivity();
+        if (activity != null) {
+            activity.showToolbar();
+        }
+
         if (savedInstanceState != null) {
             scheduleType = savedInstanceState.getInt(KEY_TYPE_OF_SCHEDULE, scheduleType);
         }
@@ -151,12 +155,22 @@ public final class CardFragment extends Fragment implements
     }
 
     @Override
-    public void onImageClicked(int index) {
-        FragmentImagePreview fragmentImage = FragmentImagePreview.newInstance(index);
-        fragmentImage.setBitmap(presenter.getSchedule(index));
+    public void onImageClicked(int index, View view) {
+        FragmentImagePreview imagePreview = FragmentImagePreview.newInstance(index);
+        imagePreview.setBitmap(presenter.getSchedule(index));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            imagePreview.setEnterTransition(new Fade());
+            setExitTransition(new Fade());
+        }
+
         FragmentActivity activity = (FragmentActivity) getActivity();
         if (activity == null) return;
-        activity.getStackFragment().addToStackFragment(fragmentImage);
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, imagePreview)
+                .addToBackStack(null)
+                .commit();
         activity.hideToolbar();
     }
 

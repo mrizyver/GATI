@@ -106,7 +106,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
                         long currentTime = System.currentTimeMillis();
                         long diffTime = currentTime - firstTouchedTime;
                         if (diffTime < TIME_LONG_CLICK / 3) {
-                            imageClickListener.onImageClicked(getAdapterPosition());
+                            imageClickListener.onImageClicked(getAdapterPosition(), v);
                         }else if (diffTime < TIME_LONG_CLICK){
                             longClick.onViewLongClick(imageView, getLayoutPosition(), x, y);
                             return true;

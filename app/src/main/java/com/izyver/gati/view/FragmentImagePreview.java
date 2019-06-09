@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.izyver.gati.R;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.izyver.gati.utils.Util;
 
 public class FragmentImagePreview extends Fragment {
     private static final String ARG_INDEX_IMAGE = "image_index";
@@ -35,6 +38,17 @@ public class FragmentImagePreview extends Fragment {
         View view = inflater.inflate(R.layout.image_preview_fragment, container, false);
         PhotoView photoView = view.findViewById(R.id.scaled_photo_view);
         photoView.setImageBitmap(bitmap);
+
+        getActivity().setTheme(R.style.AppThemeBlack);
+        TextView dayOfWeekTitle = view.findViewById(R.id.tv_day_of_week);
+        int title = R.string.empty_string;
+        if (getArguments() != null){
+            title = Util.getTitleId(getArguments().getInt(ARG_INDEX_IMAGE));
+        }
+        dayOfWeekTitle.setText(title);
+
+        View back = view.findViewById(R.id.arrow_back);
+        back.setOnClickListener(v -> getActivity().onBackPressed());
         return view;
     }
 }
