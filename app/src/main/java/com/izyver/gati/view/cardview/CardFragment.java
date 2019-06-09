@@ -92,9 +92,14 @@ public final class CardFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(KEY_TYPE_OF_SCHEDULE, scheduleType);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         presenter.detachView();
         ApplicationData.cache.put(CardPresenter.getKey(scheduleType), presenter);
-
     }
 
     @Override

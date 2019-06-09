@@ -107,8 +107,10 @@ public abstract class CardPresenter {
     }
 
     protected void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
-        if (view == null) return;
-        uiHandler.post(() -> view.updateCard(smallBitmap, isOld, index));
+        uiHandler.post(() -> {
+            if (view == null) return;
+            view.updateCard(smallBitmap, isOld, index);
+        });
     }
 
     /* ----------internal logic---------- */

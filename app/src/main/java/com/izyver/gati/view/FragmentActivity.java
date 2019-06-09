@@ -135,7 +135,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         navigationView.setCheckedItem(R.id.monday_button);
     }
 
-    private void initSwitchButton(int type) {
+    private void initSwitchButton(final int type) {
         ImageView switchScheduleButton = findViewById(R.id.switch_schedule_button);
 
         if (type == FULL_SCHEDULE) {
@@ -145,8 +145,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         }
 
         switchScheduleButton.setOnClickListener(new View.OnClickListener() {
-            int previewType = -1;
-
+            int previewType = type;
             @Override
             public void onClick(View v) {
                 RotateAnimation rotateAnimation = new RotateAnimation(0, 180, v.getWidth() / 2f, v.getHeight() / 2f);
