@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
-import com.izyver.gati.presenter.PresenterActivity;
-
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 
 public class GatiPreferences {

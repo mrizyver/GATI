@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -22,8 +23,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.izyver.gati.BuildConfig;
 import com.izyver.gati.R;
-import com.izyver.gati.presenter.PresenterActivity;
+import com.izyver.gati.network.UpdateApp;
 import com.izyver.gati.utils.GatiPreferences;
 import com.izyver.gati.utils.StackFragment;
 import com.izyver.gati.view.cardview.CardFragment;
@@ -32,8 +34,6 @@ import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
 
 public class FragmentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private PresenterActivity presenter;
 
     private Toolbar toolbar;
     private TextView tvForm;
@@ -58,13 +58,11 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
 
-        presenter = new PresenterActivity();
         stackFragment = new StackFragment(getSupportFragmentManager(), R.id.fragment_container);
 
         int type = GatiPreferences.getTypeSchedule(this);
         stackFragment.addFragment(CardFragment.newInstance(type));
 
-        presenter.attachActivity(this);
         tvForm = findViewById(R.id.tv_word_form);
         tvTypeForm = findViewById(R.id.tv_form_study);
         toolbar = findViewById(R.id.toolbar);
@@ -99,11 +97,15 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.site_button) {
             startActivity("com.android.chrome/com.android.chrome.Main", "http://gatisnau.sumy.ua/");
         } else if (id == R.id.update_app) {
-            presenter.updateApp();
+            updateApp();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private void updateApp() {
+        new UpdateApp(this, new Handler()).startUpdate(BuildConfig.URL_VERSION_CONTROLL, BuildConfig.URL_UPDATE);
     }
 
     public StackFragment getStackFragment() {
@@ -123,7 +125,6 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destroy();
     }
 
     /* ----------internal logic---------- */
@@ -144,7 +145,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.getHeaderView(0).findViewById(R.id.header_text).setOnClickListener(v -> sendEmail(((TextView) v).getText().toString()));
+        navigationView.getHeaderView(0).findViewById(R.id.header_text).setOnClickListener(v -> sendEmail(getString(R.string.email_info_center)));
         navigationView.bringToFront();
         navigationView.setCheckedItem(R.id.monday_button);
     }

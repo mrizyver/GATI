@@ -18,6 +18,7 @@ import com.izyver.gati.model.ScheduleProcessing;
 import com.izyver.gati.model.db.ImageEntity;
 import com.izyver.gati.model.entity.CardImage;
 import com.izyver.gati.model.entity.ScheduleObject;
+import com.izyver.gati.network.NetworkManager;
 import com.izyver.gati.utils.GatiPermissions;
 import com.izyver.gati.view.cardview.CardView;
 
@@ -29,13 +30,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
-import static com.izyver.gati.presenter.PresenterActivity.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
 import static com.izyver.gati.utils.Util.getScreenSize;
 
 public abstract class CardPresenter {
 
     public static final int MESSAGE_DOWNLOAD_IMAGE = 89;
     public static final int MESSAGE_RESIZE_IMAGE = 701;
+    public static final int REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE = 159;
 
     private static String TAG = "CardPresenter";
     protected Model model;
@@ -44,6 +45,8 @@ public abstract class CardPresenter {
     private Thread backgroundThread;
     private CardView view;
     private Handler uiHandler;
+    public int currentDay = 0;
+
 
     public CardPresenter() {
         schedulers = new ConcurrentHashMap<>(5);
@@ -51,7 +54,10 @@ public abstract class CardPresenter {
         uiHandler = new Handler();
         this.model = new AppModel();
 
-        startBackgroundThread();
+        calculateCurrentPosition();
+        if (isInternetAvailable()){
+            startBackgroundThread();
+        }
     }
 
     public static String getKey(int type) {
@@ -63,7 +69,6 @@ public abstract class CardPresenter {
     }
 
     public abstract void downloadImage() throws IOException, ParseException;
-
     public abstract void loadImage();
 
     public void shareImage(int index) {
@@ -90,29 +95,6 @@ public abstract class CardPresenter {
         return schedulers.get(index).image;
     }
 
-
-    protected void processPreviewImage(Map<Integer, CardImage> bitmaps) {
-        for (Integer i : bitmaps.keySet()) {
-            if (isNull(view)) break;
-            onItemDownloaded(resizeBitmap(bitmaps.get(i).image, view.getContext()), bitmaps.get(i).isOld, i);
-        }
-    }
-
-    protected Bitmap resizeBitmap(Bitmap bitmap, Context context) {
-        final int viewWidth = getScreenSize(context).x;
-        final float imageWidth = bitmap.getWidth();
-        final float imageHeight = bitmap.getHeight();
-        final float ratio = viewWidth / imageWidth;
-        final int newImageHeight = (int) (imageHeight * ratio);
-        return Bitmap.createScaledBitmap(bitmap, viewWidth, newImageHeight, false);
-    }
-
-    protected synchronized void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
-        uiHandler.post(() -> {
-            if (view == null) return;
-            view.updateCard(smallBitmap, isOld, index);
-        });
-    }
 
     protected void downloadSchedule(List<ScheduleObject.Schedule> scheduleDay) throws IOException, ParseException {
         ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
@@ -146,9 +128,60 @@ public abstract class CardPresenter {
 
     /* ----------internal logic---------- */
 
+
+    private boolean isInternetAvailable() {
+        if (isNull(view)) return false;
+        NetworkManager network = new NetworkManager();
+        if (!network.isNetworkAvailable(view.getContext())) {
+            showToast(R.string.network_is_not_available);
+            return false;
+        }
+        if (!network.isInternetAvailable()){
+            showToast(R.string.internet_is_not_available);
+            return false;
+        }
+        return true;
+    }
+
+    private void showToast(int id) {
+        uiHandler.post(() -> {
+            if (isNull(view)) return;
+            Toast.makeText(view.getContext(), id, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    private void processPreviewImage(Map<Integer, CardImage> bitmaps) {
+        for (Integer i : bitmaps.keySet()) {
+            if (isNull(view)) break;
+            onItemDownloaded(resizeBitmap(bitmaps.get(i).image, view.getContext()), bitmaps.get(i).isOld, i);
+        }
+    }
+
+    private Bitmap resizeBitmap(Bitmap bitmap, Context context) {
+        final int viewWidth = getScreenSize(context).x;
+        final float imageWidth = bitmap.getWidth();
+        final float imageHeight = bitmap.getHeight();
+        final float ratio = viewWidth / imageWidth;
+        final int newImageHeight = (int) (imageHeight * ratio);
+        return Bitmap.createScaledBitmap(bitmap, viewWidth, newImageHeight, false);
+    }
+
+    private synchronized void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
+        uiHandler.post(() -> {
+            if (view == null) return;
+            view.updateCard(smallBitmap, isOld, index);
+        });
+    }
+
+    private void calculateCurrentPosition() {
+        int currentDay = date.getDayOfWeek();
+        if (currentDay >= 0 && currentDay < 6) {
+            this.currentDay = currentDay;
+        }
+    }
+
     private void startBackgroundThread() {
         Runnable downloadImage = () -> {
-            loadLocalSchedule(FULL_SCHEDULE);
             try {
                 downloadImage();
             } catch (ParseException | IOException e) {

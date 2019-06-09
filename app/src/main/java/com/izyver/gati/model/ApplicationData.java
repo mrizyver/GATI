@@ -6,7 +6,6 @@ import androidx.room.Room;
 
 import com.izyver.gati.model.db.AppDatabase;
 import com.izyver.gati.network.GatiApi;
-import com.izyver.gati.presenter.PresenterActivity;
 
 import java.util.HashMap;
 import java.util.Map;

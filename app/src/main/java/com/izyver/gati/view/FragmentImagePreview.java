@@ -39,7 +39,6 @@ public class FragmentImagePreview extends Fragment {
         PhotoView photoView = view.findViewById(R.id.scaled_photo_view);
         photoView.setImageBitmap(bitmap);
 
-        getActivity().setTheme(R.style.AppThemeBlack);
         TextView dayOfWeekTitle = view.findViewById(R.id.tv_day_of_week);
         int title = R.string.empty_string;
         if (getArguments() != null){

@@ -24,12 +24,12 @@ import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.listeners.OnImageLongClickListener;
 import com.izyver.gati.model.ApplicationData;
 import com.izyver.gati.presenter.CardPresenter;
-import com.izyver.gati.presenter.PresenterActivity;
-import com.izyver.gati.transitions.DetailScheduleTransition;
 import com.izyver.gati.view.FragmentActivity;
 import com.izyver.gati.view.FragmentImagePreview;
 
 import org.jetbrains.annotations.NotNull;
+
+import static com.izyver.gati.presenter.CardPresenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
 
 public final class CardFragment extends Fragment implements
         CardView, OnImageLongClickListener, OnImageClickListener {
@@ -93,6 +93,7 @@ public final class CardFragment extends Fragment implements
         }
 
         createPresenter(scheduleType);
+        cardAdapter.toPosition(presenter.currentDay);
     }
 
     @Override
@@ -111,7 +112,7 @@ public final class CardFragment extends Fragment implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PresenterActivity.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE:
+            case REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     presenter.shareImage(indexLastImageClicked);
                 } else {
