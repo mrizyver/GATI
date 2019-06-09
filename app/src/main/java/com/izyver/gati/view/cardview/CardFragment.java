@@ -12,20 +12,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.izyver.gati.R;
 import com.izyver.gati.listeners.OnImageClickListener;
 import com.izyver.gati.listeners.OnImageLongClickListener;
 import com.izyver.gati.model.ApplicationData;
 import com.izyver.gati.presenter.CardPresenter;
 import com.izyver.gati.presenter.PresenterActivity;
 import com.izyver.gati.view.FragmentActivity;
-import com.izyver.gati.R;
 import com.izyver.gati.view.FragmentImagePreview;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,6 +35,10 @@ public final class CardFragment extends Fragment implements
     public static final String TAG = "CardFragment";
     private static final String KEY_TYPE_OF_SCHEDULE = "schedule_type";
     private static final int ITEM_SHARE_IMAGE = 165;
+    private CardPresenter presenter;
+    private RecyclerCardAdapter cardAdapter;
+    private int scheduleType = -1;
+    private int indexLastImageClicked = -1;
 
     public static CardFragment newInstance(int type) {
         Bundle args = new Bundle();
@@ -44,15 +48,13 @@ public final class CardFragment extends Fragment implements
         return fragment;
     }
 
-    private CardPresenter presenter;
-    private RecyclerCardAdapter cardAdapter;
-
-    private int scheduleType = -1;
-    private int indexLastImageClicked = -1;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FragmentActivity activity = (FragmentActivity) getActivity();
+        if (activity != null) {
+            activity.showToolbar();
+        }
 
         if (getArguments() != null) {
             scheduleType = getArguments().getInt(KEY_TYPE_OF_SCHEDULE, scheduleType);
@@ -78,7 +80,6 @@ public final class CardFragment extends Fragment implements
 
         return view;
     }
-
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
@@ -153,16 +154,20 @@ public final class CardFragment extends Fragment implements
     public void onImageClicked(int index) {
         FragmentImagePreview fragmentImage = FragmentImagePreview.newInstance(index);
         fragmentImage.setBitmap(presenter.getSchedule(index));
-        ((FragmentActivity) getActivity()).getStackFragment().addToStackFragment(fragmentImage);
+        FragmentActivity activity = (FragmentActivity) getActivity();
+        if (activity == null) return;
+        activity.getStackFragment().addToStackFragment(fragmentImage);
+        activity.hideToolbar();
     }
+
 
     /* ----------internal logic---------- */
 
     private void createPresenter(int scheduleType) {
         Object restoredPresenter = ApplicationData.cache.get(CardPresenter.getKey(scheduleType));
-        if (restoredPresenter != null){
+        if (restoredPresenter != null) {
             this.presenter = (CardPresenter) restoredPresenter;
-        }else {
+        } else {
             this.presenter = CardPresenter.getInstance(scheduleType);
         }
 

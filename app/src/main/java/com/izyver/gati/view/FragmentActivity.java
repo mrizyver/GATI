@@ -25,7 +25,6 @@ import com.izyver.gati.presenter.PresenterActivity;
 import com.izyver.gati.utils.GatiPreferences;
 import com.izyver.gati.utils.StackFragment;
 import com.izyver.gati.view.cardview.CardFragment;
-import com.izyver.gati.view.cardview.RecyclerCardAdapter;
 
 import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
@@ -34,6 +33,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
     private PresenterActivity presenter;
 
+    private Toolbar toolbar;
     private TextView tvForm;
     private TextView tvTypeForm;
     private NavigationView navigationView;
@@ -41,6 +41,14 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     private StackFragment stackFragment;
 
     private int ANIMATION_TIME = 250;
+
+    public void hideToolbar() {
+        toolbar.setVisibility(View.GONE);
+    }
+
+    public void showToolbar() {
+        toolbar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +65,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         presenter.attachActivity(this);
         tvForm = findViewById(R.id.tv_word_form);
         tvTypeForm = findViewById(R.id.tv_form_study);
+        toolbar = findViewById(R.id.toolbar);
 
         initNavigationView();
         initSwitchButton(type);
@@ -118,7 +127,6 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     /* ----------internal logic---------- */
 
     private void initNavigationView() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -150,6 +158,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
         switchScheduleButton.setOnClickListener(new View.OnClickListener() {
             int previewType = type;
+
             @Override
             public void onClick(View v) {
                 RotateAnimation rotateAnimation = new RotateAnimation(0, 180, v.getWidth() / 2f, v.getHeight() / 2f);
@@ -160,7 +169,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
                     changeSchedule(FULL_SCHEDULE, FragmentActivity.this);
                     previewType = FULL_SCHEDULE;
                     tvTypeForm.setText(R.string.daytime);
-                } else if (previewType == FULL_SCHEDULE){
+                } else if (previewType == FULL_SCHEDULE) {
                     changeSchedule(CORRESPONDENCE_SCHEDULE, FragmentActivity.this);
                     previewType = CORRESPONDENCE_SCHEDULE;
                     tvTypeForm.setText(R.string.correspondence_time);
@@ -176,7 +185,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         } else {
             stackFragment.setAnimation(R.animator.slide_in_left_start, R.animator.slide_in_left_end);
         }
-        stackFragment.replaceFragment(CardFragment.newInstance(type), CardFragment.TAG,true);
+        stackFragment.replaceFragment(CardFragment.newInstance(type), CardFragment.TAG, true);
     }
 
 
