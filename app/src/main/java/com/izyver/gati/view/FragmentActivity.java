@@ -172,7 +172,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         } else {
             stackFragment.setAnimation(R.animator.slide_in_left_start, R.animator.slide_in_left_end);
         }
-        stackFragment.replaceFragment(CardFragment.newInstance(type), true);
+        stackFragment.replaceFragment(CardFragment.newInstance(type), CardFragment.TAG,true);
     }
 
 

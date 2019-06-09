@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CardFragment extends Fragment implements
         CardView, OnImageLongClickListener, OnImageClickListener {
 
+    public static final String TAG = "CardFragment";
     private static final String KEY_TYPE_OF_SCHEDULE = "schedule_type";
     private static final int ITEM_SHARE_IMAGE = 165;
 
@@ -63,7 +64,7 @@ public final class CardFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.card_fragment, container, false);
 
-        Context context = getContext();
+        Context context = getActivity();
         if (context == null) return view;
 
         cardAdapter = new RecyclerCardAdapter(context);

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.izyver.gati.listeners.OnImageLongClickListener;
@@ -62,7 +64,11 @@ final class CardHolder extends RecyclerView.ViewHolder {
     @SuppressLint("ClickableViewAccessibility")
     private void setImage(@NonNull Bitmap bitmap, Context context, OnImageClickListener imageClickListener, OnImageLongClickListener longClick) {
         ImageView imageView = findImage();
-        ((FragmentActivity) context).registerForContextMenu(imageView);
+        FragmentManager supportFragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+        Fragment parent = supportFragmentManager.getFragments().get(0);
+        if (parent!= null){
+            parent.registerForContextMenu(imageView);
+        }
 
         imageView.setImageBitmap(bitmap);
 

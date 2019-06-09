@@ -15,14 +15,14 @@ public class StackFragment {
         this.fragmentContainer = defaultFragmentContainer;
     }
 
-    public void replaceFragment(Fragment fragment, boolean isAnimation){
+    public void replaceFragment(Fragment fragment, String tag, boolean isAnimation){
         if (fragmentManager.isStateSaved()) return;
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (isAnimation && animationStart != -1 && animationEnd != -1){
             transaction.setCustomAnimations(animationStart, animationEnd);
         }
         transaction
-                .replace(fragmentContainer, fragment)
+                .replace(fragmentContainer, fragment, tag)
                 .commit();
     }
 
