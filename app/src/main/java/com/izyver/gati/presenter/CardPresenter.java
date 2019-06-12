@@ -119,7 +119,6 @@ public abstract class CardPresenter {
         }
     }
 
-
     // TODO: 2019-06-09 Images need to be loaded from RAM, not from db
     protected void loadLocalSchedule(int type) {
         ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
@@ -128,7 +127,7 @@ public abstract class CardPresenter {
         for (Integer key : actualLocal.keySet()) {
             if (Thread.interrupted()) return;
             ImageEntity imageEntity = actualLocal.get(key);
-            boolean isOld = date.isScheduleAtThisWeek(imageEntity);
+            boolean isOld = !date.isScheduleAtThisWeek(imageEntity);
             schedulers.put(key, new CardImage(imageEntity.getImageBitmap(), isOld));
         }
         processPreviewImage(schedulers);
