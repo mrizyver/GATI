@@ -40,6 +40,9 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
     /* ----------interface---------- */
 
     public void updateItem(Bitmap bitmap, boolean isOld, int index) {
+        if (getItemCount() <= index){
+            schedulers.add(index, new CardImage(bitmap, isOld));
+        }
         schedulers.set(index, new CardImage(bitmap, isOld));
         notifyItemChanged(index);
     }
@@ -58,6 +61,18 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<CardHolder> {
             setPosition(position);
         }else {
             postRunnable = () -> setPosition(position);
+        }
+    }
+
+    public void setVisibilitySaturday(boolean isExistSaturday) {
+        if (isExistSaturday){
+            if (schedulers.size() == 5){
+                schedulers.add(new CardImage(null, false));
+            }
+        }else {
+            if ((schedulers.size() == 6)){
+                schedulers.remove(5);
+            }
         }
     }
 

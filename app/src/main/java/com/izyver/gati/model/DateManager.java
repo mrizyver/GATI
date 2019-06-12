@@ -99,6 +99,16 @@ import java.util.Date;
         return firstDate.compareTo(secondDate);
     }
 
+     public <T extends ComparableImage> boolean isSaturday(T schedule) {
+         try {
+             Calendar calendar = getDateOf(schedule);
+             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+             return dayOfWeek == Calendar.SATURDAY;
+         } catch (ParseException e) {
+             e.printStackTrace();
+             return false;
+         }
+     }
 
     //-----------------internal logic----------------//
 
@@ -108,4 +118,4 @@ import java.util.Date;
         calendar.setTime(date);
         return calendar;
     }
-}
+ }

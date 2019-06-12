@@ -31,9 +31,6 @@ import com.izyver.gati.view.FragmentImagePreview;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 import static com.izyver.gati.presenter.CardPresenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
 
 public final class CardFragment extends Fragment implements
@@ -166,11 +163,19 @@ public final class CardFragment extends Fragment implements
     }
 
     @Override
+    public void setVisibilitySaturday(boolean isExistSaturday) {
+        cardAdapter.setVisibilitySaturday(isExistSaturday);
+        FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
+        if (fragmentActivity != null)
+            fragmentActivity.setVisibilitySaturday(isExistSaturday);
+    }
+
+    @Override
     public void onImageClicked(int index, View view) {
         FragmentImagePreview imagePreview = FragmentImagePreview.newInstance(index);
         imagePreview.setBitmap(presenter.getSchedule(index));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imagePreview.setEnterTransition(new Fade());
             setExitTransition(new Fade());
         }
@@ -185,10 +190,11 @@ public final class CardFragment extends Fragment implements
         activity.hideToolbar();
     }
 
-    @Override
+    @Override   
     public void setItem(int index) {
         cardAdapter.toPosition(index);
     }
+
 
     /* ----------internal logic---------- */
 
@@ -199,9 +205,6 @@ public final class CardFragment extends Fragment implements
         } else {
             this.presenter = CardPresenter.getInstance(scheduleType);
         }
-
         this.presenter.attachView(this);
     }
-
-
 }

@@ -19,16 +19,16 @@ public class DateManagerTest {
     private SimpleDateFormat dateFormat;
     private GregorianCalendar calendar;
 
-        @Before
-        public void before() {
-            String patternString = ApplicationData.PATTERN_DATE;
-            dateFormat = new SimpleDateFormat(patternString);
-            int month = Calendar.APRIL;
-            int year = 2019;
-            calendar = new GregorianCalendar();
-            calendar.set(year, month, 17);
-            date = calendar.getTime();
-        }
+    @Before
+    public void before() {
+        String patternString = ApplicationData.PATTERN_DATE;
+        dateFormat = new SimpleDateFormat(patternString);
+        int month = Calendar.APRIL;
+        int year = 2019;
+        calendar = new GregorianCalendar();
+        calendar.set(year, month, 17);
+        date = calendar.getTime();
+    }
 
     @Test
     public void isScheduleAtThisWeekTest() {
@@ -97,6 +97,23 @@ public class DateManagerTest {
 
     }
 
+    @Test
+    public void test_is_saturday_date(){
+        DateManager dateManager = new DateManager();
+        dateManager.setDate(date);
+
+        setDay(calendar, 13);//saturday
+
+        Assert.assertTrue(dateManager.isSaturday(getSchedule(calendar)));
+        calendar.set(2019, 5, 15);
+        ScheduleObject.Schedule schedule = getSchedule(calendar);
+        Assert.assertTrue(dateManager.isSaturday(schedule));
+        calendar.set(2019, 5, 14);
+        Assert.assertFalse(dateManager.isSaturday(getSchedule(calendar)));
+        calendar.set(2019, 5, 16);
+        Assert.assertFalse(dateManager.isSaturday(getSchedule(calendar)));
+    }
+
     private void setDay(
             GregorianCalendar calendar,
             int day){
@@ -117,5 +134,4 @@ public class DateManagerTest {
 
         return schedule;
     }
-
 }

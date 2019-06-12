@@ -45,6 +45,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     private StackFragment stackFragment;
 
     private int ANIMATION_TIME = 250;
+    private boolean isVisibleSaturday = false;
 
     public void hideToolbar() {
         AlphaAnimation fade = createFade(1, 0, () -> toolbar.setVisibility(View.GONE));
@@ -127,6 +128,14 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+    public void setVisibilitySaturday(boolean isExistSaturday) {
+        if (navigationView != null){
+            setVisibleSaturday(navigationView, isExistSaturday);
+        }else {
+            this.isVisibleSaturday = isExistSaturday;
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -149,10 +158,15 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        setVisibleSaturday(navigationView, isVisibleSaturday);
 
         navigationView.getHeaderView(0).findViewById(R.id.header_text).setOnClickListener(v -> sendEmail(getString(R.string.email_info_center)));
         navigationView.bringToFront();
         navigationView.setCheckedItem(R.id.monday_button);
+    }
+
+    private void setVisibleSaturday(NavigationView navigationView, boolean isVisibleSaturday) {
+        navigationView.getMenu().findItem(R.id.saturday_button).setVisible(isVisibleSaturday);
     }
 
     private void initSwitchButton(final int type) {

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.izyver.gati.R;
 import com.izyver.gati.model.AppModel;
+import com.izyver.gati.model.ComparableImage;
 import com.izyver.gati.model.DateManager;
 import com.izyver.gati.model.Model;
 import com.izyver.gati.model.ScheduleProcessing;
@@ -122,16 +123,18 @@ public abstract class CardPresenter {
     }
 
 
-    protected void downloadSchedule(List<ScheduleObject.Schedule> scheduleDay) throws IOException, ParseException {
+    protected void downloadSchedule(List<ScheduleObject.Schedule> schedules) throws IOException, ParseException {
         ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
-        Map<Integer, ScheduleObject.Schedule> actualNetwork = scheduleProcessing.getActualImages(scheduleDay);
+        Map<Integer, ScheduleObject.Schedule> actualNetwork = scheduleProcessing.getActualImages(schedules);
+
+        setVisibleSaturday(schedules);
 
         for (Integer key : actualNetwork.keySet()) {
             model.downloadImage(actualNetwork.get(key), (image, downloadedSchedule) -> {
                 boolean isOld = !date.isScheduleAtThisWeek(downloadedSchedule);
                 Bitmap previewImage = resizeBitmap(image, view != null ? view.getContext() : null);
                 onItemDownloaded(previewImage, isOld, key);
-                schedulers.put(key, new CardImage(image, isOld));
+                this.schedulers.put(key, new CardImage(image, isOld));
             });
         }
     }
@@ -140,6 +143,7 @@ public abstract class CardPresenter {
     protected void loadLocalSchedule(int type) {
         ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
         List<ImageEntity> localImageEntities = model.getLocalImages(type);
+        setVisibleSaturday(localImageEntities);
         Map<Integer, ImageEntity> actualLocal = scheduleProcessing.getActualImages(localImageEntities);
         for (Integer key : actualLocal.keySet()) {
             if (Thread.interrupted()) return;
@@ -153,9 +157,17 @@ public abstract class CardPresenter {
 
     /* ----------internal logic---------- */
 
-
     private void errorToDownload() {
         showToast(R.string.error_download_image);
+    }
+
+    private void setVisibleSaturday(List<? extends ComparableImage> schedules) {
+        ScheduleProcessing scheduleProcessing = new ScheduleProcessing();
+        boolean isExistSaturday = scheduleProcessing.isExistSaturday(schedules);
+        uiHandler.post(() -> {
+            if (isNull(view)) return;
+            view.setVisibilitySaturday(isExistSaturday);
+        });
     }
 
     private void stopThread(Thread thread) {

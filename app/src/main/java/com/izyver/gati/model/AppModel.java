@@ -53,15 +53,6 @@ public class AppModel implements Model {
         downloadedListener.itemDownloaded(bitmap, schedule);
     }
 
-    public  List<ImageEntity> loadImage(List<Schedule> schedules) {
-        String[] keys = new String[schedules.size()];
-        for (int i = 0; i < schedules.size(); i++) {
-            Schedule schedule = schedules.get(i);
-            keys[i] = schedule.getDayWeek() + schedule.getType();
-        }
-        return getImagesDAO().getEntityByKeys(keys);
-    }
-
     @Override
     public void downloadImage(Schedule schedule, OnImageDownloaded downloadListener) throws IOException, ParseException {
         String url = createUrl(schedule.getImage());

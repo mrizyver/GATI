@@ -6,8 +6,13 @@ import java.util.Map;
 
 public class ScheduleProcessing {
 
+    private DateManager date;
+
+    public ScheduleProcessing() {
+        date = new DateManager();
+    }
+
     public <T extends ComparableImage> Map<Integer, T> getActualImages(List<T> imageEntities){
-        DateManager date = new DateManager();
         Map<Integer, T> map = new HashMap<>(imageEntities.size());
 
         for (T imageEntity : imageEntities) {
@@ -20,5 +25,14 @@ public class ScheduleProcessing {
             map.put(index, imageEntity);
         }
         return map;
+    }
+
+    public  <T extends ComparableImage> boolean isExistSaturday(List<T> schedules) {
+        for (T schedule : schedules) {
+            if (date.isSaturday(schedule)){
+                return true;
+            }
+        }
+        return false;
     }
 }

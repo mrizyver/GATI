@@ -7,4 +7,6 @@ public interface CardView {
     void updateCard(Bitmap bitmap, boolean isOld, int index);
 
     Context getContext();
+
+    void setVisibilitySaturday(boolean isExistSaturday);
 }
