@@ -128,9 +128,8 @@ public abstract class CardPresenter {
 
         for (Integer key : actualNetwork.keySet()) {
             model.downloadImage(actualNetwork.get(key), (image, downloadedSchedule) -> {
-                if (isNull(view)) return;
                 boolean isOld = !date.isScheduleAtThisWeek(downloadedSchedule);
-                Bitmap previewImage = resizeBitmap(image, view.getContext());
+                Bitmap previewImage = resizeBitmap(image, view != null ? view.getContext() : null);
                 onItemDownloaded(previewImage, isOld, key);
                 schedulers.put(key, new CardImage(image, isOld));
             });
@@ -194,6 +193,7 @@ public abstract class CardPresenter {
     }
 
     private Bitmap resizeBitmap(Bitmap bitmap, Context context) {
+        if (context == null) return null;
         final int viewWidth = getScreenSize(context).x;
         final float imageWidth = bitmap.getWidth();
         final float imageHeight = bitmap.getHeight();

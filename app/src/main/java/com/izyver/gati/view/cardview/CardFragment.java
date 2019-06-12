@@ -26,6 +26,7 @@ import com.izyver.gati.listeners.OnImageLongClickListener;
 import com.izyver.gati.model.ApplicationData;
 import com.izyver.gati.presenter.CardPresenter;
 import com.izyver.gati.view.FragmentActivity;
+import com.izyver.gati.view.FragmentActivityChild;
 import com.izyver.gati.view.FragmentImagePreview;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,8 @@ import java.text.ParseException;
 import static com.izyver.gati.presenter.CardPresenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
 
 public final class CardFragment extends Fragment implements
-        CardView, OnImageLongClickListener, OnImageClickListener {
+        CardView, OnImageLongClickListener, OnImageClickListener,
+        FragmentActivityChild {
 
     public static final String TAG = "CardFragment";
     private static final String KEY_TYPE_OF_SCHEDULE = "schedule_type";
@@ -183,6 +185,10 @@ public final class CardFragment extends Fragment implements
         activity.hideToolbar();
     }
 
+    @Override
+    public void setItem(int index) {
+        cardAdapter.toPosition(index);
+    }
 
     /* ----------internal logic---------- */
 
@@ -196,4 +202,6 @@ public final class CardFragment extends Fragment implements
 
         this.presenter.attachView(this);
     }
+
+
 }

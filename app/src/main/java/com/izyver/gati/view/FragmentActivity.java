@@ -14,6 +14,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -40,6 +41,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
     private TextView tvTypeForm;
     private NavigationView navigationView;
 
+    private FragmentActivityChild child;
     private StackFragment stackFragment;
 
     private int ANIMATION_TIME = 250;
@@ -61,7 +63,9 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         stackFragment = new StackFragment(getSupportFragmentManager(), R.id.fragment_container);
 
         int type = GatiPreferences.getTypeSchedule(this);
-        stackFragment.addFragment(CardFragment.newInstance(type));
+        CardFragment fragment = CardFragment.newInstance(type);
+        child = fragment;
+        stackFragment.addFragment(fragment);
 
         tvForm = findViewById(R.id.tv_word_form);
         tvTypeForm = findViewById(R.id.tv_form_study);
@@ -77,17 +81,17 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         navigationView.setCheckedItem(id);
 
         if (id == R.id.monday_button) {
-//            presenter.setItem(0);
-//        } else if (id == R.id.tuesday_button) {
-//            presenter.setItem(1);
-//        } else if (id == R.id.wednesday_button) {
-//            presenter.setItem(2);
-//        } else if (id == R.id.thursday_button) {
-//            presenter.setItem(3);
-//        } else if (id == R.id.friday_button) {
-//            presenter.setItem(4);
-//        } else if (id == R.id.saturday_button) {
-//            presenter.setItem(5);
+            setItemChild(0);
+        } else if (id == R.id.tuesday_button) {
+            setItemChild(1);
+        } else if (id == R.id.wednesday_button) {
+            setItemChild(2);
+        } else if (id == R.id.thursday_button) {
+            setItemChild(3);
+        } else if (id == R.id.friday_button) {
+            setItemChild(4);
+        } else if (id == R.id.saturday_button) {
+            setItemChild(5);
         } else if (id == R.id.inst_button) {
             startActivity("com.instagram.android", "https://www.instagram.com/gati_snau.official/");
         } else if (id == R.id.youtube_button) {
@@ -104,12 +108,13 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         return false;
     }
 
-    private void updateApp() {
-        new UpdateApp(this, new Handler()).startUpdate(BuildConfig.URL_VERSION_CONTROLL, BuildConfig.URL_UPDATE);
+    private void setItemChild(@IntRange(from = 0, to = 5) int index){
+        if (child == null) return;
+        child.setItem(index);
     }
 
-    public StackFragment getStackFragment() {
-        return stackFragment;
+    private void updateApp() {
+        new UpdateApp(this, new Handler()).startUpdate(BuildConfig.URL_VERSION_CONTROLL, BuildConfig.URL_UPDATE);
     }
 
     @Override
@@ -188,7 +193,9 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         } else {
             stackFragment.setAnimation(R.animator.slide_in_left_start, R.animator.slide_in_left_end);
         }
-        stackFragment.replaceFragment(CardFragment.newInstance(type), CardFragment.TAG, true);
+        CardFragment fragment = CardFragment.newInstance(type);
+        child = fragment;
+        stackFragment.replaceFragment(fragment, CardFragment.TAG, true);
     }
 
 
