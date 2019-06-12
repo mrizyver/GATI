@@ -39,6 +39,7 @@ public abstract class CardPresenter {
     public static final int REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE = 159;
 
     private static String TAG = "CardPresenter";
+    public int currentDay = 0;
     protected Model model;
     private DateManager date;
     private Map<Integer, CardImage> schedulers;
@@ -46,7 +47,6 @@ public abstract class CardPresenter {
     private Thread loadThread;
     private CardView view;
     private Handler uiHandler;
-    public int currentDay = 0;
 
 
     public CardPresenter() {
@@ -68,6 +68,7 @@ public abstract class CardPresenter {
     }
 
     public abstract void downloadImage() throws IOException, ParseException;
+
     public abstract void loadImage();
 
     public void shareImage(int index) {
@@ -80,7 +81,7 @@ public abstract class CardPresenter {
         view = cardView;
 
         stopThread(loadThread);
-        loadThread = new Thread(() ->{
+        loadThread = new Thread(() -> {
             isInternetAvailable();
             loadImage();
         });
@@ -92,6 +93,23 @@ public abstract class CardPresenter {
         view = null;
         stopThread(loadThread);
         loadThread = null;
+    }
+
+    public void updateImages(Runnable afterAction) {
+        Runnable runnable = () -> {
+            try {
+                if (isInternetAvailable())
+                    downloadImage();
+            } catch (IOException | ParseException e) {
+                errorToDownload();
+                e.printStackTrace();
+            } finally {
+                uiHandler.post(afterAction);
+            }
+        };
+        stopThread(backgroundThread);
+        backgroundThread = new Thread(runnable);
+        backgroundThread.start();
     }
 
     public void shareFailure() {
@@ -137,8 +155,12 @@ public abstract class CardPresenter {
     /* ----------internal logic---------- */
 
 
-    private void stopThread(Thread thread){
-        if (thread!=null){
+    private void errorToDownload() {
+        showToast(R.string.error_download_image);
+    }
+
+    private void stopThread(Thread thread) {
+        if (thread != null) {
             thread.interrupt();
         }
     }
@@ -150,7 +172,7 @@ public abstract class CardPresenter {
             showToast(R.string.network_is_not_available);
             return false;
         }
-        if (!network.isInternetAvailable()){
+        if (!network.isInternetAvailable()) {
             showToast(R.string.internet_is_not_available);
             return false;
         }
@@ -233,7 +255,11 @@ class CardPresenterFull extends CardPresenter {
     @Override
     public void downloadImage() throws IOException, ParseException {
         ScheduleObject schedule = model.getExistingSchedule();
-        downloadSchedule(schedule.getDay());
+        if (schedule != null) {
+            downloadSchedule(schedule.getDay());
+        } else {
+            throw new IOException("error to download image, Model.getExistingSchedule returned null");
+        }
     }
 
     @Override
@@ -247,7 +273,11 @@ class CardPresenterCorrespondence extends CardPresenter {
     @Override
     public void downloadImage() throws IOException, ParseException {
         ScheduleObject schedule = model.getExistingSchedule();
-        downloadSchedule(schedule.getZao());
+        if (schedule != null) {
+            downloadSchedule(schedule.getZao());
+        } else {
+            throw new IOException("error to download image, Model.getExistingSchedule returned null");
+        }
     }
 
     @Override

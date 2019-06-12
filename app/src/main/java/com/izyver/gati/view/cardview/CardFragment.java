@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.izyver.gati.R;
 import com.izyver.gati.listeners.OnImageClickListener;
@@ -29,6 +30,9 @@ import com.izyver.gati.view.FragmentImagePreview;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 import static com.izyver.gati.presenter.CardPresenter.REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE;
 
 public final class CardFragment extends Fragment implements
@@ -39,6 +43,7 @@ public final class CardFragment extends Fragment implements
     private static final int ITEM_SHARE_IMAGE = 165;
     private CardPresenter presenter;
     private RecyclerCardAdapter cardAdapter;
+    private SwipeRefreshLayout swipeRefresh;
     private int scheduleType = -1;
     private int indexLastImageClicked = -1;
 
@@ -75,7 +80,10 @@ public final class CardFragment extends Fragment implements
         recyclerCardList.setLayoutManager(new LinearLayoutManager(context));
         recyclerCardList.setAdapter(cardAdapter);
 
-        if (!(getActivity() instanceof FragmentActivity)) return view;
+        swipeRefresh = view.findViewById(R.id.card_refresh_view);
+        swipeRefresh.setOnRefreshListener(() -> {
+            presenter.updateImages(() -> swipeRefresh.setRefreshing(false));
+        });
 
         return view;
     }

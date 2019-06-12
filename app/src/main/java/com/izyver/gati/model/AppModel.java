@@ -32,29 +32,6 @@ public class AppModel implements Model {
     @Override
     public List<ImageEntity> getLocalImages(int type){
         return getImagesDAO().getEntitiesByType(type);
-//        ImagesDAO imagesDAO = getImagesDAO();
-//        List<ImageEntity> localImage = imagesDAO.getAll();
-//        List<Schedule> localDays = new ArrayList<>();
-//        List<Schedule> localZaos = new ArrayList<>();
-//        ScheduleObject sObject = new ScheduleObject();
-//        for (ImageEntity imageEntity : localImage) {
-//            Schedule schedule = sObject.new Schedule();
-//            schedule.setId(imageEntity.id);
-//            schedule.setDate(imageEntity.date);
-//            schedule.setType(imageEntity.type);
-//            schedule.setTitle(imageEntity.title);
-//            schedule.setDayWeek(imageEntity.dayWeek);
-//
-//            if (imageEntity.type == FULL_SCHEDULE)
-//                localDays.add(schedule);
-//            else if(imageEntity.type == CORRESPONDENCE_SCHEDULE)
-//                localZaos.add(schedule);
-//        }
-//
-//        ScheduleObject scheduleObject = new ScheduleObject();
-//        scheduleObject.setDay(localDays);
-//        scheduleObject.setZao(localDays);
-//        return scheduleObject;
     }
 
     @Override
