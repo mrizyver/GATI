@@ -46,6 +46,7 @@ public abstract class CardPresenter {
     private Map<Integer, CardImage> schedulers;
     private Thread backgroundThread;
     private Thread loadThread;
+    private Thread checkInternetThread;
     private CardView view;
     private Handler uiHandler;
 
@@ -82,11 +83,12 @@ public abstract class CardPresenter {
         view = cardView;
 
         stopThread(loadThread);
-        loadThread = new Thread(() -> {
-            isInternetAvailable();
-            loadImage();
-        });
+        loadThread = new Thread(this::loadImage);
         loadThread.start();
+
+        stopThread(checkInternetThread);
+        checkInternetThread = new Thread(this::isInternetAvailable);
+        checkInternetThread.start();
 
     }
 
@@ -94,6 +96,8 @@ public abstract class CardPresenter {
         view = null;
         stopThread(loadThread);
         loadThread = null;
+        stopThread(checkInternetThread);
+        checkInternetThread = null;
     }
 
     public void updateImages(Runnable afterAction) {

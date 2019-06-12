@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.izyver.gati.model.ApplicationData;
 
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
 import java.net.UnknownHostException;
 
 public class NetworkManager {
