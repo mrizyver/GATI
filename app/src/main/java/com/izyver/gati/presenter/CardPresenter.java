@@ -80,10 +80,12 @@ public abstract class CardPresenter {
         view = cardView;
 
         stopThread(loadThread);
-        loadThread = new Thread(this::loadImage);
+        loadThread = new Thread(() ->{
+            isInternetAvailable();
+            loadImage();
+        });
         loadThread.start();
 
-        isInternetAvailable();
     }
 
     public void detachView() {
