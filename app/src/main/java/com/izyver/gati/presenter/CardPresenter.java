@@ -215,7 +215,9 @@ public abstract class CardPresenter {
         final float imageHeight = bitmap.getHeight();
         final float ratio = viewWidth / imageWidth;
         final int newImageHeight = (int) (imageHeight * ratio);
-        return Bitmap.createScaledBitmap(bitmap, viewWidth, newImageHeight, false);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, viewWidth, newImageHeight, false);
+        bitmap.recycle();
+        return resizedBitmap;
     }
 
     private synchronized void onItemDownloaded(Bitmap smallBitmap, boolean isOld, int index) {
