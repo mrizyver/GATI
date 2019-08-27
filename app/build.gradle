@@ -14,8 +14,8 @@ android {
         applicationId "com.izyver.gati"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 17
-        versionName "3.7.2"
+        versionCode 18
+        versionName "3.7.3"
         buildConfigField "String", "URL_VERSION_CONTROLL", '"http://andro.gatisnau.sumy.ua/version.txt"'
         buildConfigField "String", "URL_UPDATE", '"http://andro.gatisnau.sumy.ua/app.apk"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

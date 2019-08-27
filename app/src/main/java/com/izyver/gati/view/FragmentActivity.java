@@ -31,8 +31,10 @@ import com.izyver.gati.utils.GatiPreferences;
 import com.izyver.gati.utils.StackFragment;
 import com.izyver.gati.view.cardview.CardFragment;
 
+import static com.izyver.gati.model.ApplicationData.BASE_URL;
 import static com.izyver.gati.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.model.ApplicationData.FULL_SCHEDULE;
+import static com.izyver.gati.model.ApplicationData.PREFIX;
 
 public class FragmentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -100,9 +102,7 @@ public class FragmentActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.facebook_button) {
             startActivity("com.facebook.katana", "https://www.facebook.com/official.gatisnau/");
         } else if (id == R.id.site_button) {
-            startActivity("com.android.chrome/com.android.chrome.Main", "http://gatisnau.sumy.ua/");
-        } else if (id == R.id.update_app) {
-            updateApp();
+            startActivity("com.android.chrome/com.android.chrome.Main", PREFIX + BASE_URL);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
