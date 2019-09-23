@@ -125,6 +125,7 @@ public final class CardFragment extends Fragment implements
                 } else {
                     presenter.shareFailure();
                 }
+                break;
         }
     }
 
@@ -190,7 +191,7 @@ public final class CardFragment extends Fragment implements
         activity.hideToolbar();
     }
 
-    @Override   
+    @Override
     public void setItem(int index) {
         cardAdapter.toPosition(index);
     }

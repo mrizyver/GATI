@@ -39,7 +39,7 @@ public abstract class CardPresenter {
     public static final int MESSAGE_RESIZE_IMAGE = 701;
     public static final int REQUEST_CODE_READE_WRITE_TO_SHARE_IMAGE = 159;
 
-    private static String TAG = "CardPresenter";
+    private static final String TAG = "CardPresenter";
     public int currentDay = 0;
     protected Model model;
     private DateManager date;
