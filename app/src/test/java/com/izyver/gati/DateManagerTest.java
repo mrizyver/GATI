@@ -1,8 +1,8 @@
 package com.izyver.gati;
 
-import com.izyver.gati.model.ApplicationData;
-import com.izyver.gati.model.DateManager;
-import com.izyver.gati.model.entity.ScheduleObject;
+import com.izyver.gati.old.model.ApplicationData;
+import com.izyver.gati.old.model.DateManager;
+import com.izyver.gati.old.model.entity.ScheduleObject;
 
 import org.junit.Assert;
 import org.junit.Before;

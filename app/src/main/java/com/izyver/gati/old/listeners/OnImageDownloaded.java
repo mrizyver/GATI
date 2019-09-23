@@ -1,0 +1,11 @@
+package com.izyver.gati.old.listeners;
+
+import android.graphics.Bitmap;
+
+import com.izyver.gati.old.model.entity.ScheduleObject;
+
+import java.text.ParseException;
+
+public interface OnImageDownloaded {
+    void itemDownloaded(Bitmap image, ScheduleObject.Schedule schedule) throws ParseException;
+}
