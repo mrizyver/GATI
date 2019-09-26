@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+
 
 android {
     signingConfigs {
@@ -42,21 +45,22 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation 'androidx.cardview:cardview:1.0.0'
+
 
 
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'org.jetbrains:annotations:16.0.1'
 
     /* ---network--- */
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
     /* ---image--- */
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
@@ -68,4 +72,12 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
     androidTestImplementation "android.arch.persistence.room:testing:$roomVersion"
 
+    /* ---kotlin--- */
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    /* ---DI--- */
+    implementation 'org.koin:koin-android:2.0.1'
+    implementation 'org.koin:koin-android-viewmodel:2.0.1'
 }
