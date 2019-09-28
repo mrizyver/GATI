@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".old.view.FragmentActivity"
+            android:name=".presentation.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action
@@ -31,15 +31,15 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:authorities="${applicationId}"
-            android:name=".old.utils.GatiFileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file"/>
-        </provider>
+        <!--<provider-->
+            <!--android:authorities="${applicationId}"-->
+            <!--android:name=".old.utils.GatiFileProvider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/file"/>-->
+        <!--</provider>-->
     </application>
 
 </manifest>

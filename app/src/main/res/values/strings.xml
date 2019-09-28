@@ -58,5 +58,6 @@
     <string name="internet_is_not_available">Відсутнй доступ до інтернету!\nСпробуйте пізніше</string>
     <string name="empty_string" />
     <string name="error_download_image">Помилка завантаження зображень</string>
+    <string name="change_schedule_button">Кнопка зміни розкладу</string>
 
 </resources>
