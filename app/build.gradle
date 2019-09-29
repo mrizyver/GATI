@@ -12,11 +12,11 @@ android {
             keyPassword 'password'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.izyver.gati"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 18
         versionName "3.7.3"
         buildConfigField "String", "URL_VERSION_CONTROLL", '"http://andro.gatisnau.sumy.ua/version.txt"'
@@ -49,8 +49,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation 'androidx.cardview:cardview:1.0.0'
-
-
 
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'androidx.test:runner:1.2.0'

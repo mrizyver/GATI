@@ -1,12 +1,16 @@
 package com.izyver.gati.bussines.schedule
 
+import com.izyver.gati.bussines.models.ScheduleImageDto
+import com.izyver.gati.data.database.ScheduleDbDto
+import kotlinx.coroutines.channels.Channel
+
 interface IScheduleInteractor {
 
-    suspend fun loadNetworkImages()
+   fun loadNetworkImages(): Channel<ScheduleImageDto>
 
-    suspend fun cacheImagesExist(): Boolean
-    suspend fun loadCacheImage()
+   fun cacheImagesExist(): Boolean
+   fun loadCacheImage(): List<ScheduleImageDto>
 
-    suspend fun storageImagesExist(): Boolean
-    suspend fun loadStorageImage()
+   fun storageImagesExist(): Boolean
+   fun loadStorageImage(): Channel<ScheduleImageDto>
 }

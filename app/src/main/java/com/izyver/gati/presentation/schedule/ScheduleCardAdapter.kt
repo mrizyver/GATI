@@ -20,7 +20,7 @@ class ScheduleCardAdapter : RecyclerView.Adapter<ScheduleHolder>() {
         return ScheduleHolder(view)
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = schedules.size
 
     override fun onBindViewHolder(holder: ScheduleHolder, position: Int) {
         holder.bind(schedules[position])
@@ -28,6 +28,7 @@ class ScheduleCardAdapter : RecyclerView.Adapter<ScheduleHolder>() {
 
     fun setValues(schedules: List<ScheduleImageUI>){
         this.schedules = schedules
+        notifyDataSetChanged()
     }
 
     class ScheduleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

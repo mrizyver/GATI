@@ -1,6 +1,6 @@
 package com.izyver.gati.exception
 
-import com.izyver.gati.data.network.ScheduleType
+import com.izyver.gati.bussines.models.ScheduleType
 import java.lang.RuntimeException
 
 class UnsoppertedScheduleTypeException(scheduleType: ScheduleType)

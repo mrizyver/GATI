@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.izyver.gati.R
-import com.izyver.gati.data.network.ScheduleType
-import com.izyver.gati.data.network.ScheduleType.DAYTIME
-import com.izyver.gati.data.network.ScheduleType.DISTANCE
+import com.izyver.gati.bussines.models.ScheduleType
+import com.izyver.gati.bussines.models.ScheduleType.DAYTIME
+import com.izyver.gati.bussines.models.ScheduleType.DISTANCE
 import com.izyver.gati.presentation.BaseFragment
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,9 +25,13 @@ abstract class ScheduleFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeScheduleAdapter()
+    }
 
+    private fun initializeScheduleAdapter() {
         val cardAdapter = ScheduleCardAdapter()
         scheduleRecyclerView.adapter = cardAdapter
+        scheduleRecyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.loadImages().observe(this, Observer { cardAdapter.setValues(it) })
     }
 

@@ -1,6 +1,6 @@
 package com.izyver.gati.bussines.schedule.flow
 
-import com.izyver.gati.data.network.ScheduleType
+import com.izyver.gati.bussines.models.ScheduleType
 
 class FlowScheduleInteractor : IFlowScheduleInteractor{
 

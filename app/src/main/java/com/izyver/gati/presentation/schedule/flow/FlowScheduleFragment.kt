@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.izyver.gati.R
-import com.izyver.gati.data.network.ScheduleType
+import com.izyver.gati.bussines.models.ScheduleType
 import com.izyver.gati.presentation.BaseFragment
 import com.izyver.gati.presentation.schedule.ScheduleFragment
 import kotlinx.android.synthetic.main.fragment_shcedule_flow.*
@@ -32,9 +32,13 @@ class FlowScheduleFragment : BaseFragment() {
 
     private fun displaySchedule(scheduleType: ScheduleType) {
         val tag = ScheduleFragment.getTag(scheduleType)
-        val fragment = childFragmentManager.findFragmentByTag(tag)
+        val fragmentManager = fragmentManager ?: return
+        val fragment = fragmentManager.findFragmentByTag(tag)
                 ?: ScheduleFragment.newInstance(scheduleType)
-        childFragmentManager.beginTransaction().replace(R.id.flowFragmentContainer, fragment, tag)
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.flowFragmentContainer, fragment, tag)
+                .commit()
     }
 
     companion object{

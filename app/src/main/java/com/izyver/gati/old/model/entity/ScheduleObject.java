@@ -109,7 +109,7 @@ public class ScheduleObject {
 
         @Override
         public String toString() {
-            return "Schedule{" +
+            return "ScheduleNetworkDto{" +
                     "id=" + id +
                     ", title='" + title + '\'' +
                     ", image='" + image + '\'' +

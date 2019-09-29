@@ -1,4 +1,4 @@
-package com.izyver.gati.data.network
+package com.izyver.gati.bussines.models
 
 enum class ScheduleType {
     DAYTIME,

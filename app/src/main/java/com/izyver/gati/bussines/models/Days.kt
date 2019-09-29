@@ -7,5 +7,5 @@ enum class Days (val index: Int){
     THURSDAY(3),
     FRIDAY(4),
     SATURDAY(5),
-    SUNDAY(5)
+    SUNDAY(6)
 }

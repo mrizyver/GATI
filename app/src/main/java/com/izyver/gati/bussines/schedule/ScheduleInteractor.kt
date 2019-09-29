@@ -1,25 +1,28 @@
 package com.izyver.gati.bussines.schedule
 
-import com.izyver.gati.data.ImageRepository
+import com.izyver.gati.bussines.models.ScheduleImageDto
+import com.izyver.gati.data.schedule.ScheduleRepository
+import kotlinx.coroutines.channels.Channel
 
-class ScheduleInteractor(private val repository: ImageRepository) : IScheduleInteractor {
-    override suspend fun loadNetworkImages() {
+class ScheduleInteractor(private val repository: ScheduleRepository) : IScheduleInteractor {
 
+    override fun loadNetworkImages(): Channel<ScheduleImageDto> {
+        return repository.loadNewImageFromNetwork()
     }
 
-    override suspend fun cacheImagesExist(): Boolean {
-        return false
+    override fun cacheImagesExist(): Boolean {
+        return !repository.isCacheEmpty()
     }
 
-    override suspend fun loadCacheImage() {
-
+    override fun loadCacheImage(): List<ScheduleImageDto> {
+        return repository.getImageFromCache()
     }
 
-    override suspend fun storageImagesExist(): Boolean {
-        return false
+    override fun storageImagesExist(): Boolean {
+        return repository.isExistImagesInDB()
     }
 
-    override suspend fun loadStorageImage() {
-
+    override fun loadStorageImage(): Channel<ScheduleImageDto>{
+        return repository.loadImageFromStorage()
     }
 }

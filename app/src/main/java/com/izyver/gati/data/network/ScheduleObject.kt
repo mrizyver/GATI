@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName
 data class ScheduleObject(
         @SerializedName("day")
         @Expose
-        var day: List<Schedule> = arrayListOf(),
+        var day: List<ScheduleNetworkDto> = arrayListOf(),
         @SerializedName("zao")
         @Expose
-        var zao: List<Schedule> = arrayListOf()
+        var zao: List<ScheduleNetworkDto> = arrayListOf()
 )
 
-data class Schedule(
+data class ScheduleNetworkDto(
         @SerializedName("id")
         @Expose
         var id: Int? = null,
