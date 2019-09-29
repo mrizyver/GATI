@@ -125,18 +125,18 @@ final class CardHolder extends RecyclerView.ViewHolder {
 
 
     private void setVisibilityNotFountTextView(int visible) {
-        itemView.findViewById(R.id.tv_image_not_exist_found).setVisibility(visible);
+        itemView.findViewById(R.id.imageNotExistFoundText).setVisibility(visible);
     }
 
     private TextView findOldMarker(){
-        return itemView.findViewById(R.id.marker_old_schedule);
+        return itemView.findViewById(R.id.markerOldSchedule);
     }
 
     private ImageView findImage() {
-        return itemView.findViewById(R.id.card_image);
+        return itemView.findViewById(R.id.cardItemscheduleImage);
     }
 
     private TextView findTitle() {
-        return itemView.findViewById(R.id.card_title);
+        return itemView.findViewById(R.id.cardItemTitle);
     }
 }

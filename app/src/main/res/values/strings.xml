@@ -59,5 +59,6 @@
     <string name="empty_string" />
     <string name="error_download_image">Помилка завантаження зображень</string>
     <string name="change_schedule_button">Кнопка зміни розкладу</string>
+    <string name="sunday">Неділя</string>
 
 </resources>

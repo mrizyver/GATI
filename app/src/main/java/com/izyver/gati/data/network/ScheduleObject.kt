@@ -1,0 +1,34 @@
+package com.izyver.gati.data.network
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+data class ScheduleObject(
+        @SerializedName("day")
+        @Expose
+        var day: List<Schedule> = arrayListOf(),
+        @SerializedName("zao")
+        @Expose
+        var zao: List<Schedule> = arrayListOf()
+)
+
+data class Schedule(
+        @SerializedName("id")
+        @Expose
+        var id: Int? = null,
+        @SerializedName("title")
+        @Expose
+        var title: String? = null,
+        @SerializedName("image")
+        @Expose
+        var image: String? = null,
+        @SerializedName("type")
+        @Expose
+        private var type: Int? = null,
+        @SerializedName("date")
+        @Expose
+        private var date: String? = null,
+        @SerializedName("day_week")
+        @Expose
+        var dayWeek: String? = null
+)

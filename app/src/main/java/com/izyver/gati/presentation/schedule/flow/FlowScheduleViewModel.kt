@@ -3,7 +3,7 @@ package com.izyver.gati.presentation.schedule.flow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.izyver.gati.bussines.models.ScheduleType
+import com.izyver.gati.data.network.ScheduleType
 import com.izyver.gati.bussines.schedule.flow.IFlowScheduleInteractor
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

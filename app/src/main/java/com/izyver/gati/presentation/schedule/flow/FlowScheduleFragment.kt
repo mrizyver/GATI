@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.izyver.gati.R
-import com.izyver.gati.bussines.models.ScheduleType
+import com.izyver.gati.data.network.ScheduleType
 import com.izyver.gati.presentation.BaseFragment
 import com.izyver.gati.presentation.schedule.ScheduleFragment
 import kotlinx.android.synthetic.main.fragment_shcedule_flow.*
