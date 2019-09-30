@@ -24,10 +24,10 @@ data class ScheduleNetworkDto(
         var image: String? = null,
         @SerializedName("type")
         @Expose
-        private var type: Int? = null,
+        var type: Int? = null,
         @SerializedName("date")
         @Expose
-        private var date: String? = null,
+        var date: String? = null,
         @SerializedName("day_week")
         @Expose
         var dayWeek: String? = null

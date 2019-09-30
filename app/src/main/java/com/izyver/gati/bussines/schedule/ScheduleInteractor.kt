@@ -1,10 +1,10 @@
 package com.izyver.gati.bussines.schedule
 
 import com.izyver.gati.bussines.models.ScheduleImageDto
-import com.izyver.gati.data.schedule.ScheduleRepository
+import com.izyver.gati.data.schedule.IScheduleRepository
 import kotlinx.coroutines.channels.Channel
 
-class ScheduleInteractor(private val repository: ScheduleRepository) : IScheduleInteractor {
+class ScheduleInteractor(private val repository: IScheduleRepository) : IScheduleInteractor {
 
     override fun loadNetworkImages(): Channel<ScheduleImageDto> {
         return repository.loadNewImageFromNetwork()

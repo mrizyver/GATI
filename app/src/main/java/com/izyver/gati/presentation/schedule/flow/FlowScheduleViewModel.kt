@@ -10,10 +10,6 @@ import kotlinx.coroutines.launch
 
 class FlowScheduleViewModel(private val flowInteractor: IFlowScheduleInteractor) : ViewModel() {
 
-    init {
-        println()
-    }
-
     private val _scheduleType: MutableLiveData<ScheduleType> = MutableLiveData()
     val displayedSchedule: LiveData<ScheduleType> = _scheduleType
 
