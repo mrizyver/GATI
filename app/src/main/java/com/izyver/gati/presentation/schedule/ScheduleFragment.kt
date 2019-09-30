@@ -12,7 +12,7 @@ import com.izyver.gati.bussines.models.ScheduleType.DAYTIME
 import com.izyver.gati.bussines.models.ScheduleType.DISTANCE
 import com.izyver.gati.presentation.BaseFragment
 import kotlinx.android.synthetic.main.fragment_schedule.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.StringQualifier
 
 abstract class ScheduleFragment : BaseFragment() {

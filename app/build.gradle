@@ -66,17 +66,17 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     /* ---database room--- */
-    implementation "android.arch.persistence.room:runtime:$roomVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
-    androidTestImplementation "android.arch.persistence.room:testing:$roomVersion"
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
+    androidTestImplementation 'androidx.room:room-testing:2.1.0'
 
     /* ---kotlin--- */
-    implementation "androidx.core:core-ktx:1.1.0"
+    implementation 'androidx.core:core-ktx:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     /* ---DI--- */
     implementation 'org.koin:koin-android:2.0.1'
-    implementation 'org.koin:koin-android-viewmodel:2.0.1'
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 }

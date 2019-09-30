@@ -10,7 +10,7 @@ import com.izyver.gati.data.schedule.DistanceRepository
 import com.izyver.gati.data.schedule.TestRepository
 import com.izyver.gati.presentation.schedule.ScheduleViewModel
 import com.izyver.gati.presentation.schedule.flow.FlowScheduleViewModel
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.module
 

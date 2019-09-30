@@ -10,7 +10,9 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(FlowScheduleFragment(), FlowScheduleFragment.TAG)
+        val fragment = supportFragmentManager.findFragmentByTag(FlowScheduleFragment.TAG)
+                ?: FlowScheduleFragment()
+        replaceFragment(fragment as BaseFragment, FlowScheduleFragment.TAG)
     }
 
     private fun replaceFragment(fragment: BaseFragment, tag: String? = null) {
