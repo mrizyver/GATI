@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android'
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/izyver/Projects/GATI/key')
+            storeFile file('key')
             storePassword 'password'
             keyAlias = 'key0'
             keyPassword 'password'
@@ -35,6 +35,7 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    buildToolsVersion = '29.0.1'
 }
 
 dependencies {
