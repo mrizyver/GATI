@@ -53,12 +53,5 @@
             android:paddingBottom="10dp"
             android:text="@string/image_not_exist"
             android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/cardItemscheduleImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/cardItemTitle"
-            tools:src="@drawable/page_not_found" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -10,7 +10,7 @@ interface IScheduleRepository {
     fun isCacheEmpty(): Boolean
     fun getImageFromCache(): List<ScheduleImageDto>
 
-    fun isExistImagesInDB(): Boolean
-    fun loadImageFromStorage(): Channel<ScheduleImageDto>
+    suspend fun isExistImagesInDB(): Boolean
+    suspend fun loadImageFromStorage(): Channel<ScheduleImageDto>
 
 }

@@ -12,6 +12,7 @@ import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.isActive
 
 class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : ViewModel() {
 

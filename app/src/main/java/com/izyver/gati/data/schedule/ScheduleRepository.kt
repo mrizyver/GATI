@@ -9,6 +9,7 @@ import com.izyver.gati.R
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.data.database.ILocalScheduleDataSource
+import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
 import com.izyver.gati.data.network.IRemoteScheduleDataSource
 import com.izyver.gati.utils.parseDateFromApi
 import com.izyver.gati.utils.textAsBitmap
@@ -63,11 +64,12 @@ class ScheduleRepository(
         return map.values as List<ScheduleImageDto>
     }
 
-    override fun isExistImagesInDB(): Boolean {
-        return false
+    override suspend fun isExistImagesInDB(): Boolean {
+        val scheduleDescriptions: List<ScheduleDbDtoWithoutBitmap> = localSource.getScheduleDescription()
+        return scheduleDescriptions.isNotEmpty()
     }
 
-    override fun loadImageFromStorage(): Channel<ScheduleImageDto> {
+    override suspend fun loadImageFromStorage(): Channel<ScheduleImageDto> {
         return Channel()
     }
 
@@ -80,3 +82,4 @@ class ScheduleRepository(
         }
     }
 }
+

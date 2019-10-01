@@ -1,4 +1,4 @@
-package com.izyver.gati.data.database
+package com.izyver.gati.data.database.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

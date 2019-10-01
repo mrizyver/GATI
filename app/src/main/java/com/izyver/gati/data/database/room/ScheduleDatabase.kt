@@ -1,4 +1,4 @@
-package com.izyver.gati.data.database
+package com.izyver.gati.data.database.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
