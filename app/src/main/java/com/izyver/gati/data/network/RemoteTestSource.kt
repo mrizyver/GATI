@@ -3,9 +3,9 @@ package com.izyver.gati.data.network
 import android.graphics.Bitmap
 import android.graphics.Color
 import com.izyver.gati.R
-import com.izyver.gati.bussines.PATTERN_DATE
 import com.izyver.gati.bussines.SCHEDULE_TUPE_API_DAYTIME
 import com.izyver.gati.bussines.models.Days
+import com.izyver.gati.utils.DATE_PATTERN_STANDARD
 import com.izyver.gati.utils.textAsBitmap
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
@@ -21,14 +21,14 @@ class RemoteTestSource : IRemoteScheduleDataSource {
         repeat(6) { index ->
             val calendar = Calendar.getInstance()
             calendar.set(Calendar.DAY_OF_WEEK, index + 2)
-            val simpleDateFormat = SimpleDateFormat(PATTERN_DATE)
+            val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
             val dateStr = simpleDateFormat.format(calendar.time)
             list.add(ScheduleNetworkDto(index, "title$index", Days.from(calendar).name, SCHEDULE_TUPE_API_DAYTIME, dateStr))
         }
         return list
     }
 
-    override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap {
+    override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap? {
         delay(1500)
         return textAsBitmap("${schedule.image} from network", 150F, Color.BLACK)
     }

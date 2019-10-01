@@ -29,3 +29,10 @@ fun parseStandardGatiDate(strDate: String?): Date? {
     val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
     return simpleDateFormat.parse(strDate)
 }
+
+fun formatStandardGatiDate(date: Date?): String? {
+    if (date == null) return null
+    val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
+    return simpleDateFormat.format(date)
+}
+

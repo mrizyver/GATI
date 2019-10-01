@@ -5,6 +5,7 @@ import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
 
 interface ILocalScheduleDataSource {
     fun getScheduleDescription(): List<ScheduleDbDtoWithoutBitmap>
-    fun getSchedule(): List<ScheduleDbDto>
+    fun getStoredSchedule(): List<ScheduleDbDto>
+    fun getCachedSchedules(): List<ScheduleDbDto>
 
 }

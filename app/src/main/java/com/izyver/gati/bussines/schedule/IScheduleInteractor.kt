@@ -7,9 +7,5 @@ interface IScheduleInteractor {
 
    fun loadNetworkImages(): Channel<ScheduleImageDto>
 
-   fun cacheImagesExist(): Boolean
-   fun loadCacheImage(): List<ScheduleImageDto>
-
-   fun storageImagesExist(): Boolean
-   fun loadStorageImage(): Channel<ScheduleImageDto>
+   fun loadCacheImage(): Channel<ScheduleImageDto>
 }

@@ -3,7 +3,6 @@ package com.izyver.gati.presentation.schedule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.Days.*
 import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.bussines.models.ScheduleState.*
@@ -12,7 +11,6 @@ import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.isActive
 
 class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : ViewModel() {
 
@@ -29,11 +27,7 @@ class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : V
     }
 
     private suspend fun loadImagesFromCache() {
-        if (scheduleInteractor.cacheImagesExist()) {
-            scheduleInteractor.loadCacheImage().forEach { postDtoSchedule(it) }
-        } else if (scheduleInteractor.storageImagesExist()) {
-            scheduleInteractor.loadStorageImage()
-        }
+        val localChannel = scheduleInteractor.loadCacheImage()
     }
 
     private suspend fun loadImagesFromNetwork() {

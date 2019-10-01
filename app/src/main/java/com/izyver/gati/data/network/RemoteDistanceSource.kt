@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 
 class RemoteDistanceSource : IRemoteScheduleDataSource{
 
-    override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap {
+    override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

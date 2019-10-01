@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static com.izyver.gati.utils.DaysUtilKt.DATE_PATTERN_STANDARD;
+
 public class DateManagerTest {
 
     private Date date = new Date();
@@ -21,8 +23,7 @@ public class DateManagerTest {
 
     @Before
     public void before() {
-        String patternString = ApplicationData.PATTERN_DATE;
-        dateFormat = new SimpleDateFormat(patternString);
+        dateFormat = new SimpleDateFormat(DATE_PATTERN_STANDARD);
         int month = Calendar.APRIL;
         int year = 2019;
         calendar = new GregorianCalendar();

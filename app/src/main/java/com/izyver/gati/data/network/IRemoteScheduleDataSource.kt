@@ -9,5 +9,5 @@ interface IRemoteScheduleDataSource {
     suspend fun getExistingSchedule(): List<ScheduleNetworkDto>
 
     @Throws(IOException::class)
-    suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap
+    suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap?
 }

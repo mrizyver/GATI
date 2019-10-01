@@ -21,6 +21,7 @@ import java.util.Random;
 
 import static com.izyver.gati.old.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.old.model.ApplicationData.FULL_SCHEDULE;
+import static com.izyver.gati.utils.DaysUtilKt.DATE_PATTERN_STANDARD;
 
 public class TestModel implements Model {
 
@@ -67,7 +68,7 @@ public class TestModel implements Model {
 
     private ScheduleObject.Schedule generateSchedule(Calendar calendar, int id) {
         ScheduleObject.Schedule schedule = scheduleObject.new Schedule();
-        SimpleDateFormat format = new SimpleDateFormat(ApplicationData.PATTERN_DATE);
+        SimpleDateFormat format = new SimpleDateFormat(DATE_PATTERN_STANDARD);
 
         String formattedDate = format.format(calendar.getTime());
         schedule.setDate(formattedDate);

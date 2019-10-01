@@ -7,14 +7,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
- public class DateManager {
+import static com.izyver.gati.utils.DaysUtilKt.DATE_PATTERN_STANDARD;
+
+public class DateManager {
 
     private Date date;
     private SimpleDateFormat simpleDateFormat;
 
     @SuppressLint("SimpleDateFormat")
     public DateManager() {
-        simpleDateFormat = new SimpleDateFormat(ApplicationData.PATTERN_DATE);
+        simpleDateFormat = new SimpleDateFormat(DATE_PATTERN_STANDARD);
         date = new Date();
     }
 
