@@ -7,5 +7,4 @@ interface ILocalScheduleDataSource {
     fun getScheduleDescription(): List<ScheduleDbDtoWithoutBitmap>
     fun getStoredSchedule(): List<ScheduleDbDto>
     fun getCachedSchedules(): List<ScheduleDbDto>
-
 }
