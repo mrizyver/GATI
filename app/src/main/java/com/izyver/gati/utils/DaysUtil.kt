@@ -15,7 +15,7 @@ const val DATE_PATTERN_STANDARD = "yyyy-MM-dd HH:mm:ss" //2019-03-12 00:00:00
 fun stringResBy(day: Days): Int {
     return when (day) {
         Days.MONDAY -> R.string.monday
-        Days.TUESDAY -> R.string.thursday
+        Days.TUESDAY -> R.string.tuesday
         Days.WEDNESDAY -> R.string.wednesday
         Days.THURSDAY -> R.string.thursday
         Days.FRIDAY -> R.string.friday

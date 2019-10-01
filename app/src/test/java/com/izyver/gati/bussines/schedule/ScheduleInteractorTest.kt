@@ -63,15 +63,16 @@ class ScheduleInteractorTest {
         val localSourceTest = LocalTestSource()
         val interactor = ScheduleInteractor(remoteTestSource, localSourceTest, dateUseCase)
 
-        check_Remote9_Local3(remoteTestSource, localSourceTest, interactor)
-        check_Remote7_Local7(remoteTestSource, localSourceTest, interactor)
-        check_with_feature_schedule(remoteTestSource, localSourceTest, interactor)
+        check_network_load_Remote9_Local3(remoteTestSource, localSourceTest, interactor)
+        check_network_load_Remote7_Local7(remoteTestSource, localSourceTest, interactor)
+        check_network_load_with_feature_schedule(remoteTestSource, localSourceTest, interactor)
 
+        check_network_multiply_load(remoteTestSource, localSourceTest, interactor)
     }
 
-    private suspend fun check_with_feature_schedule(remoteTestSource: RemoteTestSource,
-                                            localSourceTest: LocalTestSource,
-                                            interactor: ScheduleInteractor){
+    private suspend fun check_network_load_with_feature_schedule(remoteTestSource: RemoteTestSource,
+                                                                 localSourceTest: LocalTestSource,
+                                                                 interactor: ScheduleInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[2],
                 calendars[3],
@@ -101,9 +102,9 @@ class ScheduleInteractorTest {
         Assert.assertEquals(1, actualListFromNetworkImage.size)
     }
 
-    private suspend fun check_Remote9_Local3(remoteTestSource: RemoteTestSource,
-                                             localSourceTest: LocalTestSource,
-                                             interactor: ScheduleInteractor){
+    private suspend fun check_network_load_Remote9_Local3(remoteTestSource: RemoteTestSource,
+                                                          localSourceTest: LocalTestSource,
+                                                          interactor: ScheduleInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -131,9 +132,9 @@ class ScheduleInteractorTest {
 
     }
 
-    private suspend fun check_Remote7_Local7(remoteTestSource: RemoteTestSource,
-                                             localSourceTest: LocalTestSource,
-                                             interactor: ScheduleInteractor){
+    private suspend fun check_network_load_Remote7_Local7(remoteTestSource: RemoteTestSource,
+                                                          localSourceTest: LocalTestSource,
+                                                          interactor: ScheduleInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[2],
                 calendars[3],
@@ -160,6 +161,42 @@ class ScheduleInteractorTest {
 
         Assert.assertEquals(0, actualListFromNetworkImage.size)
     }
+
+    private suspend fun check_network_multiply_load(remoteTestSource: RemoteTestSource,
+                                                    localSourceTest: LocalTestSource,
+                                                    interactor: ScheduleInteractor) {
+        remoteTestSource.calendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2],
+                calendars[3],
+                calendars[4],
+                calendars[5],
+                calendars[6],
+                calendars[7],
+                calendars[8]
+        )
+        localSourceTest.calendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2]
+        )
+        val actualListFromNetworkImage = ArrayList<ScheduleImageDto>()
+        for (networkImage in interactor.loadNetworkImages()) {
+            actualListFromNetworkImage.add(networkImage)
+            break
+        }
+        for (networkImage in interactor.loadNetworkImages()) {
+            actualListFromNetworkImage.add(networkImage)
+            break
+        }
+        for (networkImage in interactor.loadNetworkImages()) {
+            actualListFromNetworkImage.add(networkImage)
+        }
+
+        Assert.assertEquals(6, actualListFromNetworkImage.size)
+    }
+
 
     @Test
     fun loadCacheImage_test() {
