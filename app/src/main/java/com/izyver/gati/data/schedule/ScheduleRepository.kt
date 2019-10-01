@@ -1,28 +1,27 @@
 package com.izyver.gati.data.schedule
 
 import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Paint.ANTI_ALIAS_FLAG
-import com.izyver.gati.R
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.data.database.ILocalScheduleDataSource
+import com.izyver.gati.data.database.models.ScheduleDbDto
 import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
 import com.izyver.gati.data.network.IRemoteScheduleDataSource
-import com.izyver.gati.utils.parseDateFromApi
+import com.izyver.gati.data.network.ScheduleNetworkDto
+import com.izyver.gati.exception.DateParseException
+import com.izyver.gati.utils.parseStandardGatiDate
 import com.izyver.gati.utils.textAsBitmap
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import java.io.IOException
 import java.lang.ref.SoftReference
 import java.util.*
 import kotlin.collections.HashMap
 
 private const val NETWORK_CHANEL_KEY = "network_chanel"
+private const val DATABASE_CHANEL_KEY = "network_chanel"
 
 class ScheduleRepository(
         private val remoteSource: IRemoteScheduleDataSource,
@@ -30,7 +29,7 @@ class ScheduleRepository(
 
     private var softImageCache = SoftReference<MutableMap<String, ScheduleImageDto>>(hashMapOf())
 
-    private val channelCache = HashMap<String, Any>(2)
+    private val channelCache = HashMap<String, Channel<ScheduleImageDto>>(2)
 
     override fun loadNewImageFromNetwork(): Channel<ScheduleImageDto> {
         if (channelCache[NETWORK_CHANEL_KEY] != null) return channelCache[NETWORK_CHANEL_KEY] as Channel<ScheduleImageDto>
@@ -38,13 +37,23 @@ class ScheduleRepository(
         channelCache[NETWORK_CHANEL_KEY] = channel
 
         GlobalScope.launch {
-            val existingSchedules = remoteSource.getExistingSchedule()
-            existingSchedules.forEach { schedule ->
-                val image: Bitmap = remoteSource.getBitmapBy(schedule)
-                val date = parseDateFromApi(schedule.date)
-                        ?: throw RuntimeException("We can't create ${ScheduleImageDto::class.java.simpleName} with null date")
-                val day = Days.from(date)
-                val actualSchedule = ScheduleImageDto(image, day, date, schedule.image ?: "", false)
+            val existingSchedules: List<ScheduleNetworkDto> = remoteSource.getExistingSchedule()
+            val localScheduleDescriptions: List<ScheduleDbDtoWithoutBitmap> = localSource.getScheduleDescription()
+            existingSchedules.forEach { remoteSchedule ->
+
+                val dateFromRemote = parseStandardGatiDate(remoteSchedule.date)
+                        ?: throw DateParseException(remoteSchedule.date)
+                val day = Days.from(dateFromRemote)
+
+                if (localScheduleDescriptions.size >= day.index) return@forEach
+                val dateFromLocal = parseStandardGatiDate(localScheduleDescriptions[day.index].date)
+                        ?: throw DateParseException(localScheduleDescriptions[day.index].date)
+
+                if (!isActualScheduleDate(dateFromLocal, dateFromRemote)) return@forEach
+
+                val actualSchedule: ScheduleImageDto
+                val image: Bitmap = remoteSource.getBitmapBy(remoteSchedule)
+                actualSchedule = ScheduleImageDto(image, day, dateFromRemote, remoteSchedule.image ?: "", true)
                 cacheImage(day, actualSchedule.copy(image = textAsBitmap("${day.name} from cache", 150F, Color.GRAY)))
                 channel.send(actualSchedule)
             }
@@ -70,7 +79,28 @@ class ScheduleRepository(
     }
 
     override suspend fun loadImageFromStorage(): Channel<ScheduleImageDto> {
-        return Channel()
+        if (channelCache[DATABASE_CHANEL_KEY] != null)
+            return channelCache[DATABASE_CHANEL_KEY] as Channel<ScheduleImageDto>
+        val channel = Channel<ScheduleImageDto>()
+        GlobalScope.launch {
+            val localSchedules: List<ScheduleDbDto> = localSource.getSchedule()
+            val currentDate = Date()
+            localSchedules.forEach {localSchedule ->
+                val imageBitmap = bitmapFromBytes(localSchedule.image)
+                val date = (parseStandardGatiDate(localSchedule.date)
+                        ?: throw DateParseException(localSchedule.date))
+                val day = Days.from(date)
+                val scheduleImageDto = ScheduleImageDto(
+                        imageBitmap,
+                        day,
+                        date,
+                        localSchedule.title ?: "",
+                        isActualScheduleDate(date, currentDate)
+                )
+                channel.send(scheduleImageDto)
+            }
+        }
+        return channel
     }
 
     private fun cacheImage(day: Days, actualSchedule: ScheduleImageDto) {
@@ -80,6 +110,15 @@ class ScheduleRepository(
         } else {
             softImageCache = SoftReference(hashMapOf(Pair(day.name, actualSchedule)))
         }
+    }
+
+    private fun isActualScheduleDate(oldDate: Date, newDate: Date): Boolean {
+        return newDate.time < oldDate.time
+    }
+
+    private fun bitmapFromBytes(bytes: ByteArray?): Bitmap?{
+        if (bytes == null) return null
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     }
 }
 

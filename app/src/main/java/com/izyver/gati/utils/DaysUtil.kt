@@ -2,10 +2,14 @@ package com.izyver.gati.utils
 
 import androidx.annotation.StringRes
 import com.izyver.gati.R
-import com.izyver.gati.bussines.PATTERN_DATE
 import com.izyver.gati.bussines.models.Days
 import java.text.SimpleDateFormat
 import java.util.*
+
+/**
+ * Standard Gati date format
+ */
+const val DATE_PATTERN_STANDARD = "yyyy-MM-dd HH:mm:ss" //2019-03-12 00:00:00
 
 @StringRes
 fun stringResBy(day: Days): Int {
@@ -20,8 +24,8 @@ fun stringResBy(day: Days): Int {
     }
 }
 
-fun parseDateFromApi(strDate: String?): Date? {
+fun parseStandardGatiDate(strDate: String?): Date? {
     if (strDate == null) return null
-    val simpleDateFormat = SimpleDateFormat(PATTERN_DATE)
+    val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
     return simpleDateFormat.parse(strDate)
 }
