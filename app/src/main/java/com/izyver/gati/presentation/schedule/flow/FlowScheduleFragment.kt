@@ -17,8 +17,7 @@ class FlowScheduleFragment : BaseFragment() {
     private val flowViewModel: FlowScheduleViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_shcedule_flow, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_shcedule_flow, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,6 +36,7 @@ class FlowScheduleFragment : BaseFragment() {
                 ?: ScheduleFragment.newInstance(scheduleType)
         fragmentManager
                 .beginTransaction()
+                .addToBackStack(tag)
                 .replace(R.id.flowFragmentContainer, fragment, tag)
                 .commit()
     }
