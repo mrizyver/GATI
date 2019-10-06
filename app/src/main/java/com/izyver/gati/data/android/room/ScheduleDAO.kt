@@ -1,10 +1,10 @@
-package com.izyver.gati.data.database.room
+package com.izyver.gati.data.android.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.izyver.gati.data.database.models.ScheduleDbDto
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 
 @Dao
 interface ScheduleDAO {

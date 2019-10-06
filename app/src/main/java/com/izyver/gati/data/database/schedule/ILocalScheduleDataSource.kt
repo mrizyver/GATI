@@ -1,7 +1,7 @@
-package com.izyver.gati.data.database
+package com.izyver.gati.data.database.schedule
 
-import com.izyver.gati.data.database.models.ScheduleDbDto
-import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 
 interface ILocalScheduleDataSource {
     fun getScheduleDescription(): List<ScheduleDbDtoWithoutBitmap>

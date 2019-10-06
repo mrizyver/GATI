@@ -1,9 +1,9 @@
-package com.izyver.gati.data.database
+package com.izyver.gati.data.database.schedule
 
-import com.izyver.gati.data.database.models.ScheduleDbDto
-import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 
-class LocalDaytimeSource : ILocalScheduleDataSource{
+class LocalDistanceSource : ILocalScheduleDataSource {
     override fun getScheduleDescription(): ArrayList<ScheduleDbDtoWithoutBitmap> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -19,6 +19,5 @@ class LocalDaytimeSource : ILocalScheduleDataSource{
     override fun getScheduleByDate(date: String?): ScheduleDbDto? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.izyver.gati.data.network
+package com.izyver.gati.data.android
 
 import com.izyver.gati.old.model.entity.ScheduleObject
 

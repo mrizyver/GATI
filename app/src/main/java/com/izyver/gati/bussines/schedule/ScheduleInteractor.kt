@@ -5,12 +5,12 @@ import android.graphics.BitmapFactory
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.bussines.schedule.usecases.IScheduleDateUseCase
-import com.izyver.gati.data.database.ILocalScheduleDataSource
-import com.izyver.gati.data.database.models.ScheduleDbDto
-import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
-import com.izyver.gati.data.database.models.ScheduleDbModel
+import com.izyver.gati.data.database.schedule.ILocalScheduleDataSource
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
+import com.izyver.gati.data.database.schedule.models.ScheduleDbModel
 import com.izyver.gati.data.network.IRemoteScheduleDataSource
-import com.izyver.gati.data.network.ScheduleNetworkDto
+import com.izyver.gati.data.network.models.ScheduleNetworkDto
 import com.izyver.gati.exception.DateParseException
 import com.izyver.gati.utils.parseStandardGatiDate
 import kotlinx.coroutines.GlobalScope

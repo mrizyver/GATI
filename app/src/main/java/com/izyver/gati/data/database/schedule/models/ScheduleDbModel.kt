@@ -1,4 +1,4 @@
-package com.izyver.gati.data.database.models
+package com.izyver.gati.data.database.schedule.models
 
 interface ScheduleDbModel {
     var key: String?

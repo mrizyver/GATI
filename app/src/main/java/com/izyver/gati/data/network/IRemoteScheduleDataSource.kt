@@ -1,6 +1,7 @@
 package com.izyver.gati.data.network
 
 import android.graphics.Bitmap
+import com.izyver.gati.data.network.models.ScheduleNetworkDto
 import java.io.IOException
 
 interface IRemoteScheduleDataSource {

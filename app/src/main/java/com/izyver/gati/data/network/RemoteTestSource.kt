@@ -3,8 +3,9 @@ package com.izyver.gati.data.network
 import android.graphics.Bitmap
 import android.graphics.Color
 import com.izyver.gati.R
-import com.izyver.gati.bussines.SCHEDULE_TUPE_API_DAYTIME
+import com.izyver.gati.bussines.SCHEDULE_TYPE_API_DAYTIME
 import com.izyver.gati.bussines.models.Days
+import com.izyver.gati.data.network.models.ScheduleNetworkDto
 import com.izyver.gati.utils.DATE_PATTERN_STANDARD
 import com.izyver.gati.utils.textAsBitmap
 import com.squareup.picasso.Picasso
@@ -23,7 +24,7 @@ class RemoteTestSource : IRemoteScheduleDataSource {
             calendar.set(Calendar.DAY_OF_WEEK, index + 2)
             val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
             val dateStr = simpleDateFormat.format(calendar.time)
-            list.add(ScheduleNetworkDto(index, "title$index", Days.from(calendar).name, SCHEDULE_TUPE_API_DAYTIME, dateStr))
+            list.add(ScheduleNetworkDto(index, "title$index", Days.from(calendar).name, SCHEDULE_TYPE_API_DAYTIME, dateStr))
         }
         return list
     }

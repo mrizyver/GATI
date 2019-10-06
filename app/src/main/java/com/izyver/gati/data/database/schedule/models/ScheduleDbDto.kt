@@ -1,4 +1,4 @@
-package com.izyver.gati.data.database.models
+package com.izyver.gati.data.database.schedule.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -21,7 +21,7 @@ data class ScheduleDbDto(
         override var title: String?,
         @ColumnInfo(name = "day_week")
         override var dayWeek: String?
-) : ScheduleDbModel{
+) : ScheduleDbModel {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

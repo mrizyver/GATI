@@ -1,11 +1,11 @@
-package com.izyver.gati.data.database
+package com.izyver.gati.data.database.schedule
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import com.izyver.gati.bussines.SCHEDULE_TUPE_API_DAYTIME
+import com.izyver.gati.bussines.SCHEDULE_TYPE_API_DAYTIME
 import com.izyver.gati.bussines.models.Days
-import com.izyver.gati.data.database.models.ScheduleDbDto
-import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 import com.izyver.gati.utils.formatStandardGatiDate
 import com.izyver.gati.utils.textAsBitmap
 import kotlinx.coroutines.delay
@@ -62,7 +62,7 @@ class LocalTestSource : ILocalScheduleDataSource {
                     "key$index",
                     index,
                     formatStandardGatiDate(calendar.time),
-                    SCHEDULE_TUPE_API_DAYTIME,
+                    SCHEDULE_TYPE_API_DAYTIME,
                     getImageBytes(day),
                     day.name,
                     day.name
