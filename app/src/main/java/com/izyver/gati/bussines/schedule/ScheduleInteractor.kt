@@ -8,6 +8,7 @@ import com.izyver.gati.bussines.schedule.usecases.IScheduleDateUseCase
 import com.izyver.gati.data.database.ILocalScheduleDataSource
 import com.izyver.gati.data.database.models.ScheduleDbDto
 import com.izyver.gati.data.database.models.ScheduleDbDtoWithoutBitmap
+import com.izyver.gati.data.database.models.ScheduleDbModel
 import com.izyver.gati.data.network.IRemoteScheduleDataSource
 import com.izyver.gati.data.network.ScheduleNetworkDto
 import com.izyver.gati.exception.DateParseException
@@ -68,39 +69,50 @@ class ScheduleInteractor(private val remoteSource: IRemoteScheduleDataSource,
         channelCache[DATABASE_CHANEL_KEY] = channel
 
         GlobalScope.launch {
-            val cachedSchedulesDb: List<ScheduleDbDto> = localSource.getCachedSchedules()
-            if (cachedSchedulesDb.isNotEmpty()) {
-                postSchedules(channel, cachedSchedulesDb)
-            } else {
-                val storedSchedulesDb: List<ScheduleDbDto> = localSource.getStoredSchedule()
-                postSchedules(channel, storedSchedulesDb)
+            var cachedSchedulesDb: MutableList<ScheduleDbDto> = localSource.getCachedSchedules().toMutableList()
+            val descriptionSchedules: List<ScheduleDbDtoWithoutBitmap> = localSource.getScheduleDescription()
+            if (cachedSchedulesDb.isEmpty()) {
+                cachedSchedulesDb = localSource.getStoredSchedule().toMutableList()
+            } else if (cachedSchedulesDb.size < descriptionSchedules.size) {
+                descriptionSchedules.forEach { descSchedule ->
+                    if (!cachedSchedulesDb.containsByDate(descSchedule.date)) {
+                        val scheduleDb = localSource.getScheduleByDate(descSchedule.date)
+                                ?: return@forEach
+                        cachedSchedulesDb.add(scheduleDb)
+                    }
+                }
             }
+            postSchedules(channel, cachedSchedulesDb)
             channel.close()
             channelCache.remove(DATABASE_CHANEL_KEY)
         }
         return channel
     }
 
-    private fun List<ScheduleDbDtoWithoutBitmap>.containsByDate(strDate: String?): Boolean {
+    private fun List<ScheduleDbModel>.containsByDate(strDate: String?): Boolean {
         this.forEach { if (it.date == strDate) return true }
         return false
     }
 
     private suspend fun postSchedules(channel: Channel<ScheduleImageDto>, schedules: List<ScheduleDbDto>) {
         schedules.forEach { scheduleDb ->
-            val imageBitmap = bitmapFromBytes(scheduleDb.image)
-            val date = (parseStandardGatiDate(scheduleDb.date)
-                    ?: throw DateParseException(scheduleDb.date))
-            val day = Days.from(date)
-            val scheduleImageDto = ScheduleImageDto(
-                    imageBitmap,
-                    day,
-                    date,
-                    scheduleDb.title ?: "",
-                    dateUseCase.isScheduleDateActual(date)
-            )
-            channel.send(scheduleImageDto)
+            postSchedule(scheduleDb, channel)
         }
+    }
+
+    private suspend fun postSchedule(scheduleDb: ScheduleDbDto, channel: Channel<ScheduleImageDto>) {
+        val imageBitmap = bitmapFromBytes(scheduleDb.image)
+        val date = (parseStandardGatiDate(scheduleDb.date)
+                ?: throw DateParseException(scheduleDb.date))
+        val day = Days.from(date)
+        val scheduleImageDto = ScheduleImageDto(
+                imageBitmap,
+                day,
+                date,
+                scheduleDb.title ?: "",
+                dateUseCase.isScheduleDateActual(date)
+        )
+        channel.send(scheduleImageDto)
     }
 
     private fun isNewScheduleDate(oldDate: Date, newDate: Date): Boolean {

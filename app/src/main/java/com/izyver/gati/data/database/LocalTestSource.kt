@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class LocalTestSource : ILocalScheduleDataSource {
 
-    private val list: List<ScheduleDbDto> = getSchesdules()
+    private val list: List<ScheduleDbDto> = getSchedules()
 
     override fun getCachedSchedules(): List<ScheduleDbDto> {
         return listOf()
@@ -42,7 +42,15 @@ class LocalTestSource : ILocalScheduleDataSource {
         return list
     }
 
-    private fun getSchesdules(): List<ScheduleDbDto> {
+    override fun getScheduleByDate(date: String?): ScheduleDbDto? {
+        for (scheduleDbDto in list) {
+            if (scheduleDbDto.date == date)
+                return scheduleDbDto
+        }
+        return null
+    }
+
+    private fun getSchedules(): List<ScheduleDbDto> {
         val list = ArrayList<ScheduleDbDto>(6)
         repeat(6) { index ->
 

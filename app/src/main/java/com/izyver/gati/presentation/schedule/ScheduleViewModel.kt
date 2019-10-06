@@ -27,7 +27,7 @@ class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : V
     }
 
     private suspend fun loadImagesFromCache() {
-//        val localChannel = scheduleInteractor.loadCacheImage()
+        val localChannel = scheduleInteractor.loadCacheImage()
     }
 
     private suspend fun loadImagesFromNetwork() {

@@ -8,20 +8,20 @@ import androidx.room.PrimaryKey
 data class ScheduleDbDto(
         @PrimaryKey
         @ColumnInfo(name = "key")
-        var key: String?,
+        override var key: String?,
         @ColumnInfo(name = "image_id")
-        var id: Int?,
+        override var id: Int?,
         @ColumnInfo(name = "date")
-        var date: String?,
+        override var date: String?,
         @ColumnInfo(name = "type")
-        var type: Int?,
+        override var type: Int?,
         @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
         var image: ByteArray?,
         @ColumnInfo(name = "title")
-        var title: String?,
+        override var title: String?,
         @ColumnInfo(name = "day_week")
-        var dayWeek: String?
-) {
+        override var dayWeek: String?
+) : ScheduleDbModel{
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

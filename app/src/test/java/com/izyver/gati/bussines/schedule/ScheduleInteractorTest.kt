@@ -20,6 +20,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+private const val TITLE_CACHE = "from_cache"
+private const val TITLE_STORE = "from_store"
+
 class ScheduleInteractorTest {
 
     // "yyyy-MM-dd HH:mm:ss"
@@ -199,17 +202,137 @@ class ScheduleInteractorTest {
 
 
     @Test
-    fun loadCacheImage_test() {
+    fun loadCacheImage_test() = runBlocking {
+        val remoteTestSource = RemoteTestSource()
+        val localSourceTest = LocalTestSource()
+        val interactor = ScheduleInteractor(remoteTestSource, localSourceTest, dateUseCase)
 
+        check_cache_load_empty_cache(localSourceTest, interactor)
+        check_cache_load_not_empty_cache(localSourceTest, interactor)
+        check_cache_load_different_cache_and_storage(localSourceTest, interactor)
+        check_cache_load_different_and_mixed_cache_and_storage(localSourceTest, interactor)
     }
 
+    private suspend fun check_cache_load_empty_cache(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+        localSourceTest.calendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2],
+                calendars[3],
+                calendars[4]
+        )
+        localSourceTest.cachedCalendars = listOf()
+
+        val listOfActualImageDbDto: MutableList<ScheduleImageDto> = ArrayList()
+        for (scheduleImageDto in interactor.loadCacheImage()) {
+            listOfActualImageDbDto.add(scheduleImageDto)
+        }
+
+        Assert.assertEquals(5, listOfActualImageDbDto.size)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[0].name)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[1].name)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[2].name)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[3].name)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[4].name)
+    }
+
+    private suspend fun check_cache_load_not_empty_cache(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+        localSourceTest.calendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2],
+                calendars[3],
+                calendars[4]
+        )
+        localSourceTest.cachedCalendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2],
+                calendars[3],
+                calendars[4]
+        )
+
+        val listOfActualImageDbDto: MutableList<ScheduleImageDto> = ArrayList()
+        for (scheduleImageDto in interactor.loadCacheImage()) {
+            listOfActualImageDbDto.add(scheduleImageDto)
+        }
+
+        Assert.assertEquals(5, listOfActualImageDbDto.size)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[0].name)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[1].name)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[2].name)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[3].name)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[4].name)
+    }
+
+    private suspend fun check_cache_load_different_cache_and_storage(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+        localSourceTest.calendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2],
+                calendars[3],
+                calendars[4]
+        )
+        localSourceTest.cachedCalendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2]
+        )
+
+        val listOfActualImageDbDto: MutableList<ScheduleImageDto> = ArrayList()
+        for (scheduleImageDto in interactor.loadCacheImage()) {
+            listOfActualImageDbDto.add(scheduleImageDto)
+        }
+
+        Assert.assertEquals(5, listOfActualImageDbDto.size)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[0].name)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[1].name)
+        Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[2].name)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[3].name)
+        Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[4].name)
+    }
+
+    private suspend fun check_cache_load_different_and_mixed_cache_and_storage(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+        localSourceTest.calendars = listOf(
+                calendars[0],
+                calendars[1],
+                calendars[2],
+                calendars[3],
+                calendars[4],
+                calendars[5],
+                calendars[6]
+        )
+        localSourceTest.cachedCalendars = listOf(
+                calendars[0],
+                calendars[2],
+                calendars[4],
+                calendars[6]
+        )
+
+        val listOfActualImageDbDto: MutableList<ScheduleImageDto> = ArrayList()
+        for (scheduleImageDto in interactor.loadCacheImage()) {
+            listOfActualImageDbDto.add(scheduleImageDto)
+        }
+
+        Assert.assertEquals(7, listOfActualImageDbDto.size)
+
+        val storList = ArrayList<Any>(3)
+        val cacheList = ArrayList<Any>(4)
+        for (scheduleImageDto in listOfActualImageDbDto) {
+            if(scheduleImageDto.name == TITLE_CACHE) cacheList.add(scheduleImageDto)
+            else storList.add(scheduleImageDto)
+        }
+        Assert.assertEquals(3, storList.size)
+        Assert.assertEquals(4, cacheList.size)
+
+    }
 
     private class RemoteTestSource : IRemoteScheduleDataSource {
 
         var calendars: List<Calendar> = listOf()
 
         override suspend fun getExistingSchedule(): List<ScheduleNetworkDto> {
-            var list = ArrayList<ScheduleNetworkDto>(calendars.size)
+            val list = ArrayList<ScheduleNetworkDto>(calendars.size)
             calendars.forEach { calendar ->
                 val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
                 val dateStr = simpleDateFormat.format(calendar.time)
@@ -227,22 +350,30 @@ class ScheduleInteractorTest {
 
     private class LocalTestSource : ILocalScheduleDataSource {
 
-        var list: List<ScheduleDbDto> = listOf()
+        private var list: List<ScheduleDbDto> = listOf()
+        private var cachedList: List<ScheduleDbDto> = listOf()
 
-        var calendars: List<Calendar> = listOf()
+        var calendars: List<Calendar>
             set(value) {
-                initList(value)
+                list = initList(value, TITLE_STORE)
             }
+            get() = throw RuntimeException()
 
-        private fun initList(calendars: List<Calendar>) {
+        var cachedCalendars: List<Calendar>
+            set(value) {
+                cachedList = initList(value, TITLE_CACHE)
+            }
+            get() = throw RuntimeException()
+
+        private fun initList(calendars: List<Calendar>, title: String): List<ScheduleDbDto> {
             val list = ArrayList<ScheduleDbDto>(calendars.size)
             calendars.forEach { calendar ->
                 val day = Days.from(calendar)
                 list.add(
                         ScheduleDbDto("key${day.index}", day.index, formatStandardGatiDate(calendar.time), SCHEDULE_TUPE_API_DAYTIME,
-                                null, "title${day.index}", day.name))
+                                null, title, day.name))
             }
-            this.list = list
+            return list
         }
 
         override fun getScheduleDescription(): List<ScheduleDbDtoWithoutBitmap> {
@@ -250,13 +381,20 @@ class ScheduleInteractorTest {
             list.forEach {
                 newList.add(ScheduleDbDtoWithoutBitmap(
                         it.key, it.id, it.date, it.type, it.title, it.dayWeek))
-
             }
             return newList
         }
 
         override fun getStoredSchedule(): List<ScheduleDbDto> = list
 
-        override fun getCachedSchedules(): List<ScheduleDbDto> = listOf()
+        override fun getCachedSchedules(): List<ScheduleDbDto> = cachedList
+
+        override fun getScheduleByDate(date: String?): ScheduleDbDto? {
+            for (scheduleDbDto in list) {
+                if (scheduleDbDto.date == date)
+                    return scheduleDbDto
+            }
+            return null
+        }
     }
 }
