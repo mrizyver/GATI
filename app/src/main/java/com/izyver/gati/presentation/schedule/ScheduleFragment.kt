@@ -36,7 +36,6 @@ abstract class ScheduleFragment : BaseFragment() {
     }
 
     companion object {
-
         fun getTag(scheduleType: ScheduleType): String {
             return when (scheduleType) {
                 DAYTIME -> Daytime.TAG

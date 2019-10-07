@@ -1,7 +1,7 @@
 package com.izyver.gati.di
 
 import com.izyver.gati.bussines.models.ScheduleType
-import com.izyver.gati.bussines.schedule.ScheduleInteractor
+import com.izyver.gati.bussines.schedule.ScheduleWeekBasedInteractor
 import com.izyver.gati.bussines.schedule.flow.FlowScheduleInteractor
 import com.izyver.gati.bussines.schedule.flow.IFlowScheduleInteractor
 import com.izyver.gati.bussines.schedule.usecases.DateUseCaseWeekBased
@@ -20,7 +20,6 @@ import com.izyver.gati.data.network.RemoteTestSource
 import com.izyver.gati.presentation.schedule.ScheduleViewModel
 import com.izyver.gati.presentation.schedule.flow.FlowScheduleViewModel
 import org.koin.android.ext.koin.androidApplication
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.StringQualifier
 import org.koin.core.qualifier.TypeQualifier
@@ -31,11 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 val scheduleModule = module {
 
     viewModel(StringQualifier(ScheduleType.DAYTIME.name)) {
-        ScheduleViewModel(ScheduleInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(LocalTestSource::class)), DateUseCaseWeekBased()))
+        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(LocalTestSource::class)), DateUseCaseWeekBased()))
     }
 
     viewModel(StringQualifier(ScheduleType.DISTANCE.name)) {
-        ScheduleViewModel(ScheduleInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(LocalTestSource::class)), DateUseCaseWeekBased()))
+        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(LocalTestSource::class)), DateUseCaseWeekBased()))
     }
 
     single<ILocalScheduleDataSource>(TypeQualifier(LocalDaytimeSource::class)) { LocalDaytimeSource() }

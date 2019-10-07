@@ -1,6 +1,5 @@
 package com.izyver.gati.data.network
 
-import android.graphics.Bitmap
 import com.izyver.gati.data.network.models.ScheduleNetworkDto
 import java.io.IOException
 
@@ -10,5 +9,5 @@ interface IRemoteScheduleDataSource {
     suspend fun getExistingSchedule(): List<ScheduleNetworkDto>
 
     @Throws(IOException::class)
-    suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap?
+    suspend fun download(schedule: ScheduleNetworkDto): ByteArray?
 }

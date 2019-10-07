@@ -6,7 +6,7 @@ import com.izyver.gati.data.network.models.ScheduleNetworkDto
 
 class RemoteDistanceSource(private val gatiApi: GatiApi) : IRemoteScheduleDataSource{
 
-    override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap? {
+    override suspend fun download(schedule: ScheduleNetworkDto): ByteArray? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

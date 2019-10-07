@@ -1,6 +1,5 @@
 package com.izyver.gati.bussines.schedule
 
-import android.graphics.Bitmap
 import com.izyver.gati.bussines.SCHEDULE_TYPE_API_DAYTIME
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.ScheduleImageDto
@@ -60,11 +59,12 @@ class ScheduleInteractorTest {
         }
     }
 
+
     @Test
     fun loadNetworkImages_test() = runBlocking {
         val remoteTestSource = RemoteTestSource()
         val localSourceTest = LocalTestSource()
-        val interactor = ScheduleInteractor(remoteTestSource, localSourceTest, dateUseCase)
+        val interactor = ScheduleWeekBasedInteractor(remoteTestSource, localSourceTest, dateUseCase)
 
         check_network_load_Remote9_Local3(remoteTestSource, localSourceTest, interactor)
         check_network_load_Remote7_Local7(remoteTestSource, localSourceTest, interactor)
@@ -74,8 +74,7 @@ class ScheduleInteractorTest {
     }
 
     private suspend fun check_network_load_with_feature_schedule(remoteTestSource: RemoteTestSource,
-                                                                 localSourceTest: LocalTestSource,
-                                                                 interactor: ScheduleInteractor) {
+                                                                 localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[2],
                 calendars[3],
@@ -106,8 +105,7 @@ class ScheduleInteractorTest {
     }
 
     private suspend fun check_network_load_Remote9_Local3(remoteTestSource: RemoteTestSource,
-                                                          localSourceTest: LocalTestSource,
-                                                          interactor: ScheduleInteractor) {
+                                                          localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -136,8 +134,7 @@ class ScheduleInteractorTest {
     }
 
     private suspend fun check_network_load_Remote7_Local7(remoteTestSource: RemoteTestSource,
-                                                          localSourceTest: LocalTestSource,
-                                                          interactor: ScheduleInteractor) {
+                                                          localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[2],
                 calendars[3],
@@ -166,8 +163,7 @@ class ScheduleInteractorTest {
     }
 
     private suspend fun check_network_multiply_load(remoteTestSource: RemoteTestSource,
-                                                    localSourceTest: LocalTestSource,
-                                                    interactor: ScheduleInteractor) {
+                                                    localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         remoteTestSource.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -205,7 +201,7 @@ class ScheduleInteractorTest {
     fun loadCacheImage_test() = runBlocking {
         val remoteTestSource = RemoteTestSource()
         val localSourceTest = LocalTestSource()
-        val interactor = ScheduleInteractor(remoteTestSource, localSourceTest, dateUseCase)
+        val interactor = ScheduleWeekBasedInteractor(remoteTestSource, localSourceTest, dateUseCase)
 
         check_cache_load_empty_cache(localSourceTest, interactor)
         check_cache_load_not_empty_cache(localSourceTest, interactor)
@@ -213,7 +209,7 @@ class ScheduleInteractorTest {
         check_cache_load_different_and_mixed_cache_and_storage(localSourceTest, interactor)
     }
 
-    private suspend fun check_cache_load_empty_cache(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+    private suspend fun check_cache_load_empty_cache(localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         localSourceTest.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -236,7 +232,7 @@ class ScheduleInteractorTest {
         Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[4].name)
     }
 
-    private suspend fun check_cache_load_not_empty_cache(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+    private suspend fun check_cache_load_not_empty_cache(localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         localSourceTest.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -265,7 +261,7 @@ class ScheduleInteractorTest {
         Assert.assertEquals(TITLE_CACHE, listOfActualImageDbDto[4].name)
     }
 
-    private suspend fun check_cache_load_different_cache_and_storage(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+    private suspend fun check_cache_load_different_cache_and_storage(localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         localSourceTest.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -292,7 +288,7 @@ class ScheduleInteractorTest {
         Assert.assertEquals(TITLE_STORE, listOfActualImageDbDto[4].name)
     }
 
-    private suspend fun check_cache_load_different_and_mixed_cache_and_storage(localSourceTest: LocalTestSource, interactor: ScheduleInteractor) {
+    private suspend fun check_cache_load_different_and_mixed_cache_and_storage(localSourceTest: LocalTestSource, interactor: ScheduleWeekBasedInteractor) {
         localSourceTest.calendars = listOf(
                 calendars[0],
                 calendars[1],
@@ -319,13 +315,15 @@ class ScheduleInteractorTest {
         val storList = ArrayList<Any>(3)
         val cacheList = ArrayList<Any>(4)
         for (scheduleImageDto in listOfActualImageDbDto) {
-            if(scheduleImageDto.name == TITLE_CACHE) cacheList.add(scheduleImageDto)
+            if (scheduleImageDto.name == TITLE_CACHE) cacheList.add(scheduleImageDto)
             else storList.add(scheduleImageDto)
         }
         Assert.assertEquals(3, storList.size)
         Assert.assertEquals(4, cacheList.size)
 
     }
+
+
 
     private class RemoteTestSource : IRemoteScheduleDataSource {
 
@@ -342,13 +340,16 @@ class ScheduleInteractorTest {
             return list
         }
 
-        override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap? {
+        override suspend fun download(schedule: ScheduleNetworkDto): ByteArray? {
             return null
         }
 
     }
 
     private class LocalTestSource : ILocalScheduleDataSource {
+        override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
+
+        }
 
         private var list: List<ScheduleDbDto> = listOf()
         private var cachedList: List<ScheduleDbDto> = listOf()

@@ -20,11 +20,11 @@ import java.util.*
 import kotlin.collections.HashMap
 
 private const val NETWORK_CHANEL_KEY = "network_chanel"
-private const val DATABASE_CHANEL_KEY = "network_chanel"
+private const val DATABASE_CHANEL_KEY = "database_chanel"
 
-class ScheduleInteractor(private val remoteSource: IRemoteScheduleDataSource,
-                         private val localSource: ILocalScheduleDataSource,
-                         private val dateUseCase: IScheduleDateUseCase) : IScheduleInteractor {
+class ScheduleWeekBasedInteractor(private val remoteSource: IRemoteScheduleDataSource,
+                                  private val localSource: ILocalScheduleDataSource,
+                                  private val dateUseCase: IScheduleDateUseCase) : IScheduleInteractor {
 
     private val channelCache = HashMap<String, Channel<ScheduleImageDto>>(2)
 
@@ -50,11 +50,19 @@ class ScheduleInteractor(private val remoteSource: IRemoteScheduleDataSource,
                     if (!isNewScheduleDate(dateFromLocal, dateFromRemote)) return@forEach
                 }
 
-                val actualSchedule: ScheduleImageDto
-                val image: Bitmap? = remoteSource.getBitmapBy(remoteSchedule)
-                actualSchedule = ScheduleImageDto(image, day, dateFromRemote, remoteSchedule.image
+                val imageByteArray: ByteArray? = remoteSource.download(remoteSchedule)
+                val image: Bitmap? = if (imageByteArray != null) BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size) else null
+                val actualSchedule = ScheduleImageDto(image, day, dateFromRemote, remoteSchedule.image
                         ?: "", true)
                 channel.send(actualSchedule)
+                localSource.saveSchedule(ScheduleDbDto(
+                        id = remoteSchedule.id,
+                        date = remoteSchedule.date,
+                        type = remoteSchedule.type,
+                        image = imageByteArray,
+                        title = remoteSchedule.title,
+                        dayWeek = remoteSchedule.dayWeek
+                ))
             }
             channel.close()
             channelCache.remove(NETWORK_CHANEL_KEY)

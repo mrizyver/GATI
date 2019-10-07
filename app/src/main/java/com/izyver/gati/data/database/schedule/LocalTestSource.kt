@@ -17,6 +17,7 @@ import kotlin.collections.ArrayList
 
 class LocalTestSource : ILocalScheduleDataSource {
 
+
     private val list: List<ScheduleDbDto> = getSchedules()
     private var softCacheImages = SoftReference<MutableList<ScheduleDbDto>>(null)
 
@@ -55,6 +56,9 @@ class LocalTestSource : ILocalScheduleDataSource {
         return null
     }
 
+    override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
+
+    }
 
     private fun getSchedules(): List<ScheduleDbDto> {
         val list = ArrayList<ScheduleDbDto>(6)

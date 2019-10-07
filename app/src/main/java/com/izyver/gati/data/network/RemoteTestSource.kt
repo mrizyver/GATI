@@ -2,6 +2,7 @@ package com.izyver.gati.data.network
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import com.izyver.gati.R
 import com.izyver.gati.bussines.SCHEDULE_TYPE_API_DAYTIME
 import com.izyver.gati.bussines.models.Days
@@ -10,11 +11,15 @@ import com.izyver.gati.utils.DATE_PATTERN_STANDARD
 import com.izyver.gati.utils.textAsBitmap
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class RemoteTestSource : IRemoteScheduleDataSource {
+
+    private val TAG = "RemoteTestSource"
 
     override suspend fun getExistingSchedule(): List<ScheduleNetworkDto> {
         delay(2000)
@@ -29,9 +34,13 @@ class RemoteTestSource : IRemoteScheduleDataSource {
         return list
     }
 
-    override suspend fun getBitmapBy(schedule: ScheduleNetworkDto): Bitmap? {
+    override suspend fun download(schedule: ScheduleNetworkDto): ByteArray? {
         delay(1500)
-        return textAsBitmap("${schedule.image} from network", 150F, Color.BLACK)
+        Log.d(TAG, "bitmap downloaded fro $schedule")
+        val bitmap = textAsBitmap("${schedule.image} from network", 150F, Color.BLACK)
+        val buffer = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, buffer)
+        return buffer.toByteArray()
     }
 
 

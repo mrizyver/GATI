@@ -8,4 +8,5 @@ interface ILocalScheduleDataSource {
     fun getStoredSchedule(): List<ScheduleDbDto>
     fun getCachedSchedules(): List<ScheduleDbDto>
     fun getScheduleByDate(date: String?): ScheduleDbDto?
+    fun saveSchedule(scheduleDbDto: ScheduleDbDto)
 }

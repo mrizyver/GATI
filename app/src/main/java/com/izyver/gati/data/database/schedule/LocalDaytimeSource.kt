@@ -4,6 +4,10 @@ import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 
 class LocalDaytimeSource : ILocalScheduleDataSource {
+    override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getScheduleDescription(): ArrayList<ScheduleDbDtoWithoutBitmap> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
