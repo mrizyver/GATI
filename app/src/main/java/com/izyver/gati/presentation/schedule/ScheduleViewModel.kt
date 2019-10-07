@@ -9,21 +9,18 @@ import com.izyver.gati.bussines.models.ScheduleState.*
 import com.izyver.gati.bussines.schedule.IScheduleInteractor
 import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : ViewModel() {
 
     private val _scheduleImages: MutableLiveData<List<ScheduleImageUI>> = MutableLiveData(mockSchedules())
-    private var imageLoadJob: Job? = null
+    val scheduleImage: LiveData<List<ScheduleImageUI>> = _scheduleImages
 
-    fun loadImages(): LiveData<List<ScheduleImageUI>> {
-        imageLoadJob?.cancel()
-        imageLoadJob = GlobalScope.async {
+    fun loadImages() {
+        GlobalScope.launch{
             loadImagesFromCache()
             loadImagesFromNetwork()
         }
-        return _scheduleImages
     }
 
     private suspend fun loadImagesFromCache() {

@@ -19,6 +19,11 @@ abstract class ScheduleFragment : BaseFragment() {
 
     protected abstract val viewModel: ScheduleViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadImages()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
@@ -32,7 +37,7 @@ abstract class ScheduleFragment : BaseFragment() {
         val cardAdapter = ScheduleCardAdapter()
         scheduleRecyclerView.adapter = cardAdapter
         scheduleRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewModel.loadImages().observe(this, Observer { cardAdapter.setValues(it) })
+        viewModel.scheduleImage.observe(this, Observer { cardAdapter.setValues(it) })
     }
 
     companion object {
