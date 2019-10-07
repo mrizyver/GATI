@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresPermission;
 import androidx.fragment.app.Fragment;
 
 import com.izyver.gati.R;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.izyver.gati.old.model.ApplicationData.CORRESPONDENCE_SCHEDULE;
 import static com.izyver.gati.old.model.ApplicationData.FULL_SCHEDULE;
 import static com.izyver.gati.old.utils.Util.getScreenSize;
@@ -245,6 +248,7 @@ public abstract class CardPresenter {
 
     }
 
+    @RequiresPermission(allOf = {WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE})
     private void shareImage(Bitmap bitmap, CardView view) {
         if (isNull(view)) return;
         Context context = view.getContext();

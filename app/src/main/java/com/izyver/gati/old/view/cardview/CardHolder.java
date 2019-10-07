@@ -133,7 +133,7 @@ final class CardHolder extends RecyclerView.ViewHolder {
     }
 
     private ImageView findImage() {
-        return itemView.findViewById(R.id.cardItemscheduleImage);
+        return itemView.findViewById(R.id.cardItemScheduleImage);
     }
 
     private TextView findTitle() {

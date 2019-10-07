@@ -26,6 +26,11 @@ class ScheduleWeekBasedInteractor(private val remoteSource: IRemoteScheduleDataS
                                   private val localSource: ILocalScheduleDataSource,
                                   private val dateUseCase: IScheduleDateUseCase) : IScheduleInteractor {
 
+    override fun getSchedule(day: Days): ByteArray? {
+        val scheduleDbDto: ScheduleDbDto = localSource.getScheduleByDay(day) ?: return null
+        return scheduleDbDto.image
+    }
+
     private val channelCache = HashMap<String, Channel<ScheduleImageDto>>(2)
 
     override fun loadNetworkImages(): Channel<ScheduleImageDto> {

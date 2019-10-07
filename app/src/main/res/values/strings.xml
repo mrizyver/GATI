@@ -60,5 +60,7 @@
     <string name="error_download_image">Помилка завантаження зображень</string>
     <string name="change_schedule_button">Кнопка зміни розкладу</string>
     <string name="sunday">Неділя</string>
+    <string name="share_title">Поділитись зображенням</string>
+    <string name="error_share_image">Не вдалося поділитися розкладом</string>
 
 </resources>

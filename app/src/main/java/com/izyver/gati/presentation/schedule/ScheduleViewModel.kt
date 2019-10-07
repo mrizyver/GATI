@@ -1,5 +1,7 @@
 package com.izyver.gati.presentation.schedule
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +12,7 @@ import com.izyver.gati.bussines.schedule.IScheduleInteractor
 import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 
 class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : ViewModel() {
 
@@ -17,10 +20,15 @@ class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : V
     val scheduleImage: LiveData<List<ScheduleImageUI>> = _scheduleImages
 
     fun loadImages() {
-        GlobalScope.launch{
+        GlobalScope.launch {
             loadImagesFromCache()
             loadImagesFromNetwork()
         }
+    }
+
+    suspend fun getImageForShare(indexOfList: Int): Bitmap? {
+        val imageByteArray: ByteArray = scheduleInteractor.getSchedule(Companion.from(indexOfList)) ?: return null
+        return BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
     }
 
     private suspend fun loadImagesFromCache() {

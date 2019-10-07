@@ -54,7 +54,7 @@
             android:text="@string/image_not_exist"
             android:textSize="20sp" />
         <ImageView
-            android:id="@+id/cardItemscheduleImage"
+            android:id="@+id/cardItemScheduleImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/cardItemTitle"

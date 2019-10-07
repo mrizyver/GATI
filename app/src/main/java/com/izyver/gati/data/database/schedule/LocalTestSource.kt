@@ -7,6 +7,7 @@ import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 import com.izyver.gati.utils.formatStandardGatiDate
+import com.izyver.gati.utils.parseStandardGatiDate
 import com.izyver.gati.utils.textAsBitmap
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -17,6 +18,14 @@ import kotlin.collections.ArrayList
 
 class LocalTestSource : ILocalScheduleDataSource {
 
+    override fun getScheduleByDay(day: Days): ScheduleDbDto? {
+        for (scheduleDbDto in list) {
+            if (Days.from(parseStandardGatiDate(scheduleDbDto.date) ?: continue) == day){
+                return scheduleDbDto
+            }
+        }
+        return null
+    }
 
     private val list: List<ScheduleDbDto> = getSchedules()
     private var softCacheImages = SoftReference<MutableList<ScheduleDbDto>>(null)
