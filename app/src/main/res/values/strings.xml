@@ -62,5 +62,7 @@
     <string name="sunday">Неділя</string>
     <string name="share_title">Поділитись зображенням</string>
     <string name="error_share_image">Не вдалося поділитися розкладом</string>
+    <string name="gati_schedule">Розклад Гаті</string>
+    <string name="schedule">Розклад</string>
 
 </resources>

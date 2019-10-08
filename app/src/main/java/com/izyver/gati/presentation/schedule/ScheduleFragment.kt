@@ -48,14 +48,6 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
         initializeScheduleAdapter()
     }
 
-    private fun initializeScheduleAdapter() {
-        val cardAdapter = ScheduleCardAdapter()
-        cardAdapter.onScheduleClick = this
-        scheduleRecyclerView.adapter = cardAdapter
-        scheduleRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewModel.scheduleImage.observe(this, Observer { cardAdapter.setValues(it) })
-    }
-
     @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -79,26 +71,13 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
             view.showContextMenu()
         }
         vibrate(40L)
-
         unregisterForContextMenu(view)
         return true
     }
 
-    private fun vibrate(milliseconds: Long) {
-        val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator? ?: return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(milliseconds)
-        }
-    }
-
     override fun onShortClick(view: View, index: Int) {
-
+//        viewModel.onDayClicked(index)
     }
-
-
-    /* ----------context menu---------- */
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         menu.add(Menu.NONE, SHARE_IMAGE_CONTEXT_ITEM_ID, Menu.NONE, R.string.share)
@@ -117,6 +96,24 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
         }
         return true
     }
+
+    private fun initializeScheduleAdapter() {
+        val cardAdapter = ScheduleCardAdapter()
+        cardAdapter.onScheduleClick = this
+        scheduleRecyclerView.adapter = cardAdapter
+        scheduleRecyclerView.layoutManager = LinearLayoutManager(context)
+        viewModel.scheduleImage.observe(this, Observer { cardAdapter.setValues(it) })
+    }
+
+    private fun vibrate(milliseconds: Long) {
+        val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator? ?: return
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(milliseconds)
+        }
+    }
+
 
     private fun checkAndShareImage(index: Int): Boolean {
         val allowRead: Boolean = ContextCompat.checkSelfPermission(context
@@ -145,7 +142,7 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
 
     private fun shareBitmap(bitmap: Bitmap?, context: Context) {
         if (bitmap == null) return errorShareBitmap()
-        val bitmapPath = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Розклад", "розклад за якийсь день")
+        val bitmapPath = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, getString(R.string.schedule), getString(R.string.gati_schedule))
         val bitmapUri = Uri.parse(bitmapPath)
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "image/png"
