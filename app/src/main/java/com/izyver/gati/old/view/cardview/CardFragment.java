@@ -80,9 +80,7 @@ public final class CardFragment extends Fragment implements
         recyclerCardList.setAdapter(cardAdapter);
 
         swipeRefresh = view.findViewById(R.id.card_refresh_view);
-        swipeRefresh.setOnRefreshListener(() -> {
-            presenter.updateImages(() -> swipeRefresh.setRefreshing(false));
-        });
+        swipeRefresh.setOnRefreshListener(() -> presenter.updateImages(() -> swipeRefresh.setRefreshing(false)));
 
         return view;
     }

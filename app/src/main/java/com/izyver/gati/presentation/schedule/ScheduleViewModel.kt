@@ -11,37 +11,56 @@ import com.izyver.gati.bussines.models.ScheduleState.*
 import com.izyver.gati.bussines.schedule.IScheduleInteractor
 import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
 
 class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : ViewModel() {
 
     private val _scheduleImages: MutableLiveData<List<ScheduleImageUI>> = MutableLiveData(mockSchedules())
     val scheduleImage: LiveData<List<ScheduleImageUI>> = _scheduleImages
 
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private var networkLoading: Job? = null
+
     fun loadImages() {
         GlobalScope.launch {
             loadImagesFromCache()
+        }
+        networkLoading = GlobalScope.async {
+            loadImagesFromNetwork()
+        }
+    }
+
+    fun reloadImages() {
+        networkLoading?.cancel()
+        networkLoading = GlobalScope.async {
             loadImagesFromNetwork()
         }
     }
 
     suspend fun getImageForShare(indexOfList: Int): Bitmap? {
-        val imageByteArray: ByteArray = scheduleInteractor.getSchedule(Companion.from(indexOfList)) ?: return null
+        val imageByteArray: ByteArray = scheduleInteractor.getSchedule(Companion.from(indexOfList))
+                ?: return null
         return BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
     }
 
     private suspend fun loadImagesFromCache() {
-        val localChannel = scheduleInteractor.loadCacheImage()
-        for (scheduleImageDto in localChannel) {
-            postDtoSchedule(scheduleImageDto)
-        }
+        takeSchedulesFromChanel(scheduleInteractor.loadCacheImage())
     }
 
     private suspend fun loadImagesFromNetwork() {
-        val networkChanel = scheduleInteractor.loadNetworkImages()
-        for (image in networkChanel) {
-            postDtoSchedule(image)
+        _isLoading.postValue(true)
+        takeSchedulesFromChanel(scheduleInteractor.loadNetworkImages())
+        _isLoading.postValue(false)
+    }
+
+    private suspend fun takeSchedulesFromChanel(localChannel: Channel<ScheduleImageDto>) {
+        for (scheduleImageDto in localChannel) {
+            postDtoSchedule(scheduleImageDto)
         }
     }
 

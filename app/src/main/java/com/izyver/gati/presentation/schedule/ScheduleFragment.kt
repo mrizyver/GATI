@@ -46,6 +46,7 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeScheduleAdapter()
+        initializeRefreshLayout()
     }
 
     @SuppressLint("MissingPermission")
@@ -104,6 +105,13 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
         scheduleRecyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.scheduleImage.observe(this, Observer { cardAdapter.setValues(it) })
     }
+
+
+    private fun initializeRefreshLayout() {
+        viewModel.isLoading.observe(this, Observer { scheduleRefreshLayout.isRefreshing = it })
+        scheduleRefreshLayout.setOnRefreshListener { viewModel.reloadImages() }
+    }
+
 
     private fun vibrate(milliseconds: Long) {
         val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator? ?: return
