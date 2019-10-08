@@ -68,7 +68,7 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
         }
     }
 
-    override fun onLongClick(view: View, index: Int, x: Float, y: Float) {
+    override fun onLongClick(view: View, index: Int, x: Float, y: Float): Boolean {
         if (arguments == null) arguments = Bundle()
         arguments?.putInt(KEY_SHARE_INDEX, index)
 
@@ -81,6 +81,7 @@ abstract class ScheduleFragment : BaseFragment(), OnScheduleClickListener {
         vibrate(40L)
 
         unregisterForContextMenu(view)
+        return true
     }
 
     private fun vibrate(milliseconds: Long) {
