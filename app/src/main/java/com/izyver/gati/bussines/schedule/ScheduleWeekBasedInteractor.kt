@@ -60,14 +60,7 @@ class ScheduleWeekBasedInteractor(private val remoteSource: IRemoteScheduleDataS
                 val actualSchedule = ScheduleImageDto(image, day, dateFromRemote, remoteSchedule.image
                         ?: "", true)
                 channel.send(actualSchedule)
-                localSource.saveSchedule(ScheduleDbDto(
-                        id = remoteSchedule.id,
-                        date = remoteSchedule.date,
-                        type = remoteSchedule.type,
-                        image = imageByteArray,
-                        title = remoteSchedule.title,
-                        dayWeek = remoteSchedule.dayWeek
-                ))
+                localSource.saveSchedule(remoteSchedule, imageByteArray)
             }
             channel.close()
             channelCache.remove(NETWORK_CHANEL_KEY)

@@ -33,5 +33,5 @@ interface ScheduleDao {
     fun putImageEntity(scheduleDbDto: ScheduleDbDto)
 
     @Query("SELECT `key`, image_id, date, type, title, day_week FROM images WHERE `type` = :scheduleType")
-    fun getDescriptionEntities(scheduleType: Int): ArrayList<ScheduleDbDtoWithoutBitmap>
+    fun getDescriptionEntities(scheduleType: Int): List<ScheduleDbDtoWithoutBitmap>
 }

@@ -7,6 +7,7 @@ import com.izyver.gati.data.android.room.ScheduleDao
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 import com.izyver.gati.data.database.schedule.models.ScheduleDbModel
+import com.izyver.gati.data.network.models.ScheduleNetworkDto
 import com.izyver.gati.utils.findByDate
 import com.izyver.gati.utils.findByDay
 import com.izyver.gati.utils.put
@@ -24,7 +25,7 @@ abstract class LocalScheduleSource(
         var scheduleDbDto: ScheduleDbDto? = list?.findByDay(day) as ScheduleDbDto?
 
         if (scheduleDbDto == null) {
-            val scheduleDescriptions= getScheduleDescription().toMutableList()
+            val scheduleDescriptions = getScheduleDescription().toMutableList()
             val foundSchedule: ScheduleDbModel? = scheduleDescriptions.findByDay(day)
             scheduleDbDto = scheduleDao.getEntityByKey(foundSchedule?.key ?: return null)
             cache(scheduleDbDto ?: return null)
@@ -32,8 +33,19 @@ abstract class LocalScheduleSource(
         return scheduleDbDto
     }
 
-    override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
-        scheduleDao.putImageEntity(scheduleDbDto)
+    override fun saveSchedule(schedule: ScheduleNetworkDto, image: ByteArray?) {
+
+        val scheduleDb = ScheduleDbDto(
+                "${schedule.dayWeek}${schedule.type}",
+                schedule.id,
+                schedule.date,
+                schedule.type,
+                image,
+                schedule.title,
+                schedule.dayWeek
+        )
+
+        scheduleDao.putImageEntity(scheduleDb)
     }
 
     override fun getScheduleDescription(): List<ScheduleDbDtoWithoutBitmap> {
@@ -53,7 +65,8 @@ abstract class LocalScheduleSource(
     override fun getScheduleByDate(date: String?): ScheduleDbDto? {
         if (date == null) return null
         val list = softScheduleList.get()
-        val scheduleDbDto: ScheduleDbDto? = list?.findByDate(date) as ScheduleDbDto? ?: scheduleDao.getEntityByDate(date)
+        val scheduleDbDto: ScheduleDbDto? = list?.findByDate(date) as ScheduleDbDto?
+                ?: scheduleDao.getEntityByDate(date)
         cache(scheduleDbDto ?: return null)
         return scheduleDbDto
     }

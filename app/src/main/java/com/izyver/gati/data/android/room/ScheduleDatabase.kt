@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 
 
-@Database(entities = [ScheduleDbDto::class], version = 3)
+@Database(entities = [ScheduleDbDto::class], version = 2)
 abstract class ScheduleDatabase : RoomDatabase() {
     abstract fun scheduleDao(): ScheduleDao
 }

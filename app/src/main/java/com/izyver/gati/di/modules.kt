@@ -1,6 +1,5 @@
 package com.izyver.gati.di
 
-import androidx.room.Room
 import com.izyver.gati.bussines.models.ScheduleType
 import com.izyver.gati.bussines.schedule.ScheduleWeekBasedInteractor
 import com.izyver.gati.bussines.schedule.flow.FlowScheduleInteractor
@@ -8,6 +7,7 @@ import com.izyver.gati.bussines.schedule.flow.IFlowScheduleInteractor
 import com.izyver.gati.bussines.schedule.usecases.DateUseCaseWeekBased
 import com.izyver.gati.data.android.GatiApi
 import com.izyver.gati.data.android.GatiPref
+import com.izyver.gati.data.android.room.RoomHelper
 import com.izyver.gati.data.android.room.ScheduleDatabase
 import com.izyver.gati.data.database.flow.IScheduleTypeSource
 import com.izyver.gati.data.database.flow.SharedScheduleTypeSource
@@ -57,7 +57,8 @@ val scheduleModule = module {
     single { GatiPref(androidApplication()) }
     single { createGatiApi() }
 
-    single { Room.databaseBuilder(androidApplication(), ScheduleDatabase::class.java, "gati_database").build().scheduleDao() }
+    single { get<ScheduleDatabase>().scheduleDao() }
+    single { RoomHelper().buildDatabase(androidApplication()) }
 
 }
 

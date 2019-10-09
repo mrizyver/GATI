@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey
 data class ScheduleDbDto(
         @PrimaryKey
         @ColumnInfo(name = "key")
-        override var key: String,
+        override var key: String = "",
         @ColumnInfo(name = "image_id")
-        override var id: Int?,
+        override var id: Int,
         @ColumnInfo(name = "date")
         override var date: String?,
         @ColumnInfo(name = "type")
-        override var type: Int?,
+        override var type: Int,
         @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
         var image: ByteArray?,
         @ColumnInfo(name = "title")
@@ -42,10 +42,10 @@ data class ScheduleDbDto(
     }
 
     override fun hashCode(): Int {
-        var result = key?.hashCode() ?: 0
-        result = 31 * result + (id ?: 0)
+        var result = key.hashCode()
+        result = 31 * result + id
         result = 31 * result + (date?.hashCode() ?: 0)
-        result = 31 * result + (type ?: 0)
+        result = 31 * result + type
         result = 31 * result + (image?.contentHashCode() ?: 0)
         result = 31 * result + (title?.hashCode() ?: 0)
         result = 31 * result + (dayWeek?.hashCode() ?: 0)

@@ -6,6 +6,7 @@ import com.izyver.gati.bussines.SCHEDULE_TYPE_DAYTIME
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
+import com.izyver.gati.data.network.models.ScheduleNetworkDto
 import com.izyver.gati.utils.formatStandardGatiDate
 import com.izyver.gati.utils.parseStandardGatiDate
 import com.izyver.gati.utils.textAsBitmap
@@ -65,7 +66,7 @@ class LocalTestSource : ILocalScheduleDataSource {
         return null
     }
 
-    override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
+    override fun saveSchedule(schedyle: ScheduleNetworkDto, image: ByteArray?) {
 
     }
 

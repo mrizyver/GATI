@@ -351,7 +351,7 @@ class ScheduleInteractorTest {
             return null
         }
 
-        override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
+        override fun saveSchedule(schedyle: ScheduleNetworkDto, image: ByteArray?) {
 
         }
 

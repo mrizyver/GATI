@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
-import com.izyver.gati.BuildConfig;
 import com.izyver.gati.old.listeners.OnImageDownloaded;
 import com.izyver.gati.old.model.entity.ScheduleObject;
 import com.izyver.gati.old.model.entity.ScheduleObject.Schedule;
