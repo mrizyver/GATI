@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 data class ScheduleDbDtoWithoutBitmap(
         @PrimaryKey
         @ColumnInfo(name = "key")
-        override var key: String?,
+        override var key: String,
         @ColumnInfo(name = "image_id")
         override var id: Int?,
         @ColumnInfo(name = "date")

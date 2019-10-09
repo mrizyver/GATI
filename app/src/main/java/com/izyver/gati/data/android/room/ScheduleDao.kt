@@ -5,18 +5,20 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
+import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
+import java.util.ArrayList
 
 @Dao
-interface ScheduleDAO {
+interface ScheduleDao {
 
     @Query("SELECT * FROM images")
     fun getAll(): List<ScheduleDbDto>
 
     @Query("SELECT * FROM images WHERE `date` = :date")
-    fun getEntityByDate(date: String): ScheduleDbDto
+    fun getEntityByDate(date: String): ScheduleDbDto?
 
     @Query("SELECT * FROM images WHERE `key` = :imageKey")
-    fun getEntityByKey(imageKey: String): ScheduleDbDto
+    fun getEntityByKey(imageKey: String): ScheduleDbDto?
 
     @Query("SELECT * FROM images WHERE `type` = :type")
     fun getEntitiesByType(type: Int): List<ScheduleDbDto>
@@ -29,4 +31,7 @@ interface ScheduleDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putImageEntity(scheduleDbDto: ScheduleDbDto)
+
+    @Query("SELECT `key`, image_id, date, type, title, day_week FROM images WHERE `type` = :scheduleType")
+    fun getDescriptionEntities(scheduleType: Int): ArrayList<ScheduleDbDtoWithoutBitmap>
 }

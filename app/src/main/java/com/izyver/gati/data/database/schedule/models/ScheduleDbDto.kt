@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class ScheduleDbDto(
         @PrimaryKey
         @ColumnInfo(name = "key")
-        override var key: String? = null,
+        override var key: String,
         @ColumnInfo(name = "image_id")
         override var id: Int?,
         @ColumnInfo(name = "date")

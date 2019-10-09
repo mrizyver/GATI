@@ -1,6 +1,6 @@
 package com.izyver.gati.bussines.schedule
 
-import com.izyver.gati.bussines.SCHEDULE_TYPE_API_DAYTIME
+import com.izyver.gati.bussines.SCHEDULE_TYPE_DAYTIME
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.bussines.schedule.usecases.DateUseCaseWeekBased
@@ -335,7 +335,7 @@ class ScheduleInteractorTest {
                 val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
                 val dateStr = simpleDateFormat.format(calendar.time)
                 val day = Days.from(calendar)
-                list.add(ScheduleNetworkDto(day.index, "title${day.index}", day.name, SCHEDULE_TYPE_API_DAYTIME, dateStr))
+                list.add(ScheduleNetworkDto(day.index, "title${day.index}", day.name, SCHEDULE_TYPE_DAYTIME, dateStr))
             }
             return list
         }
@@ -347,6 +347,10 @@ class ScheduleInteractorTest {
     }
 
     private class LocalTestSource : ILocalScheduleDataSource {
+        override fun getScheduleByDay(day: Days): ScheduleDbDto? {
+            return null
+        }
+
         override fun saveSchedule(scheduleDbDto: ScheduleDbDto) {
 
         }
@@ -371,7 +375,7 @@ class ScheduleInteractorTest {
             calendars.forEach { calendar ->
                 val day = Days.from(calendar)
                 list.add(
-                        ScheduleDbDto("key${day.index}", day.index, formatStandardGatiDate(calendar.time), SCHEDULE_TYPE_API_DAYTIME,
+                        ScheduleDbDto("key${day.index}", day.index, formatStandardGatiDate(calendar.time), SCHEDULE_TYPE_DAYTIME,
                                 null, title, day.name))
             }
             return list

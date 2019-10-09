@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import com.izyver.gati.old.model.db.AppDatabase;
 import com.izyver.gati.old.network.GatiApi;
 
 import java.util.HashMap;
@@ -21,7 +20,6 @@ public class ApplicationData extends Application {
     public static final int CORRESPONDENCE_SCHEDULE = 0;
 
     public static GatiApi gatiApi;
-    public static AppDatabase database;
     public static Map cache;
 
     @Override
@@ -33,7 +31,6 @@ public class ApplicationData extends Application {
                 .build();
         gatiApi = retrofit.create(GatiApi.class);
 
-        database = Room.databaseBuilder(this, AppDatabase.class, "gati_database").build();
         cache = new HashMap();
     }
 }

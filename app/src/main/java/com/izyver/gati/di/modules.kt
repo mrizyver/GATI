@@ -1,5 +1,6 @@
 package com.izyver.gati.di
 
+import androidx.room.Room
 import com.izyver.gati.bussines.models.ScheduleType
 import com.izyver.gati.bussines.schedule.ScheduleWeekBasedInteractor
 import com.izyver.gati.bussines.schedule.flow.FlowScheduleInteractor
@@ -7,11 +8,12 @@ import com.izyver.gati.bussines.schedule.flow.IFlowScheduleInteractor
 import com.izyver.gati.bussines.schedule.usecases.DateUseCaseWeekBased
 import com.izyver.gati.data.android.GatiApi
 import com.izyver.gati.data.android.GatiPref
+import com.izyver.gati.data.android.room.ScheduleDatabase
 import com.izyver.gati.data.database.flow.IScheduleTypeSource
 import com.izyver.gati.data.database.flow.SharedScheduleTypeSource
 import com.izyver.gati.data.database.schedule.ILocalScheduleDataSource
-import com.izyver.gati.data.database.schedule.LocalDaytimeSource
-import com.izyver.gati.data.database.schedule.LocalDistanceSource
+import com.izyver.gati.data.database.schedule.LocalScheduleSource.DaytimeSource
+import com.izyver.gati.data.database.schedule.LocalScheduleSource.DistanceSource
 import com.izyver.gati.data.database.schedule.LocalTestSource
 import com.izyver.gati.data.network.IRemoteScheduleDataSource
 import com.izyver.gati.data.network.RemoteDaytimeSource
@@ -30,15 +32,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 val scheduleModule = module {
 
     viewModel(StringQualifier(ScheduleType.DAYTIME.name)) {
-        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(LocalTestSource::class)), DateUseCaseWeekBased()))
+        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(DaytimeSource::class)), DateUseCaseWeekBased()))
     }
 
     viewModel(StringQualifier(ScheduleType.DISTANCE.name)) {
-        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(LocalTestSource::class)), DateUseCaseWeekBased()))
+        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(DistanceSource::class)), DateUseCaseWeekBased()))
     }
 
-    single<ILocalScheduleDataSource>(TypeQualifier(LocalDaytimeSource::class)) { LocalDaytimeSource() }
-    single<ILocalScheduleDataSource>(TypeQualifier(LocalDistanceSource::class)) { LocalDistanceSource() }
+    single<ILocalScheduleDataSource>(TypeQualifier(DaytimeSource::class)) { DaytimeSource(get()) }
+    single<ILocalScheduleDataSource>(TypeQualifier(DistanceSource::class)) { DistanceSource(get()) }
     single<ILocalScheduleDataSource>(TypeQualifier(LocalTestSource::class)) { LocalTestSource() }
 
     single<IRemoteScheduleDataSource>(TypeQualifier(RemoteDaytimeSource::class)) { RemoteDaytimeSource(get()) }
@@ -50,13 +52,16 @@ val scheduleModule = module {
     viewModel { FlowScheduleViewModel(get()) }
 
     factory<IFlowScheduleInteractor> { FlowScheduleInteractor(get()) }
-    factory<IScheduleTypeSource> {SharedScheduleTypeSource(get())}
+    factory<IScheduleTypeSource> { SharedScheduleTypeSource(get()) }
 
     single { GatiPref(androidApplication()) }
     single { createGatiApi() }
+
+    single { Room.databaseBuilder(androidApplication(), ScheduleDatabase::class.java, "gati_database").build().scheduleDao() }
+
 }
 
-private fun createGatiApi(): GatiApi{
+private fun createGatiApi(): GatiApi {
     val retrofit = Retrofit.Builder()
             .baseUrl("")
             .addConverterFactory(GsonConverterFactory.create())

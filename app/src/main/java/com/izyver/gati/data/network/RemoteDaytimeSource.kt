@@ -1,6 +1,5 @@
 package com.izyver.gati.data.network
 
-import android.graphics.Bitmap
 import com.izyver.gati.data.android.GatiApi
 import com.izyver.gati.data.network.models.ScheduleNetworkDto
 

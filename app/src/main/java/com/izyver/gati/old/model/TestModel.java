@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.izyver.gati.old.listeners.OnImageDownloaded;
-import com.izyver.gati.old.model.db.ImageEntity;
 import com.izyver.gati.old.model.entity.ScheduleObject;
 import com.izyver.gati.R;
 import com.squareup.picasso.Picasso;
@@ -49,7 +48,7 @@ public class TestModel implements Model {
     }
 
     @Override
-    public List<ImageEntity> getLocalImages(int type) {
+    public List getLocalImages(int type) {
         return null;
     }
 

@@ -8,8 +8,6 @@ import com.izyver.gati.BuildConfig;
 import com.izyver.gati.old.listeners.OnImageDownloaded;
 import com.izyver.gati.old.model.entity.ScheduleObject;
 import com.izyver.gati.old.model.entity.ScheduleObject.Schedule;
-import com.izyver.gati.old.model.db.ImageEntity;
-import com.izyver.gati.old.model.db.ImagesDAO;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -30,27 +28,27 @@ public class AppModel implements Model {
 
     @NonNull
     @Override
-    public List<ImageEntity> getLocalImages(int type){
-        return getImagesDAO().getEntitiesByType(type);
+    public List getLocalImages(int type){
+        return null;
     }
 
     @Override
     public void loadImage(Schedule schedule, OnImageDownloaded downloadedListener) throws ParseException {
-        ImagesDAO imagesDAO = getImagesDAO();
-        if (schedule.getDayWeek() == null || schedule.getType() == 0) return;
-        String imageKey = schedule.getDayWeek() + schedule.getType();
-        ImageEntity entity = imagesDAO.getEntityByKey(imageKey);
-        Bitmap bitmap;
-        try {
-            bitmap = entity.getImageBitmap();
-        } catch (NullPointerException e) {
-            if (BuildConfig.DEBUG){
-                throw e;
-            }
-            e.printStackTrace();
-            return;
-        }
-        downloadedListener.itemDownloaded(bitmap, schedule);
+//        ScheduleDAO scheduleDAO = getImagesDAO();
+//        if (schedule.getDayWeek() == null || schedule.getType() == 0) return;
+//        String imageKey = schedule.getDayWeek() + schedule.getType();
+//        ImageEntity entity = scheduleDAO.getEntityByKey(imageKey);
+//        Bitmap bitmap;
+//        try {
+//            bitmap = entity.getImageBitmap();
+//        } catch (NullPointerException e) {
+//            if (BuildConfig.DEBUG){
+//                throw e;
+//            }
+//            e.printStackTrace();
+//            return;
+//        }
+//        downloadedListener.itemDownloaded(bitmap, schedule);
     }
 
     @Override
@@ -66,27 +64,24 @@ public class AppModel implements Model {
 
     /* ----------internal logic---------- */
 
-    private ImagesDAO getImagesDAO() {
-        return ApplicationData.database.imageDao();
-    }
 
     private void saveImageToDb(Schedule schedule, Bitmap bitmap) {
-        ImagesDAO imagesDAO = getImagesDAO();
-        if (imagesDAO != null && bitmap != null){
-            ImageEntity imageEntity = new ImageEntity(
-                    schedule.getId(),
-                    schedule.getDate(),
-                    schedule.getType(),
-                    bitmap,
-                    schedule.getTitle(),
-                    schedule.getDayWeek()
-            );
-            imagesDAO.putImageEntity(imageEntity);
-        }else {
-            if (BuildConfig.DEBUG){
-                throw new NullPointerException("can not use nullable image dao");
-            }
-        }
+//        ScheduleDAO scheduleDAO = getImagesDAO();
+//        if (scheduleDAO != null && bitmap != null){
+//            ImageEntity imageEntity = new ImageEntity(
+//                    schedule.getId(),
+//                    schedule.getDate(),
+//                    schedule.getType(),
+//                    bitmap,
+//                    schedule.getTitle(),
+//                    schedule.getDayWeek()
+//            );
+//            scheduleDAO.putImageEntity(imageEntity);
+//        }else {
+//            if (BuildConfig.DEBUG){
+//                throw new NullPointerException("can not use nullable image dao");
+//            }
+//        }
     }
 
     private String createUrl(String imageName) {

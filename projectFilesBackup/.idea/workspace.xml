@@ -1,0 +1,1797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="4" />
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
+  </component>
+  <component name="AvailableLibraryUpdateStorage">
+    <library-updates>
+      <library-update>
+        <group-id>androidx.test.espresso</group-id>
+        <name>espresso-core</name>
+        <version>3.3.0-alpha02</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.cardview</group-id>
+        <name>cardview</name>
+        <version>1.0.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.test</group-id>
+        <name>runner</name>
+        <version>1.3.0-alpha02</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.legacy</group-id>
+        <name>legacy-support-v4</name>
+        <version>1.0.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>de.hdodenhof</group-id>
+        <name>circleimageview</name>
+        <version>3.0.0</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.code.gson</group-id>
+        <name>gson</name>
+        <version>2.8.5</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.squareup.retrofit2</group-id>
+        <name>converter-gson</name>
+        <version>2.6.1</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.android.material</group-id>
+        <name>material</name>
+        <version>1.1.0-alpha09</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.squareup.picasso</group-id>
+        <name>picasso</name>
+        <version>2.71828</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>android.arch.persistence.room</group-id>
+        <name>compiler</name>
+        <version>1.1.1</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.squareup.retrofit2</group-id>
+        <name>retrofit</name>
+        <version>2.6.1</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>android.arch.persistence.room</group-id>
+        <name>testing</name>
+        <version>1.1.1</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>junit</group-id>
+        <name>junit</name>
+        <version>4.13-beta-3</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.appcompat</group-id>
+        <name>appcompat</name>
+        <version>1.1.0-rc01</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>android.arch.persistence.room</group-id>
+        <name>runtime</name>
+        <version>1.1.1</version>
+        <repository>Google</repository>
+      </library-update>
+    </library-updates>
+    <last-search-timestamp>1565298998261</last-search-timestamp>
+  </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/../Biplanes/app/src/main/java/com/izyver/biplanes/game/GameScreen.java" description="    @Override&#10;" line="35" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4262e85f-d744-4ce4-8f6d-892420c1dcdf" name="Default Changelist" comment="add refresh">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalScheduleSource.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/utils/extention.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/izyver/gati/presentation/schedule/ScheduleViewModelTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/Constants.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDatabase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalDaytimeSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalDistanceSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalTestSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalTestSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/RemoteTestSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/RemoteTestSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/di/modules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/di/modules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/AppModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/AppModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/ApplicationData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/ApplicationData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/TestModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/TestModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/AppDatabase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/ImageEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/ImagesDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/presenter/CardPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/presenter/CardPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/izyver/gati/bussines/schedule/ScheduleInteractorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/izyver/gati/bussines/schedule/ScheduleInteractorTest.kt" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="gradlew" />
+    <ignored path="gradlew.bat" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GATI" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GATI" type="f1a62948:ProjectNode" />
+                <item name="GATI" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GATI" type="f1a62948:ProjectNode" />
+                <item name="GATI" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GATI" type="f1a62948:ProjectNode" />
+                <item name="GATI" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GATI" type="f1a62948:ProjectNode" />
+                <item name=":app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GATI" type="f1a62948:ProjectNode" />
+                <item name=":app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="GATI" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/ScheduleFragment.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1196">
+              <caret line="120" column="42" selection-start-line="120" selection-start-column="42" selection-end-line="120" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/di/modules.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="63" column="38" selection-start-line="63" selection-start-column="38" selection-end-line="63" selection-end-column="38" />
+              <folding>
+                <element signature="e#28#1843#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/izyver/gati/data/database/schedule/models/ScheduleDbDto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-513">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/izyver/gati/data/android/room/ScheduleDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/AppModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1079">
+              <caret line="83" column="11" selection-start-line="68" selection-start-column="10" selection-end-line="83" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#895#896#0" expanded="true" />
+                <element signature="e#921#922#0" expanded="true" />
+                <marker date="1570559182000" expanded="true" signature="1055:1627" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/TestModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1112">
+              <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+              <folding>
+                <element signature="e#1566#1567#0" expanded="true" />
+                <element signature="e#1593#1594#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/presenter/CardPresenter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-342">
+              <caret line="152" column="25" selection-start-line="152" selection-start-column="25" selection-end-line="152" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/Model.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+        <option value="Interface" />
+        <option value="layoutResourceFile" />
+        <option value="layoutResourceFile_vertical" />
+        <option value="Kotlin Enum" />
+        <option value="Class" />
+        <option value="Kotlin Interface" />
+        <option value="JUnit4 Test Class" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>corre</find>
+      <find>enqu</find>
+      <find>call</find>
+      <find>addMigra</find>
+      <find>getS</find>
+      <find>`</find>
+      <find>w</find>
+      <find>toolbar</find>
+      <find>current</find>
+      <find>isScheduleAtThisWeek</find>
+      <find>edu</find>
+      <find>nav_view</find>
+      <find>card_image</find>
+      <find>i created</find>
+      <find>inject</find>
+      <find>switch_schedule_button</find>
+      <find>destro</find>
+      <find>from data</find>
+      <find>from</find>
+      <find>from d</find>
+      <find>destroy</find>
+      <find>ClickListener</find>
+      <find>register</find>
+      <find>context</find>
+      <find>isRerfeshing</find>
+      <find>_isRerfeshing</find>
+      <find>ArrayList</find>
+      <find>ScheduleDbDto</find>
+      <find>scheduleDbDto</find>
+      <find>result</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>isLoading</replace>
+      <replace>ScheduleDbModel</replace>
+      <replace>schedule</replace>
+    </replaceStrings>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="EXPORT_PRIVATE_KEY" value="false" />
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/key" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="8ab4aa867e6ebc6c8749a4fe192ab2c4e518ff3b" />
+      </map>
+    </option>
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/GatiPref.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/flow/SharedSheduleSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule/flow/FlowScheduleInteractor.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/GatiApplication.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/models/ScheduleObject.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/Constants.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/flow/FlowScheduleFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/IRemoteScheduleDataSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule/ScheduleInteractor.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/models/ScheduleNetworkDto.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/models/ScheduleDbDto.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/RemoteDistanceSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/RemoteTestSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/RemoteDaytimeSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/izyver/gati/presentation/schedule/ScheduleViewModelTest.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/card_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/OnScheduleLongClick.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/utils/PermissionUtil.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule/IScheduleInteractor.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/ILocalScheduleDataSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule/ScheduleWeekBasedInteractor.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalTestSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/OnScheduleLongClickListener.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/OnScheduleClickListener.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/ScheduleCardAdapter.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_schedule.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/view/cardview/CardFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/test/java/com/izyver/gati/bussines/schedule/ScheduleInteractorTest.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/ScheduleViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/test/java/com/izyver/gati/presentation/schedule/ScheduleViewModelTest.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/ImagesDAO.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/ScheduleDAO.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDatabase.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDAO.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDao.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalDistanceSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalDaytimeSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/utils/extentions.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/utils/extention.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalScheduleSource.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/AppDatabase.java" />
+        <option value="$PROJECT_DIR$/app/build/generated/source/apt/debug/com/izyver/gati/data/android/room/ScheduleDao_Impl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/ApplicationData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/AppModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/Model.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/TestModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/presenter/CardPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/ScheduleFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/di/modules.kt" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1366" />
+    <option name="height" value="768" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="GATI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GATI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="GATI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GATI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="GATI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GATI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GATI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GATI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GATI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GATI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="GATI" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="GATI" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="add_unversioned_files" value="true&#10;/Users/izyver/Projects/GATI/app/build/generated/source/apt/debug/com/izyver/gati/data/android/room/ScheduleDao_Impl.java" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="device.picker.selection" value="FA7B21A02328" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/test/java/com/izyver/gati" />
+    <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="sync.plugin.last.upgrade.timestamp" value="1557674038656" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="MODULE_TAB" value="Properties" />
+    <option name="LAST_EDITED_SIGNING_CONFIG" value="debug" />
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.izyver.gati.data.network.models" />
+      <recent name="com.izyver.gati.data.android" />
+      <recent name="com.izyver.gati.data.database" />
+      <recent name="com.izyver.gati.data.network" />
+      <recent name="com.izyver.gati.presentation.schedule.flow" />
+    </key>
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="com.izyver.gati.presentation.schedule" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.izyver.gati.presentation.schedule" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network/models" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/network" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout/toolbar" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.izyver.gati.model.db" />
+      <recent name="com.izyver.gati" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration name="DateManagerTest" type="AndroidJUnit" factoryName="Android JUnit" nameIsGenerated="true">
+      <module name="app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.izyver.gati.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.izyver.gati" />
+      <option name="MAIN_CLASS_NAME" value="com.izyver.gati.DateManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateManagerTest.isScheduleAtThisWeekTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.izyver.gati.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.izyver.gati" />
+      <option name="MAIN_CLASS_NAME" value="com.izyver.gati.DateManagerTest" />
+      <option name="METHOD_NAME" value="isScheduleAtThisWeekTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateManagerTest.test_is_saturday_date" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.izyver.gati.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.izyver.gati" />
+      <option name="MAIN_CLASS_NAME" value="com.izyver.gati.DateManagerTest" />
+      <option name="METHOD_NAME" value="test_is_saturday_date" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="true" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="true" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.izyver.gati.presentation.MainActivity" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ScheduleViewModelTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="TESTING_TYPE" value="2" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="com.izyver.gati.presentation.schedule.ScheduleViewModelTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="2147483645" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="gati-8b124" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GATI [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ScheduleInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.izyver.gati.bussines.schedule.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.izyver.gati.bussines.schedule" />
+      <option name="MAIN_CLASS_NAME" value="com.izyver.gati.bussines.schedule.ScheduleInteractorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android App.app" />
+      <item itemvalue="Android Instrumented Tests.ScheduleViewModelTest" />
+      <item itemvalue="Android JUnit.DateManagerTest" />
+      <item itemvalue="Android JUnit.DateManagerTest.isScheduleAtThisWeekTest" />
+      <item itemvalue="Android JUnit.DateManagerTest.test_is_saturday_date" />
+      <item itemvalue="Gradle.GATI [build]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android Instrumented Tests.ScheduleViewModelTest" />
+        <item itemvalue="Gradle.GATI [build]" />
+        <item itemvalue="Android JUnit.DateManagerTest.test_is_saturday_date" />
+        <item itemvalue="Android JUnit.DateManagerTest.isScheduleAtThisWeekTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4262e85f-d744-4ce4-8f6d-892420c1dcdf" name="Default Changelist" comment="" />
+      <created>1556999295417</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556999295417</updated>
+    </task>
+    <task id="LOCAL-00049" summary="resizing image in background thread">
+      <created>1560071699416</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1560071699416</updated>
+    </task>
+    <task id="LOCAL-00050" summary="create comparable entities">
+      <created>1560072983011</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1560072983012</updated>
+    </task>
+    <task id="LOCAL-00051" summary="create downloading images">
+      <created>1560074095621</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1560074095622</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fix not actual images in the cards">
+      <created>1560076200322</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1560076200322</updated>
+    </task>
+    <task id="LOCAL-00053" summary="dislpayig the old marker added">
+      <created>1560085206155</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1560085206155</updated>
+    </task>
+    <task id="LOCAL-00054" summary="presenter cache created">
+      <created>1560086378453</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1560086378453</updated>
+    </task>
+    <task id="LOCAL-00055" summary="images loaded from db">
+      <created>1560091540185</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1560091540185</updated>
+    </task>
+    <task id="LOCAL-00056" summary="refactoring">
+      <created>1560091791625</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1560091791625</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix sharing">
+      <created>1560093399343</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1560093399343</updated>
+    </task>
+    <task id="LOCAL-00058" summary="create full screen preview">
+      <created>1560094126597</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1560094126597</updated>
+    </task>
+    <task id="LOCAL-00059" summary="added index to the Preview fragment">
+      <created>1560107346419</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1560107346419</updated>
+    </task>
+    <task id="LOCAL-00060" summary="create custom main toolbar">
+      <created>1560108316694</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1560108316694</updated>
+    </task>
+    <task id="LOCAL-00061" summary="create showable toolbar">
+      <created>1560109377531</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1560109377532</updated>
+    </task>
+    <task id="LOCAL-00062" summary="create showable toolbar">
+      <created>1560109392171</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1560109392171</updated>
+    </task>
+    <task id="LOCAL-00063" summary="create black preview image">
+      <created>1560117558115</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1560117558115</updated>
+    </task>
+    <task id="LOCAL-00064" summary="fix toolbar">
+      <created>1560117888314</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1560117888314</updated>
+    </task>
+    <task id="LOCAL-00065" summary="delete presenter activity, create check internet">
+      <created>1560119499898</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1560119499898</updated>
+    </task>
+    <task id="LOCAL-00066" summary="add thread safe">
+      <created>1560121496480</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1560121496480</updated>
+    </task>
+    <task id="LOCAL-00067" summary="fix network in ui thread">
+      <created>1560323631578</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1560323631579</updated>
+    </task>
+    <task id="LOCAL-00068" summary="fix incorrect old date">
+      <created>1560324148577</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1560324148578</updated>
+    </task>
+    <task id="LOCAL-00069" summary="swipe refresh added">
+      <created>1560326648105</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1560326648105</updated>
+    </task>
+    <task id="LOCAL-00070" summary="navigation added to nav panel">
+      <created>1560327189342</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1560327189342</updated>
+    </task>
+    <task id="LOCAL-00071" summary="navigation added to nav panel">
+      <created>1560327570885</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1560327570885</updated>
+    </task>
+    <task id="LOCAL-00072" summary="dynamic saturday item created">
+      <created>1560337801104</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1560337801105</updated>
+    </task>
+    <task id="LOCAL-00073" summary="dynamic saturday item created">
+      <created>1560338105643</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1560338105643</updated>
+    </task>
+    <task id="LOCAL-00074" summary="UPDATED VERSION TO 15">
+      <created>1560338276644</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1560338276644</updated>
+    </task>
+    <task id="LOCAL-00075" summary="check internet in new thread">
+      <created>1560342891721</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1560342891722</updated>
+    </task>
+    <task id="LOCAL-00076" summary="UPDATE TO 16">
+      <created>1560344058594</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1560344058594</updated>
+    </task>
+    <task id="LOCAL-00077" summary="updated url">
+      <created>1565298794521</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1565298794522</updated>
+    </task>
+    <task id="LOCAL-00078" summary="updated url">
+      <created>1565299034641</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1565299034641</updated>
+    </task>
+    <task id="LOCAL-00079" summary="fix bug">
+      <created>1566927823789</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1566927823790</updated>
+    </task>
+    <task id="LOCAL-00080" summary="fix bug">
+      <created>1566927853250</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1566927853250</updated>
+    </task>
+    <task id="LOCAL-00081" summary="fix bug">
+      <created>1566928043931</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1566928043931</updated>
+    </task>
+    <task id="LOCAL-00082" summary="fix bug and removed update">
+      <created>1566928190087</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1566928190087</updated>
+    </task>
+    <task id="LOCAL-00083" summary="fix textView">
+      <created>1569262729455</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1569262729456</updated>
+    </task>
+    <task id="LOCAL-00084" summary="move to old">
+      <created>1569265284762</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1569265284762</updated>
+    </task>
+    <task id="LOCAL-00085" summary="init clean commit">
+      <created>1569533872969</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1569533872970</updated>
+    </task>
+    <task id="LOCAL-00086" summary="day and dist fragments display">
+      <created>1569685287658</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1569685287661</updated>
+    </task>
+    <task id="LOCAL-00087" summary="update repository &amp; update schedule fragment">
+      <created>1569740064383</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1569740064384</updated>
+    </task>
+    <task id="LOCAL-00088" summary="create test for cache load">
+      <created>1570373152669</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1570373152670</updated>
+    </task>
+    <task id="LOCAL-00089" summary="add schedule type source">
+      <created>1570397348621</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1570397348622</updated>
+    </task>
+    <task id="LOCAL-00090" summary="add test cache">
+      <created>1570399814186</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1570399814186</updated>
+    </task>
+    <task id="LOCAL-00091" summary="fix bug with image from network">
+      <created>1570449994880</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1570449994881</updated>
+    </task>
+    <task id="LOCAL-00092" summary="fix load image">
+      <created>1570451955178</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1570451955178</updated>
+    </task>
+    <task id="LOCAL-00093" summary="add share image">
+      <created>1570456883723</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1570456883723</updated>
+    </task>
+    <task id="LOCAL-00094" summary="added context menu">
+      <created>1570533920771</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1570533920772</updated>
+    </task>
+    <task id="LOCAL-00095" summary="fix context menu">
+      <created>1570535335287</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1570535335287</updated>
+    </task>
+    <task id="LOCAL-00096" summary="refactoring">
+      <created>1570535727708</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1570535727709</updated>
+    </task>
+    <task id="LOCAL-00097" summary="add refresh">
+      <created>1570537626243</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1570537626243</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="ScheduleInteractorTest_loadCacheImage_test - 2019.10.06 at 13h 25m 46s.xml">
+      <configuration name="ScheduleInteractorTest.loadCacheImage_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest_loadCacheImage_test - 2019.10.06 at 13h 26m 10s.xml">
+      <configuration name="ScheduleInteractorTest.loadCacheImage_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest_loadCacheImage_test - 2019.10.06 at 13h 33m 58s.xml">
+      <configuration name="ScheduleInteractorTest.loadCacheImage_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest - 2019.10.06 at 13h 34m 05s.xml">
+      <configuration name="ScheduleInteractorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest_loadCacheImage_test - 2019.10.06 at 13h 34m 14s.xml">
+      <configuration name="ScheduleInteractorTest.loadCacheImage_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest - 2019.10.06 at 13h 34m 23s.xml">
+      <configuration name="ScheduleInteractorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest - 2019.10.07 at 14h 43m 59s.xml">
+      <configuration name="ScheduleInteractorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest - 2019.10.07 at 14h 44m 06s.xml">
+      <configuration name="ScheduleInteractorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleInteractorTest - 2019.10.07 at 15h 02m 36s.xml">
+      <configuration name="ScheduleInteractorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScheduleViewModelTest - 2019.10.07 at 15h 18m 09s.xml">
+      <configuration name="ScheduleViewModelTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1366" height="768" extended-state="0" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.48710603" visible="true" weight="0.1978852" />
+      <window_info id="Structure" order="2" sideWeight="0.512894" side_tool="true" weight="0.1978852" />
+      <window_info id="Favorites" order="3" sideWeight="0.5121951" side_tool="true" weight="0.1918429" />
+      <window_info id="Build Variants" order="4" sideWeight="0.5102975" side_tool="true" weight="0.18504532" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Resources Explorer" order="7" sideWeight="0.49361703" weight="0.32930514" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info anchor="bottom" id="Find" order="0" weight="0.3295129" />
+      <window_info anchor="bottom" id="Run" order="1" weight="0.4469914" />
+      <window_info anchor="bottom" id="Logcat" order="2" sideWeight="0.89879155" weight="0.3782235" />
+      <window_info anchor="bottom" id="TODO" order="3" weight="0.3295129" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49848944" weight="0.4756447" />
+      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49924472" weight="0.3381089" />
+      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49773413" weight="0.2922636" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.49697885" visible="true" weight="0.38108882" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3295129" />
+      <window_info anchor="bottom" id="Android Profiler" order="9" sideWeight="0.49848944" weight="0.95702004" />
+      <window_info anchor="bottom" id="Flutter Performance" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5083082" side_tool="true" weight="0.6174785" />
+      <window_info anchor="bottom" id="Inspection Results" order="12" sideWeight="0.49169186" weight="0.6174785" />
+      <window_info anchor="right" id="Preview" order="0" sideWeight="0.4962963" weight="0.4018127" />
+      <window_info anchor="right" id="Device File Explorer" order="1" sideWeight="0.54011464" side_tool="true" weight="0.2839879" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Gradle" order="3" sideWeight="0.4598854" weight="0.22280967" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Flutter Inspector" order="6" />
+      <window_info anchor="right" id="Flutter Outline" order="7" sideWeight="0.49401197" weight="0.32930514" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_WIDTH">
+                <map>
+                  <entry key="2" value="44" />
+                  <entry key="3" value="44" />
+                </map>
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="feature/v3" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="feature/v2-develop" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="fix network in ui thread" />
+    <MESSAGE value="fix incorrect old date" />
+    <MESSAGE value="swipe refresh added" />
+    <MESSAGE value="navigation added to nav panel" />
+    <MESSAGE value="dynamic saturday item created" />
+    <MESSAGE value="UPDATED VERSION TO 15" />
+    <MESSAGE value="check internet in new thread" />
+    <MESSAGE value="UPDATE TO 16" />
+    <MESSAGE value="updated url" />
+    <MESSAGE value="fix bug and removed update" />
+    <MESSAGE value="fix textView" />
+    <MESSAGE value="move to old" />
+    <MESSAGE value="init clean commit" />
+    <MESSAGE value="day and dist fragments display" />
+    <MESSAGE value="update repository &amp; update schedule fragment" />
+    <MESSAGE value="create test for cache load" />
+    <MESSAGE value="add schedule type source" />
+    <MESSAGE value="add test cache" />
+    <MESSAGE value="fix bug with image from network" />
+    <MESSAGE value="fix load image" />
+    <MESSAGE value="add share image" />
+    <MESSAGE value="added context menu" />
+    <MESSAGE value="fix context menu" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="add refresh" />
+    <option name="LAST_COMMIT_MESSAGE" value="add refresh" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/network/UpdateApp.java</url>
+          <line>87</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/view/FragmentActivity.java</url>
+          <line>63</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_schedule.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule/IScheduleInteractor.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/ScheduleViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/com/izyver/gati/bussines/schedule/ScheduleInteractorTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+          <folding>
+            <element signature="e#1745#2660#0" />
+            <element signature="e#2723#2836#0" />
+            <element signature="e#2769#2830#0" />
+            <element signature="e#2896#3461#2" />
+            <element signature="e#4823#5642#0" />
+            <element signature="e#4862#5148#0" />
+            <element signature="e#5185#5291#0" />
+            <element signature="e#5425#5493#1" />
+            <element signature="e#5871#6672#0" />
+            <element signature="e#5910#6136#0" />
+            <element signature="e#6173#6399#0" />
+            <element signature="e#6533#6601#1" />
+            <element signature="e#6889#7925#0" />
+            <element signature="e#6928#7214#0" />
+            <element signature="e#7251#7357#0" />
+            <element signature="e#7490#7576#1" />
+            <element signature="e#7638#7724#1" />
+            <element signature="e#7786#7854#1" />
+            <element signature="e#7982#8499#2" />
+            <element signature="e#8629#9528#0" />
+            <element signature="e#8667#8833#0" />
+            <element signature="e#9028#9096#1" />
+            <element signature="e#9662#10719#0" />
+            <element signature="e#9700#9866#0" />
+            <element signature="e#9909#10075#0" />
+            <element signature="e#10219#10287#1" />
+            <element signature="e#10865#11862#0" />
+            <element signature="e#10903#11069#0" />
+            <element signature="e#11112#11218#0" />
+            <element signature="e#11362#11430#1" />
+            <element signature="e#12018#13121#0" />
+            <element signature="e#12056#12282#0" />
+            <element signature="e#12325#12461#0" />
+            <element signature="e#12605#12673#1" />
+            <element signature="e#12876#13021#1" />
+            <element signature="e#13188#13921#0" />
+            <element signature="e#13318#13797#0" />
+            <element signature="e#13419#13763#2" />
+            <element signature="e#13879#13914#0" />
+            <element signature="e#14050#14062#0" />
+            <element signature="e#14246#14313#0" />
+            <element signature="e#14427#14500#0" />
+            <element signature="e#14639#15058#0" />
+            <element signature="e#14735#15024#2" />
+            <element signature="e#15140#15422#0" />
+            <element signature="e#15234#15385#2" />
+            <element signature="e#15641#15821#0" />
+            <element signature="e#15683#15787#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/com/izyver/gati/presentation/schedule/ScheduleViewModelTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
+          <folding>
+            <element signature="e#47#337#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/ImageEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/izyver/gati/old/model/db/ScheduleDAO_Impl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2053">
+          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-common/2.1.0/ea87c1a40ac7895e99b76b9f7fb9640c93513016/room-common-2.1.0-sources.jar!/androidx/room/Dao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="45" column="18" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/models/ScheduleDbDtoWithoutBitmap.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.50/bc0c767786c4a3c042a364e69d3f3dd5ff5253a5/kotlin-stdlib-1.3.50-sources.jar!/kotlin/collections/TypeAliases.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/ILocalScheduleDataSource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+          <folding>
+            <element signature="e#48#238#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalDistanceSource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalDaytimeSource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/utils/extentions.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#31#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-29/java/util/AbstractCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="260" column="19" selection-start-line="260" selection-start-column="19" selection-end-line="260" selection-end-column="19" />
+          <folding>
+            <element signature="e#9788#9789#0" expanded="true" />
+            <element signature="e#9845#9846#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.50/bc0c767786c4a3c042a364e69d3f3dd5ff5253a5/kotlin-stdlib-1.3.50-sources.jar!/kotlin/collections/AbstractMutableSet.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.50/8ac406cf33e942265c4abb33ee0acdee79292dd6/kotlin-stdlib-common-1.3.50-sources.jar!/kotlin/collections/LinkedHashSet.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.50/8ac406cf33e942265c4abb33ee0acdee79292dd6/kotlin-stdlib-common-1.3.50-sources.jar!/kotlin/collections/Sets.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="58" column="61" selection-start-line="58" selection-start-column="61" selection-end-line="58" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.50/bc0c767786c4a3c042a364e69d3f3dd5ff5253a5/kotlin-stdlib-1.3.50-sources.jar!/kotlin/collections/AbstractMutableCollection.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.50/8ac406cf33e942265c4abb33ee0acdee79292dd6/kotlin-stdlib-common-1.3.50-sources.jar!/generated/_Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="153" column="34" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalTestSource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/bussines/schedule/ScheduleWeekBasedInteractor.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="29" column="55" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
+          <folding>
+            <element signature="e#43#963#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.50/bc0c767786c4a3c042a364e69d3f3dd5ff5253a5/kotlin-stdlib-1.3.50-sources.jar!/kotlin/Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="196" column="17" selection-start-line="196" selection-start-column="17" selection-end-line="196" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/utils/extention.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+          <folding>
+            <element signature="e#31#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/models/ScheduleDbModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/LocalScheduleSource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="71" column="24" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+          <folding>
+            <element signature="e#48#561#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.koin/koin-android/2.0.1/69ea3b064e88e8fd38a612767979105827c9ba28/koin-android-2.0.1-sources.jar!/org/koin/android/ext/koin/ModuleExt.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/ScheduleDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/db/AppDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/izyver/gati/data/android/room/ScheduleDao_Impl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="381" column="3" lean-forward="true" selection-start-line="381" selection-start-column="3" selection-end-line="381" selection-end-column="3" />
+          <folding>
+            <element signature="e#14762#14770#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/database/schedule/models/ScheduleDbDto.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/AppModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1079">
+          <caret line="83" column="11" selection-start-line="68" selection-start-column="10" selection-end-line="83" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#895#896#0" expanded="true" />
+            <element signature="e#921#922#0" expanded="true" />
+            <marker date="1570559182000" expanded="true" signature="1055:1627" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/TestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1112">
+          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+          <folding>
+            <element signature="e#1566#1567#0" expanded="true" />
+            <element signature="e#1593#1594#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/presenter/CardPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-342">
+          <caret line="152" column="25" selection-start-line="152" selection-start-column="25" selection-end-line="152" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/old/model/ApplicationData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/GatiPref.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDatabase.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="28" />
+          <folding>
+            <element signature="e#43#173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/room/ScheduleDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+          <folding>
+            <element signature="e#43#336#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/data/android/GatiApi.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.koin/koin-androidx-scope/2.0.1/839060c41d5ef78525855d912e794f9d6854870/koin-androidx-scope-2.0.1-sources.jar!/org/koin/androidx/scope/LifecycleOwnerExt.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/GatiApplication.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.koin/koin-core/2.0.1/fb8806444773bba5ca3903a43c6b49bdf95a31d4/koin-core-2.0.1-sources.jar!/org/koin/core/scope/Scope.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/presentation/schedule/ScheduleFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1196">
+          <caret line="120" column="42" selection-start-line="120" selection-start-column="42" selection-end-line="120" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-runtime/2.1.0/d8abe9eb51ecfe12017cbd78b8602361e804eac8/room-runtime-2.1.0-sources.jar!/androidx/room/RoomDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-442">
+          <caret line="850" selection-start-line="850" selection-end-line="850" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-runtime/2.1.0/d8abe9eb51ecfe12017cbd78b8602361e804eac8/room-runtime-2.1.0-sources.jar!/androidx/room/Room.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="47" column="67" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/izyver/gati/di/modules.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="63" column="38" selection-start-line="63" selection-start-column="38" selection-end-line="63" selection-end-column="38" />
+          <folding>
+            <element signature="e#28#1843#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/izyver/gati/data/database/schedule/models/ScheduleDbDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-513">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/izyver/gati/data/android/room/ScheduleDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
