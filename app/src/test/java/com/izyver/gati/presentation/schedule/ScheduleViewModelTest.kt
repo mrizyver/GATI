@@ -5,10 +5,13 @@ import androidx.lifecycle.Observer
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.bussines.schedule.IScheduleInteractor
+import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.Mock
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleViewModelTest {
 
@@ -21,7 +24,7 @@ class ScheduleViewModelTest {
 
             runBlocking {
                 repeat(7) {
-                    channel.send(scheduleImageDto)
+                    channel.send(ScheduleImageDto(null, Days.from(it), Date(), "", true))
                 }
             }
             return channel
@@ -45,7 +48,9 @@ class ScheduleViewModelTest {
 
         val model = ScheduleViewModel(testInteractor)
 
-        model.scheduleImage.observe(lifecycleOwner, Observer {  })
+
+        val schedulesUI: ArrayList<ScheduleImageUI> = ArrayList()
+        model.scheduleImage.observe(lifecycleOwner, Observer { schedulesUI.add(it) })
 
 
 

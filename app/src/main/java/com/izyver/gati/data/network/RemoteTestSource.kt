@@ -29,7 +29,7 @@ class RemoteTestSource : IRemoteScheduleDataSource {
             calendar.set(Calendar.DAY_OF_WEEK, index + 2)
             val simpleDateFormat = SimpleDateFormat(DATE_PATTERN_STANDARD)
             val dateStr = simpleDateFormat.format(calendar.time)
-            list.add(ScheduleNetworkDto(index, "title$index", Days.from(calendar).name, SCHEDULE_TYPE_DAYTIME, dateStr))
+            list.add(ScheduleNetworkDto(index, "title$index", Days.from(calendar).name, SCHEDULE_TYPE_DAYTIME, dateStr, Days.from(index).name))
         }
         return list
     }
