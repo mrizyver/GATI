@@ -2,14 +2,10 @@ package com.izyver.gati.data.network
 
 import com.izyver.gati.data.android.GatiApi
 import com.izyver.gati.data.network.models.ScheduleNetworkDto
+import com.izyver.gati.extentions.convert
 
-class RemoteDaytimeSource(private val gatiApi: GatiApi): IRemoteScheduleDataSource {
-
-    override suspend fun download(schedule: ScheduleNetworkDto): ByteArray? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+class RemoteDaytimeSource(private val gatiApi: GatiApi) : RemoteScheduleSource() {
     override suspend fun getExistingSchedule(): List<ScheduleNetworkDto> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return gatiApi.getSchedulers().day
     }
 }

@@ -1,5 +1,7 @@
 package com.izyver.gati.di
 
+import com.izyver.gati.bussines.BASE_URL
+import com.izyver.gati.bussines.PREFIX
 import com.izyver.gati.bussines.models.ScheduleType
 import com.izyver.gati.bussines.schedule.ScheduleWeekBasedInteractor
 import com.izyver.gati.bussines.schedule.flow.FlowScheduleInteractor
@@ -32,21 +34,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 val scheduleModule = module {
 
     viewModel(StringQualifier(ScheduleType.DAYTIME.name)) {
-        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(DaytimeSource::class)), DateUseCaseWeekBased()))
+        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteDaytimeSource::class)), get(TypeQualifier(DaytimeSource::class)), DateUseCaseWeekBased()))
     }
 
     viewModel(StringQualifier(ScheduleType.DISTANCE.name)) {
-        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteTestSource::class)), get(TypeQualifier(DistanceSource::class)), DateUseCaseWeekBased()))
+        ScheduleViewModel(ScheduleWeekBasedInteractor(get(TypeQualifier(RemoteDistanceSource::class)), get(TypeQualifier(DistanceSource::class)), DateUseCaseWeekBased()))
     }
 
     single<ILocalScheduleDataSource>(TypeQualifier(DaytimeSource::class)) { DaytimeSource(get()) }
     single<ILocalScheduleDataSource>(TypeQualifier(DistanceSource::class)) { DistanceSource(get()) }
-    single<ILocalScheduleDataSource>(TypeQualifier(LocalTestSource::class)) { LocalTestSource() }
+//    single<ILocalScheduleDataSource>(TypeQualifier(LocalTestSource::class)) { LocalTestSource() }
 
     single<IRemoteScheduleDataSource>(TypeQualifier(RemoteDaytimeSource::class)) { RemoteDaytimeSource(get()) }
     single<IRemoteScheduleDataSource>(TypeQualifier(RemoteDistanceSource::class)) { RemoteDistanceSource(get()) }
-    single<IRemoteScheduleDataSource>(TypeQualifier(RemoteTestSource::class)) { RemoteTestSource() }
-
+//    single<IRemoteScheduleDataSource>(TypeQualifier(RemoteTestSource::class)) { RemoteTestSource() }
 
 
     viewModel { FlowScheduleViewModel(get()) }
@@ -64,7 +65,7 @@ val scheduleModule = module {
 
 private fun createGatiApi(): GatiApi {
     val retrofit = Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(PREFIX + BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     return retrofit.create(GatiApi::class.java)

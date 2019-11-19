@@ -2,6 +2,7 @@ package com.izyver.gati.presentation.schedule
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,11 +11,13 @@ import com.izyver.gati.bussines.models.ScheduleImageDto
 import com.izyver.gati.bussines.models.ScheduleState.*
 import com.izyver.gati.bussines.schedule.IScheduleInteractor
 import com.izyver.gati.presentation.schedule.models.ScheduleImageUI
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
+import androidx.lifecycle.viewModelScope
+import com.izyver.gati.bussines.models.Days.Companion.from
+
 
 class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : ViewModel() {
 
@@ -27,33 +30,35 @@ class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : V
     private var networkLoading: Job? = null
 
     fun loadImages() {
-        GlobalScope.launch {
+        viewModelScope.launch {
             loadImagesFromCache()
         }
-        networkLoading = GlobalScope.async {
+        networkLoading = viewModelScope.async {
             loadImagesFromNetwork()
         }
     }
 
     fun reloadImages() {
         networkLoading?.cancel()
-        networkLoading = GlobalScope.async {
+        networkLoading = viewModelScope.async {
             loadImagesFromNetwork()
         }
     }
 
     suspend fun getImageForShare(indexOfList: Int): Bitmap? {
-        val imageByteArray: ByteArray = scheduleInteractor.getSchedule(Companion.from(indexOfList))
+        val imageByteArray: ByteArray = scheduleInteractor.getSchedule(from(indexOfList))
                 ?: return null
         return BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
     }
 
     private suspend fun loadImagesFromCache() {
+        Log.d(this.javaClass.simpleName, "cache")
         takeSchedulesFromChanel(scheduleInteractor.loadCacheImage())
     }
 
     private suspend fun loadImagesFromNetwork() {
         _isLoading.postValue(true)
+        Log.d(this.javaClass.simpleName, "network")
         takeSchedulesFromChanel(scheduleInteractor.loadNetworkImages())
         _isLoading.postValue(false)
     }
@@ -76,7 +81,7 @@ class ScheduleViewModel(private val scheduleInteractor: IScheduleInteractor) : V
         } else {
             schedules.add(scheduleUI)
         }
-        _scheduleImages.postValue(schedules)
+        _scheduleImages.value = schedules
     }
 
     private fun mockSchedules(): MutableList<ScheduleImageUI> {

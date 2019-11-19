@@ -1,7 +1,8 @@
-package com.izyver.gati.utils
+package com.izyver.gati.extentions
 
 import com.izyver.gati.bussines.models.Days
 import com.izyver.gati.data.database.schedule.models.ScheduleDbModel
+import com.izyver.gati.utils.parseStandardGatiDate
 
 
 fun MutableList<out ScheduleDbModel>.findByDay(day: Days): ScheduleDbModel?{
@@ -30,4 +31,8 @@ fun MutableList<out ScheduleDbModel>.findByDate(date: String): ScheduleDbModel?{
         }
     }
     return null
+}
+
+fun <T, E> List<T>.convert(converter: (T) -> E): MutableList<E>{
+    return MutableList(size){ converter(this[it]) }
 }

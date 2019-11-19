@@ -1,6 +1,7 @@
 package com.izyver.gati.presentation.schedule
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -33,6 +34,7 @@ class ScheduleCardAdapter : RecyclerView.Adapter<ScheduleHolder>() {
     }
 
     fun setValues(schedules: List<ScheduleImageUI>) {
+        Log.d(this.javaClass.simpleName, "$schedules")
         this.schedules = schedules
         notifyDataSetChanged()
     }

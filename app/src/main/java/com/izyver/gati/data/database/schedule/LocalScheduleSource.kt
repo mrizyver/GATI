@@ -8,9 +8,9 @@ import com.izyver.gati.data.database.schedule.models.ScheduleDbDto
 import com.izyver.gati.data.database.schedule.models.ScheduleDbDtoWithoutBitmap
 import com.izyver.gati.data.database.schedule.models.ScheduleDbModel
 import com.izyver.gati.data.network.models.ScheduleNetworkDto
-import com.izyver.gati.utils.findByDate
-import com.izyver.gati.utils.findByDay
-import com.izyver.gati.utils.put
+import com.izyver.gati.extentions.findByDate
+import com.izyver.gati.extentions.findByDay
+import com.izyver.gati.extentions.put
 import java.lang.ref.SoftReference
 
 abstract class LocalScheduleSource(

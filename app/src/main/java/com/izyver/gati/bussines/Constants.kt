@@ -5,3 +5,5 @@ const val SCHEDULE_TYPE_DISTANCE = 0
 
 const val PREFIX = "http://"
 const val BASE_URL = "gati.snau.edu.ua"
+const val PATH_TO_SCHEDULE = "/images/schedule/"
+
